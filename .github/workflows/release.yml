@@ -41,8 +41,19 @@ jobs:
         run: |
           python -m venv /tmp/smokevenv
           /tmp/smokevenv/bin/pip install dist/*.whl
-          unshare -rn true || { echo "unshare unavailable; cannot prove offline"; exit 1; }
-          unshare -rn bash -e -c '
+          # Same isolation fallback as ci.yml: unprivileged user namespaces are
+          # denied on ubuntu-24.04 runners; a privileged netns needs no uid map.
+          # All paths below are absolute, so sudo's PATH reset does not matter.
+          if unshare -rn true 2>/dev/null; then
+            ISOLATE="unshare -rn"
+          elif sudo -n unshare -n true 2>/dev/null; then
+            ISOLATE="sudo -n unshare -n"
+          else
+            echo "::error::no network isolation available on this runner"
+            exit 1
+          fi
+          echo "network isolation: $ISOLATE"
+          $ISOLATE bash -e -c '
             /tmp/smokevenv/bin/punchmark env
             /tmp/smokevenv/bin/punchmark spec list > /dev/null
             /tmp/smokevenv/bin/punchmark synth --out /tmp/sm --routes 2 --clusters 8 --k 2 --separation 0.7 --seed 2

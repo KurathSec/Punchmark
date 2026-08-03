@@ -1,15 +1,60 @@
+# Citation metadata (https://citation-file-format.github.io/), read by
+# GitHub's "Cite this repository" box and by Zenodo's GitHub integration when
+# a release is archived. `version` and `date-released` are deliberately
+# omitted: Zenodo takes both from the release itself, and a hand-maintained
+# copy here would only drift (RELEASING.md).
 cff-version: 1.2.0
-message: "If you use punchmark, please cite it as below."
+message: >-
+  If you use punchmark, please cite it as below. Report the package version AND
+  the rulings-spec version your rulings were produced under (`punchmark env`
+  prints both): a rulings-spec change means a recorded measurement meaning
+  changed.
 title: "punchmark: a retrospective producer identifier for hosted LLM routes"
+abstract: >-
+  punchmark consumes archived benchmark response text (no logprobs, headers or
+  timing) and returns a producer-identity ruling per (route, window):
+  SAME-PRODUCER, SUBSTITUTED or UNDETERMINED at a caller-declared false-alarm
+  rate, calibrated on same-route within-window resamples and cross-fitted
+  nulls, with seeded-substitution power analysis reporting the minimum
+  substituted fraction the archive could have resolved. It emits a one-line
+  certificate attachable to a published score and an append-only,
+  content-addressed rulings store gated in CI. Every verdict is closed-set and
+  certifies the route label as served. It says nothing about model weights and
+  makes no statement about the quality of any model.
 type: software
-authors:
-  - family-names: "Ji"
-    given-names: "Yuxiang"
+license: "MIT"
 repository-code: "https://github.com/KurathSec/Punchmark"
-license: MIT
+authors:
+  - given-names: "Yuxiang"
+    family-names: "Ji"
+    affiliation: "Sunway College"
+    email: "kurathandrew@gmail.com"
+    orcid: "https://orcid.org/0009-0009-9835-3800"
+    alias: KurathSec
 keywords:
-  - evaluation
-  - auditing
-  - fingerprinting
-  - model-substitution
-  - reproducibility
+  - "evaluation"
+  - "auditing"
+  - "fingerprinting"
+  - "model substitution"
+  - "reproducibility"
+  - "hosted models"
+  - "measurement instrument"
+  - "large language models"
+references:
+  - type: software
+    title: >-
+      Spaghetti Architect: A Contamination-Resistant, By-Construction-Labelled,
+      Multi-Language Code Dataset Generator
+    authors:
+      - given-names: "Yuxiang"
+        family-names: "Ji"
+        affiliation: "Sunway College"
+        orcid: "https://orcid.org/0009-0009-9835-3800"
+    doi: 10.5281/zenodo.21033174
+    url: "https://doi.org/10.5281/zenodo.21033174"
+    notes: >-
+      Source of the sixteen committed response archives that the reference
+      calibration corpus pins by commit and hash (calibration/spaghetti/,
+      read-only; no completion text is redistributed). Its generator, labels
+      and capability results are cited and never claimed. Concept DOI, which
+      resolves to the latest version. See NOTICE.

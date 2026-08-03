@@ -54,8 +54,8 @@ jobs:
 
   offline:
     # The whole roundtrip must work with no network: punchmark makes no calls at
-    # runtime, and this job proves it (unshare drops the network namespace; if
-    # unshare is unavailable in the runner, the job refuses rather than skips).
+    # runtime, and this job proves it by running inside a network namespace. If
+    # no isolation is available the job refuses rather than skips.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -66,17 +66,32 @@ jobs:
         run: python -m pip install -e .
       - name: Offline synth -> fit -> score -> certify -> gate
         run: |
-          unshare -rn true || { echo "unshare unavailable; cannot prove offline"; exit 1; }
-          unshare -rn bash -e -c '
-            punchmark synth --out /tmp/demo --routes 3 --clusters 10 --k 2 --separation 0.6 --seed 1
-            punchmark fit /tmp/demo/synthtask__*.jsonl.gz \
+          # Ubuntu 24.04 runners set kernel.apparmor_restrict_unprivileged_userns=1,
+          # which denies the /proc/self/uid_map write that `unshare -r` needs. A
+          # privileged network namespace needs no mapping, so try that second. If
+          # neither is available this job FAILS instead of running unisolated: a
+          # green run that quietly skipped the isolation would assert something it
+          # never checked. PY is absolute because sudo resets PATH to secure_path.
+          PY="$(command -v python)"
+          if unshare -rn true 2>/dev/null; then
+            ISOLATE="unshare -rn"
+          elif sudo -n unshare -n true 2>/dev/null; then
+            ISOLATE="sudo -n unshare -n"
+          else
+            echo "::error::no network isolation available on this runner (unprivileged user namespaces denied, no passwordless sudo)"
+            exit 1
+          fi
+          echo "network isolation: $ISOLATE"
+          $ISOLATE env PY="$PY" bash -e -c '
+            "$PY" -m punchmark.cli synth --out /tmp/demo --routes 3 --clusters 10 --k 2 --separation 0.6 --seed 1
+            "$PY" -m punchmark.cli fit /tmp/demo/synthtask__*.jsonl.gz \
               --candidates synth/route-a,synth/route-b,synth/route-c \
               --out /tmp/model.json --m-grid 25,50 --far-grid 0.05,0.1 \
               --n-null 150 --n-splice 40 --min-clusters 4
-            punchmark score /tmp/demo/synthtask__synth-route-a.jsonl.gz \
+            "$PY" -m punchmark.cli score /tmp/demo/synthtask__synth-route-a.jsonl.gz \
               --model /tmp/model.json --rulings /tmp/r.jsonl --far 0.05
-            RID=$(python -c "import json;print(json.loads(open(\"/tmp/r.jsonl\").readline())[\"ruling_id\"])")
-            punchmark certify --ruling "$RID" --rulings /tmp/r.jsonl
-            punchmark gate /tmp/model.json --baseline /tmp/b.json --write-baseline
-            punchmark gate /tmp/model.json --baseline /tmp/b.json --require-chain-valid --rulings /tmp/r.jsonl
+            RID=$("$PY" -c "import json;print(json.loads(open(\"/tmp/r.jsonl\").readline())[\"ruling_id\"])")
+            "$PY" -m punchmark.cli certify --ruling "$RID" --rulings /tmp/r.jsonl
+            "$PY" -m punchmark.cli gate /tmp/model.json --baseline /tmp/b.json --write-baseline
+            "$PY" -m punchmark.cli gate /tmp/model.json --baseline /tmp/b.json --require-chain-valid --rulings /tmp/r.jsonl
           '
