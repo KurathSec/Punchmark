@@ -141,6 +141,12 @@ def read_archive(path: Path, candidates: CandidateSet | None = None) -> Response
                 if not row.is_stub:
                     seen_keys.add(row.item_key)
                 rows.append(row)
+    except EOFError as exc:
+        raise ArchiveError(
+            f"{path}: truncated gzip stream ({exc}); the archive is incomplete"
+        ) from exc
+    except UnicodeDecodeError as exc:
+        raise ArchiveError(f"{path}: not UTF-8 text ({exc})") from exc
     except OSError as exc:
         raise ArchiveError(f"{path}: unreadable ({exc})") from exc
     if not rows:

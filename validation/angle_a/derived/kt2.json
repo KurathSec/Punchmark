@@ -1,5 +1,7 @@
 {
   "canonical_flags": 0,
+  "canonical_flags_fit_stratum": "0/16",
+  "canonical_flags_heldout_stratum": "0/16",
   "canonical_note": "any canonical flag is investigated and declared, not auto-kill: at a true 1% rate, >=1 flag among 32 pairs occurs with p~0.27 (the recorded any-single-pair wording is statistically incoherent under resampling and is rewired here, declared in FINDING.md)",
   "canonical_pairs": [
     {
@@ -7,62 +9,70 @@
       "flagged": false,
       "half": "a",
       "n_rows": 675,
+      "stratum": "fit",
       "t": 0.455688,
-      "threshold": 0.03271
+      "threshold": 0.03384
     },
     {
       "archive": "comprehend__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 825,
+      "stratum": "fit",
       "t": 0.199295,
-      "threshold": 0.095009
+      "threshold": 0.095395
     },
     {
       "archive": "comprehend__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
       "flagged": false,
       "half": "a",
       "n_rows": 825,
+      "stratum": "fit",
       "t": 0.159537,
-      "threshold": 0.057685
+      "threshold": 0.057951
     },
     {
       "archive": "comprehend__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 675,
+      "stratum": "fit",
       "t": 0.211213,
-      "threshold": 0.033511
+      "threshold": 0.033213
     },
     {
       "archive": "comprehend__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
       "flagged": false,
       "half": "a",
       "n_rows": 750,
+      "stratum": "fit",
       "t": 0.256586,
-      "threshold": 0.108059
+      "threshold": 0.106362
     },
     {
       "archive": "comprehend__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 750,
+      "stratum": "fit",
       "t": 0.32131,
-      "threshold": 0.108059
+      "threshold": 0.106362
     },
     {
       "archive": "comprehend__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
       "flagged": false,
       "half": "a",
       "n_rows": 900,
+      "stratum": "fit",
       "t": 0.215254,
-      "threshold": 0.068976
+      "threshold": 0.070467
     },
     {
       "archive": "comprehend__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 600,
+      "stratum": "fit",
       "t": 0.263521,
       "threshold": -0.057027
     },
@@ -71,197 +81,228 @@
       "flagged": false,
       "half": "a",
       "n_rows": 750,
+      "stratum": "fit",
       "t": 0.072844,
-      "threshold": 0.028193
+      "threshold": 0.027931
     },
     {
       "archive": "refactor_dev__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 750,
+      "stratum": "fit",
       "t": 0.130744,
-      "threshold": 0.028193
+      "threshold": 0.027931
     },
     {
       "archive": "refactor_dev__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
       "flagged": false,
       "half": "a",
       "n_rows": 675,
+      "stratum": "fit",
       "t": 0.124476,
-      "threshold": 0.008524
+      "threshold": 0.008913
     },
     {
       "archive": "refactor_dev__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 825,
+      "stratum": "fit",
       "t": 0.151868,
-      "threshold": 0.052904
+      "threshold": 0.052413
     },
     {
       "archive": "refactor_dev__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
       "flagged": false,
       "half": "a",
       "n_rows": 600,
+      "stratum": "fit",
       "t": 0.163223,
-      "threshold": 0.033165
+      "threshold": 0.031798
     },
     {
       "archive": "refactor_dev__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 900,
+      "stratum": "fit",
       "t": 0.150089,
-      "threshold": 0.09772
+      "threshold": 0.097289
     },
     {
       "archive": "refactor_dev__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
       "flagged": false,
       "half": "a",
       "n_rows": 900,
+      "stratum": "fit",
       "t": 0.125123,
-      "threshold": 0.070078
+      "threshold": 0.070191
     },
     {
       "archive": "refactor_dev__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 600,
+      "stratum": "fit",
       "t": 0.146555,
-      "threshold": 0.028431
+      "threshold": 0.028553
     },
     {
       "archive": "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
       "flagged": false,
       "half": "a",
       "n_rows": 780,
+      "stratum": "heldout",
       "t": 0.199277,
-      "threshold": 0.095009
+      "threshold": 0.095395
     },
     {
       "archive": "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 1080,
+      "stratum": "heldout",
       "t": 0.20174,
-      "threshold": 0.095009
+      "threshold": 0.095395
     },
     {
       "archive": "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
       "flagged": false,
       "half": "a",
       "n_rows": 929,
+      "stratum": "heldout",
       "t": 0.124466,
-      "threshold": 0.057685
+      "threshold": 0.057951
     },
     {
       "archive": "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 930,
+      "stratum": "heldout",
       "t": 0.121637,
-      "threshold": 0.057685
+      "threshold": 0.057951
     },
     {
       "archive": "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
       "flagged": false,
       "half": "a",
       "n_rows": 930,
+      "stratum": "heldout",
       "t": 0.125136,
-      "threshold": 0.108059
+      "threshold": 0.106362
     },
     {
       "archive": "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 930,
+      "stratum": "heldout",
       "t": 0.143964,
-      "threshold": 0.108059
+      "threshold": 0.106362
     },
     {
       "archive": "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
       "flagged": false,
       "half": "a",
       "n_rows": 1072,
+      "stratum": "heldout",
       "t": 0.133752,
-      "threshold": 0.068976
+      "threshold": 0.070467
     },
     {
       "archive": "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 775,
+      "stratum": "heldout",
       "t": 0.210393,
-      "threshold": 0.068976
+      "threshold": 0.070467
     },
     {
       "archive": "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
       "flagged": false,
       "half": "a",
       "n_rows": 930,
+      "stratum": "heldout",
       "t": 0.075858,
-      "threshold": 0.028193
+      "threshold": 0.027931
     },
     {
       "archive": "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 929,
+      "stratum": "heldout",
       "t": 0.051657,
-      "threshold": 0.028193
+      "threshold": 0.027931
     },
     {
       "archive": "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
       "flagged": false,
       "half": "a",
       "n_rows": 779,
+      "stratum": "heldout",
       "t": 0.074138,
-      "threshold": 0.052904
+      "threshold": 0.052413
     },
     {
       "archive": "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 1078,
+      "stratum": "heldout",
       "t": 0.076262,
-      "threshold": 0.052904
+      "threshold": 0.052413
     },
     {
       "archive": "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
       "flagged": false,
       "half": "a",
       "n_rows": 929,
+      "stratum": "heldout",
       "t": 0.117177,
-      "threshold": 0.09772
+      "threshold": 0.097289
     },
     {
       "archive": "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 929,
+      "stratum": "heldout",
       "t": 0.103025,
-      "threshold": 0.09772
+      "threshold": 0.097289
     },
     {
       "archive": "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
       "flagged": false,
       "half": "a",
       "n_rows": 1002,
+      "stratum": "heldout",
       "t": 0.122713,
-      "threshold": 0.070078
+      "threshold": 0.070191
     },
     {
       "archive": "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
       "flagged": false,
       "half": "b",
       "n_rows": 855,
+      "stratum": "heldout",
       "t": 0.118942,
-      "threshold": 0.070078
+      "threshold": 0.070191
     }
   ],
+  "cell_tolerance": 0.0144,
   "declared_far": 0.01,
+  "fit_cells_exceeding_tolerance": [],
+  "heldout_cells_exceeding_tolerance": [
+    "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+    "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+    "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz"
+  ],
   "kt2_fires": false,
-  "kt2_threshold": "fires iff the FIT stratum's bootstrap lower bound > declared far (the recorded within-window promise); the heldout stratum is the cross-content transfer finding, reported separately",
+  "kt2_threshold": "fires iff any FIT-stratum cell's per-ruling rate exceeds the declared far beyond binomial noise, or the fit stratum's pooled bootstrap lower bound exceeds it (the recorded within-window promise); the heldout stratum is the cross-content transfer finding, judged by the same per-cell criterion because a concentrated failure must not hide under a pooled mean",
   "leave_one_route_out": {
     "deepseek-ai/DeepSeek-V4-Flash": {
       "excluded_route_maps_to": [
@@ -318,21 +359,21 @@
   },
   "loo_note": "diagnostic only: route unit n=4 sits exactly at the LOO floor; no CIs",
   "measured_pair_flag_rate": {
-    "comprehend__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 0.0004,
+    "comprehend__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 0.0002,
     "comprehend__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 0.0,
     "comprehend__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 0.0,
     "comprehend__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": 0.0,
     "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 0.0,
-    "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 0.0012,
-    "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 0.2724,
+    "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 0.0006,
+    "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 0.1208,
     "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": 0.0,
     "refactor_dev__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 0.0,
     "refactor_dev__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 0.0,
     "refactor_dev__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 0.0,
     "refactor_dev__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": 0.0,
     "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 0.0,
-    "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 0.13,
-    "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 0.2388,
+    "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 0.0598,
+    "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 0.1144,
     "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": 0.0
   },
   "null_integrity_file_order": {
@@ -381,18 +422,18 @@
       }
     }
   },
-  "pooled_rate_all_16": 0.0402,
+  "pooled_rate_all_16": 0.0185,
   "stratum_fit_within_calibration_content": {
     "archives": 8,
     "bootstrap_lower_5pct": 0.0,
-    "bootstrap_upper_95pct": 0.0002,
-    "pooled_rate": 0.0001
+    "bootstrap_upper_95pct": 0.0001,
+    "pooled_rate": 0.0
   },
   "stratum_heldout_reminted_content": {
     "archives": 8,
-    "bootstrap_lower_5pct": 0.0166,
-    "bootstrap_upper_95pct": 0.1469,
-    "pooled_rate": 0.0803
+    "bootstrap_lower_5pct": 0.0076,
+    "bootstrap_upper_95pct": 0.067,
+    "pooled_rate": 0.037
   },
   "transfer_finding": {
     "far_transfers_to_reminted_content": false,

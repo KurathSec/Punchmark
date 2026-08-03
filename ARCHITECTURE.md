@@ -38,8 +38,8 @@ SAME-PRODUCER additionally requires the power table to support the caller's rho_
 
 ```
 errors < canonical < model < {archive, sidecar, synth | views < features < detector}
-                                   < calibrate < power < modelfile < score
-                                   < {rulings, corpus} < certify < gate* < cli
+                                   < calibrate < power < modelfile < rulings < score
+                                   < {certify, corpus} < gate* < cli
 ```
 
 Rules, enforced by `tests/test_layering.py` (AST) and ruff TID253:
@@ -57,8 +57,10 @@ Rules, enforced by `tests/test_layering.py` (AST) and ruff TID253:
 
 ## 3. Artifact formats
 
-All five schemas are versioned, serialized through `canonical.py` (PMK-EMIT-001), and
-carry a content address computed with the id field removed (PMK-EMIT-002):
+Every schema is versioned and serialized through `canonical.py` (PMK-EMIT-001); the
+ones with an id prefix carry a content address computed with the id field removed
+(PMK-EMIT-002). `window/v1` is caller-written and binds by the archive hash it pins;
+`gate-baseline/v1` is a derived projection of a model file and needs no id of its own:
 
 | schema | file | id prefix |
 |---|---|---|
@@ -67,6 +69,7 @@ carry a content address computed with the id field removed (PMK-EMIT-002):
 | `ruling/v1` | one line of the append-only JSONL store | `pmk-r-` |
 | `certificate/v1` | `certify` output | `pmk-c-` |
 | `corpus/v1` | `calibration/*/MANIFEST.json` | `pmk-cor-` |
+| `gate-baseline/v1` | `goldens/operating_point.json` | -- |
 
 An unknown schema or a failed self-hash is a typed refusal, never a partial read: a
 KeyError must not masquerade as a verdict.

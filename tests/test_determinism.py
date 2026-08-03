@@ -26,8 +26,8 @@ generate(out / "arch", SynthSpec(routes=routes, tasks=("t",), n_clusters=6, k=2,
                                  separation=0.7, seed=13))
 train = [load_and_attach(read_archive(p, candidates), p)
          for p in sorted((out / "arch").glob("t__*.jsonl.gz"))]
-det = build_detector("trivial")
-config = CalibrationConfig(far_grid=(0.05,), m_grid=(20,), n_null=80, seed=13,
+det = build_detector("chargram")
+config = CalibrationConfig(far_grid=(0.05,), m_grid=(20,), n_null=120, seed=13,
                            min_clusters=3)
 cal = calibrate(det, train, candidates, config)
 power = power_analysis(cal.oof_scored, candidates, cal.operating_points, config,

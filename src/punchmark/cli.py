@@ -22,7 +22,7 @@ from .corpus import build_manifest, read_manifest, verify_shipped, verify_source
 from .detector import build_detector
 from .errors import GateError, PunchmarkError
 from .gate import baseline_body, evaluate, read_baseline
-from .model import CandidateSet, ResponseSet, Verdict
+from .model import CandidateSet, ResponseSet, Ruling, Verdict
 from .modelfile import build_doc, read_model, write_model
 from .power import PowerConfig, power_analysis
 from .rulings import DEFAULT_STORE, append, find, verify
@@ -53,6 +53,18 @@ def _read_windowed(
     return load_and_attach(rs, path, Path(sidecar_dir) if sidecar_dir else None)
 
 
+def _record(store: Path, ruling_obj: Ruling) -> None:
+    """Append a ruling unless the identical ruling is already recorded: identical
+    inputs reproduce identical ids (PMK-RUL-004), so a re-run is idempotent, not a
+    refusal."""
+    from .rulings import verify as _verify
+
+    if any(b["ruling_id"] == ruling_obj.ruling_id for b in _verify(store)):
+        print(f"  ruling {ruling_obj.ruling_id} already recorded in {store}")
+    else:
+        append(store, ruling_obj)
+
+
 def _parse_floats(text: str) -> tuple[float, ...]:
     return tuple(float(x) for x in text.split(",") if x)
 
@@ -62,13 +74,20 @@ def _parse_ints(text: str) -> tuple[int, ...]:
 
 
 def _cmd_fit(args: argparse.Namespace) -> int:
+    try:
+        far_grid = _parse_floats(args.far_grid)
+        m_grid = _parse_ints(args.m_grid)
+    except ValueError as exc:
+        print(f"usage: --far-grid/--m-grid must be comma-separated numbers ({exc})",
+              file=sys.stderr)
+        return 2
     candidates = CandidateSet(routes=tuple(sorted(set(args.candidates.split(",")))))
     paths = [Path(p) for p in args.archives]
     train = [_read_windowed(p, candidates, args.sidecars) for p in paths]
     detector = build_detector(args.detector, view=args.view)
     cal_config = CalibrationConfig(
-        far_grid=_parse_floats(args.far_grid),
-        m_grid=_parse_ints(args.m_grid),
+        far_grid=far_grid,
+        m_grid=m_grid,
         n_null=args.n_null,
         seed=args.seed,
         min_clusters=args.min_clusters,
@@ -132,11 +151,20 @@ def _cmd_fit(args: argparse.Namespace) -> int:
                 f"  {task}  m={largest}  far={far}  miss={worst.miss:.3f}  "
                 f"(worst pair {worst.declared} vs {worst.substitute})"
             )
-    print("minimum resolvable substituted fraction rho* (per ordered pair, largest m):")
+    far_shown = 0.01 if any(pw.far == 0.01 for pw in doc.power) else min(
+        pw.far for pw in doc.power
+    )
+    print(
+        f"minimum resolvable substituted fraction rho* "
+        f"(per ordered pair, largest m, far={far_shown}):"
+    )
     for task in doc.tasks:
         largest = max(pw.m for pw in doc.power if pw.task == task)
         for pw in sorted(
-            (pw for pw in doc.power if pw.task == task and pw.m == largest),
+            (
+                pw for pw in doc.power
+                if pw.task == task and pw.m == largest and pw.far == far_shown
+            ),
             key=lambda pw: (pw.declared, pw.substitute),
         ):
             shown = "unresolvable at rho<=1.0" if pw.rho_min is None else f"{pw.rho_min}"
@@ -160,7 +188,7 @@ def _cmd_score(args: argparse.Namespace) -> int:
     )
     ruling = rule(doc, rs, policy, spec_version(), scored_as=args.task_as)
     store = Path(args.rulings)
-    append(store, ruling)
+    _record(store, ruling)
     print(f"{ruling.verdict.value}  route={ruling.route}  task={ruling.task}")
     print(
         f"  T={ruling.statistic if ruling.statistic is not None else 'n/a'}  "
@@ -176,6 +204,17 @@ def _cmd_score(args: argparse.Namespace) -> int:
 
 
 def _cmd_certify(args: argparse.Namespace) -> int:
+    # Tri-state discipline (PMK-GTE-001, PMK-CRT-001): exit 1 means exactly one
+    # thing -- a measured DOES NOT HOLD. Refusals and unevaluable inputs land on
+    # exit 2 with UNDETERMINED, never on the measured-failure code.
+    try:
+        return _certify_inner(args)
+    except PunchmarkError as exc:
+        print(f"unevaluable: {exc}", file=sys.stderr)
+        return 2
+
+
+def _certify_inner(args: argparse.Namespace) -> int:
     store = Path(args.rulings)
     if args.ruling:
         body = find(store, args.ruling)
@@ -190,7 +229,7 @@ def _cmd_certify(args: argparse.Namespace) -> int:
         rs = _read_windowed(Path(args.archive), doc.candidates, args.sidecars)
         policy = RulePolicy(far=args.far, rho_target=args.rho_target)
         ruling = rule(doc, rs, policy, spec_version(), scored_as=args.task_as)
-        append(store, ruling)
+        _record(store, ruling)
         body = find(store, ruling.ruling_id)
     cert = certificate_from_ruling(body)
     print(cert.line)
@@ -217,7 +256,18 @@ def _cmd_gate(args: argparse.Namespace) -> int:
     for line in result.lines:
         print(line)
     if args.require_chain_valid:
-        bodies = verify(Path(args.rulings))
+        store = Path(args.rulings)
+        if not store.exists():
+            raise GateError(
+                f"--require-chain-valid: no rulings store at {store}; a chain that "
+                "checked nothing has not validated anything (PMK-GTE-002)"
+            )
+        bodies = verify(store)
+        if not bodies:
+            raise GateError(
+                f"--require-chain-valid: {store} contains no rulings; an empty "
+                "chain validates nothing (PMK-GTE-002)"
+            )
         print(f"gate: ruling chain valid ({len(bodies)} rulings)")
     return result.exit_code
 

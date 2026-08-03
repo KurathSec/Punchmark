@@ -36,6 +36,7 @@ premise-void verdict requires the ABL (content) channel at chance for all pairs.
 from __future__ import annotations
 
 import argparse
+import math
 import random
 import statistics
 import sys
@@ -298,8 +299,11 @@ def e3_kt2(doc, tables: dict[str, ScoredSet], archives: dict[str, list]) -> dict
         t = t_statistic(rows, rows_route, CANDIDATES.routes)
         return t < op.threshold, t, op.threshold
 
+    fit_sources = {rs.source_name for rs in archives["fit"]}
     canonical_pairs = []
     n_flag_canonical = 0
+    n_flag_canonical_fit = 0
+    n_flag_canonical_heldout = 0
     measured = {}
     for ss in all_sets:
         rows_task, rows_route = ss.task, ss.route
@@ -309,9 +313,14 @@ def e3_kt2(doc, tables: dict[str, ScoredSet], archives: dict[str, list]) -> dict
         for label, half in (("a", half_a), ("b", half_b)):
             is_flagged, t, thr = flagged(half)
             n_flag_canonical += int(is_flagged)
+            if ss.source_name in fit_sources:
+                n_flag_canonical_fit += int(is_flagged)
+            else:
+                n_flag_canonical_heldout += int(is_flagged)
             canonical_pairs.append(
                 {
                     "archive": ss.source_name,
+                    "stratum": "fit" if ss.source_name in fit_sources else "heldout",
                     "half": label,
                     "n_rows": len(half),
                     "t": None if t is None else round(t, 6),
@@ -319,6 +328,9 @@ def e3_kt2(doc, tables: dict[str, ScoredSet], archives: dict[str, list]) -> dict
                     "flagged": is_flagged,
                 }
             )
+        # per-RULING unit: each half is one ruling at the declared far, so the
+        # denominator is 2 * n_splits -- comparing a two-ruling union event to the
+        # per-ruling far would overstate the rate by ~2x (declared in FINDING.md)
         flags = 0
         n_splits = 2500
         for i in range(n_splits):
@@ -326,8 +338,8 @@ def e3_kt2(doc, tables: dict[str, ScoredSet], archives: dict[str, list]) -> dict
             ha, hb = split_half(clusters, rng)
             fa, _, _ = flagged(ha)
             fb, _, _ = flagged(hb)
-            flags += int(fa or fb)
-        measured[ss.source_name] = flags / n_splits
+            flags += int(fa) + int(fb)
+        measured[ss.source_name] = flags / (2 * n_splits)
 
     pooled_rate = statistics.fmean(measured.values())
 
@@ -354,7 +366,20 @@ def e3_kt2(doc, tables: dict[str, ScoredSet], archives: dict[str, list]) -> dict
     heldout_names = [rs.source_name for rs in archives["heldout"]]
     fit_stats = stratum_stats(fit_names, "fit")
     heldout_stats = stratum_stats(heldout_names, "heldout")
-    kt2_fires = fit_stats["bootstrap_lower_5pct"] > FAR
+
+    # A concentrated failure must not hide under a pooled mean: each archive's
+    # per-ruling rate is judged against the declared far plus binomial noise at
+    # its own n (the same tolerance form as the rho=0 self-check). The pooled
+    # bootstrap is reported as context; the criterion is per cell.
+    n_rulings = 2 * 2500
+    cell_tolerance = FAR + 3.0 * math.sqrt(FAR * (1 - FAR) / n_rulings) + 1.0 / n_rulings
+    fit_cells_exceeding = sorted(
+        n for n in fit_names if measured[n] > cell_tolerance
+    )
+    heldout_cells_exceeding = sorted(
+        n for n in heldout_names if measured[n] > cell_tolerance
+    )
+    kt2_fires = bool(fit_cells_exceeding) or fit_stats["bootstrap_lower_5pct"] > FAR
 
     # leave-one-route-out: diagnostic only, n=4 sits at the LOO floor (declared)
     loo = {}
@@ -415,6 +440,8 @@ def e3_kt2(doc, tables: dict[str, ScoredSet], archives: dict[str, list]) -> dict
     body = {
         "canonical_pairs": canonical_pairs,
         "canonical_flags": n_flag_canonical,
+        "canonical_flags_fit_stratum": f"{n_flag_canonical_fit}/16",
+        "canonical_flags_heldout_stratum": f"{n_flag_canonical_heldout}/16",
         "canonical_note": (
             "any canonical flag is investigated and declared, not auto-kill: at a "
             "true 1% rate, >=1 flag among 32 pairs occurs with p~0.27 (the recorded "
@@ -426,14 +453,20 @@ def e3_kt2(doc, tables: dict[str, ScoredSet], archives: dict[str, list]) -> dict
         "stratum_fit_within_calibration_content": fit_stats,
         "stratum_heldout_reminted_content": heldout_stats,
         "declared_far": FAR,
+        "cell_tolerance": round(cell_tolerance, 4),
+        "fit_cells_exceeding_tolerance": fit_cells_exceeding,
+        "heldout_cells_exceeding_tolerance": heldout_cells_exceeding,
         "kt2_threshold": (
-            "fires iff the FIT stratum's bootstrap lower bound > declared far "
-            "(the recorded within-window promise); the heldout stratum is the "
-            "cross-content transfer finding, reported separately"
+            "fires iff any FIT-stratum cell's per-ruling rate exceeds the declared "
+            "far beyond binomial noise, or the fit stratum's pooled bootstrap lower "
+            "bound exceeds it (the recorded within-window promise); the heldout "
+            "stratum is the cross-content transfer finding, judged by the same "
+            "per-cell criterion because a concentrated failure must not hide under "
+            "a pooled mean"
         ),
         "kt2_fires": kt2_fires,
         "transfer_finding": {
-            "far_transfers_to_reminted_content": heldout_stats["bootstrap_lower_5pct"] <= FAR,
+            "far_transfers_to_reminted_content": not heldout_cells_exceeding,
             "note": (
                 "dev-calibrated per-route thresholds applied to re-minted held-out "
                 "content inflate the within-window flag rate far above the declared "
@@ -740,13 +773,16 @@ def main() -> int:
         f"KT1: canonical {kt1['canonical_correct']}, subsample@150 {kt1['subsample_pooled']}, "
         f"CI lower {kt1['cluster_bootstrap_ci_lower_5pct']} -> "
         f"{'PASS' if kt1['kt1_pass'] else 'KILL FIRES'}",
-        f"KT2 (recorded, fit stratum): rate "
+        f"KT2 (recorded, fit stratum): per-ruling rate "
         f"{kt2['stratum_fit_within_calibration_content']['pooled_rate']} "
-        f"(declared {FAR}), canonical flags {kt2['canonical_flags']}/32 -> "
+        f"(declared {FAR}), canonical flags "
+        f"{kt2['canonical_flags_fit_stratum']} fit / "
+        f"{kt2['canonical_flags_heldout_stratum']} heldout -> "
         f"{'FIRES' if kt2['kt2_fires'] else 'HOLDS'}",
-        f"KT2 transfer (heldout stratum, re-minted content): rate "
-        f"{kt2['stratum_heldout_reminted_content']['pooled_rate']} "
-        f"(lower bound {kt2['stratum_heldout_reminted_content']['bootstrap_lower_5pct']}) -> "
+        f"KT2 transfer (heldout stratum, re-minted content): pooled rate "
+        f"{kt2['stratum_heldout_reminted_content']['pooled_rate']}, "
+        f"{len(kt2['heldout_cells_exceeding_tolerance'])}/8 cells beyond tolerance "
+        f"{kt2['cell_tolerance']} -> "
         f"{'DOES NOT TRANSFER' if not kt2['transfer_finding']['far_transfers_to_reminted_content'] else 'transfers'}",
         f"KT3: recorded form fires={kt3['recorded_form']['fires']}, "
         f"premise_void={kt3['premise_void']} "

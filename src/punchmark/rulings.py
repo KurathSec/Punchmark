@@ -109,6 +109,10 @@ def append(path: Path, ruling: Ruling) -> None:
         )
     body = ruling_body(ruling)
     path.parent.mkdir(parents=True, exist_ok=True)
+    # One O_APPEND write of the whole line. Concurrent writers are unsupported
+    # (the store is a per-caller artifact); a torn line from an unsupported
+    # concurrent write is DETECTED by the next verify() rather than passing
+    # silently, which is the invariant that matters (PMK-RUL-003).
     with open(path, "a", encoding="utf-8", newline="") as f:
         f.write(canonical_line(body) + "\n")
 

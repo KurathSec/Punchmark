@@ -6,13 +6,13 @@ as a `certificate/v1` document. Here is a real line from the synthetic
 quickstart roundtrip:
 
 ```
-punchmark certificate pmk-c-898ad0d5041b740a: producer identity of route
+punchmark certificate pmk-c-d5679c8bf50a759a: producer identity of route
 synth/route-a (task synthtask, window
 2026-01-01T00:00:00+00:00..2026-01-01T01:00:00+00:00) HOLDS at false-alarm rate
-0.01; minimum resolvable substituted fraction 0.2 against candidate set
+0.01; minimum resolvable substituted fraction 0.02 against candidate set
 pmk-cs-169b400fc8599df1 (3 routes). This certifies the route label as served
 within the named candidate set; it is not a statement about model weights.
-[detector trivial v1; model pmk-m-f43f9b523d55e64b; ruling pmk-r-63efb346736a81d9]
+[detector chargram v1; model pmk-m-6a790f4c55e11c83; ruling pmk-r-f495ef7e9b0bba5f]
 ```
 
 Field by field:
@@ -21,9 +21,9 @@ Field by field:
 |---|---|
 | `pmk-c-...` | The certificate id: a content hash of the certificate body. Identical inputs reproduce identical ids. |
 | `route ...` | The route label being certified -- the label, as served, never the weights behind it (PMK-CRT-002). |
-| `task ..., window ...` | The claim's unit: one (route, window) per ruling. The window comes verbatim from the caller-written sidecar; an unwindowed ruling prints `window UNDECLARED`. |
+| `task ..., window ...` | The claim's unit: one (route, window) per ruling. The window comes verbatim from the caller-written sidecar. A ruling scored under a declared task alias additionally prints `scored as <model task>` (PMK-RUL-005) -- the marker that the calibrated false-alarm rate was measured on different content than this archive's. |
 | `HOLDS at false-alarm rate 0.01` | The verdict clause at the operating point *you* declared with `--far`. The other clauses are `DOES NOT HOLD ... statistic fell below the calibrated threshold ...` and `IS UNDETERMINED (reasons)`. |
-| `minimum resolvable substituted fraction 0.2` | rho\*: the smallest substituted fraction the archive's k and item count could have resolved for the worst candidate pair. Only a `HOLDS` line carries it. |
+| `minimum resolvable substituted fraction 0.02` | rho\*: the smallest substituted fraction the archive's k and item count could have resolved for the worst candidate pair. Only a `HOLDS` line carries it. |
 | `against candidate set pmk-cs-... (3 routes)` | The closed set the verdict is relative to, by content id and size. |
 | the scope sentence | Fixed wording, carried by every certificate (PMK-CRT-002): *"This certifies the route label as served within the named candidate set; it is not a statement about model weights."* |
 | `[detector ...; model ...; ruling ...]` | Provenance: detector id and version, fitted-model id, and the ruling id this certificate derives from -- enough to re-derive the line from the rulings store. |

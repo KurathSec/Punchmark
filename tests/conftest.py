@@ -24,7 +24,7 @@ ROUTES = default_routes(3)  # synth/route-a, -b, -c
 TASK = "synthtask"
 CANDIDATES = CandidateSet(routes=tuple(sorted(ROUTES)))
 CAL_CONFIG = CalibrationConfig(
-    far_grid=(0.01, 0.05, 0.1), m_grid=(25, 50), n_null=200, seed=11, min_clusters=4
+    far_grid=(0.01, 0.05, 0.1), m_grid=(25, 50), n_null=500, seed=11, min_clusters=4
 )
 POW_CONFIG = PowerConfig(n_splice=60, power_target=0.8, seed=11)
 

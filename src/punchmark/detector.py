@@ -128,11 +128,13 @@ class TrivialFitted:
                 )
             counts = row_counts(row.raw_outputs, self.view, self.feature_spec)
             total = sum(counts.values())
+            if total == 0:
+                # no featurizable text: zero evidence, identical for every
+                # candidate -- never a route-dependent constant (PMK-FEA-002)
+                out.append(dict.fromkeys(centroids, 0.0))
+                continue
             scores: dict[str, float] = {}
             for route, centroid in centroids.items():
-                if total == 0:
-                    scores[route] = 0.0
-                    continue
                 dist = 0.0
                 for bucket, prob in centroid.items():
                     dist += abs(counts.get(bucket, 0) / total - prob)
@@ -198,7 +200,9 @@ class TrivialDetector:
                     raise DetectorError(
                         f"no featurizable text for route {route!r}, task {task!r}"
                     )
-                centroids[task][route] = {b: c / total for b, c in pooled.items()}
+                centroids[task][route] = {
+                    b: round(c / total, 6) for b, c in pooled.items()
+                }
         return TrivialFitted(candidates, centroids)
 
 
@@ -267,13 +271,17 @@ class ChargramFitted:
                 )
             counts = row_counts(row.raw_outputs, self._view, self.feature_spec)
             total = sum(counts.values())
+            if total == 0:
+                # no featurizable text: zero evidence, identical for every
+                # candidate. The per-route unseen mass depends on training
+                # volume, so using it here would systematically favor the
+                # smallest training corpus (PMK-FEA-002).
+                out.append(dict.fromkeys(self._candidates.routes, 0.0))
+                continue
             scores: dict[str, float] = {}
             for route in self._candidates.routes:
                 table = tables[route]
                 default = unseen[route]
-                if total == 0:
-                    scores[route] = default
-                    continue
                 ll = sum(c * table.get(b, default) for b, c in counts.items())
                 scores[route] = ll / total
             out.append(scores)

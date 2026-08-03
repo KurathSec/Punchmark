@@ -259,29 +259,34 @@ def build_nulls(
     nulls: list[NullDistribution] = []
     for (task, route), sets in sorted(by_cell.items()):
         for m in config.m_grid:
+            usable_sets = [
+                ss
+                for ss in sets
+                if sum(len(v) for v in ss.clusters.values()) >= m
+                and len(ss.clusters) >= config.min_clusters
+            ]
+            if not usable_sets:
+                continue
+            # draws are budgeted over the USABLE archives, so an archive skipped
+            # for the m/min_clusters floors cannot silently shrink the cell's
+            # draw count below n_null (PMK-CAL-007)
+            per_archive = max(1, config.n_null // len(usable_sets))
             draws: list[float] = []
             n_clusters_min: int | None = None
-            usable = 0
-            for ss in sets:
+            for ss in usable_sets:
                 clusters = ss.clusters
-                n_rows = sum(len(v) for v in clusters.values())
-                if n_rows < m or len(clusters) < config.min_clusters:
-                    continue
-                usable += 1
                 n_clusters_min = (
                     len(clusters)
                     if n_clusters_min is None
                     else min(n_clusters_min, len(clusters))
                 )
-                per_archive = max(1, config.n_null // max(1, len(sets)))
                 for i in range(per_archive):
                     rng = random.Random(
                         derive_seed("null", task, ss.source_name, m, i, config.seed)
                     )
                     subset = cluster_subset(clusters, m, rng)
                     draws.append(t_statistic(subset, ss.route, candidates.routes))
-            if usable == 0:
-                continue
+            usable = len(usable_sets)
             nulls.append(
                 NullDistribution(
                     task=task,
@@ -301,12 +306,24 @@ def build_nulls(
     return nulls
 
 
+# A far-quantile needs enough null draws to exist empirically: below this many
+# expected tail draws the "quantile" degenerates to the sample minimum, whose true
+# exceedance probability EXCEEDS the declared far (PMK-CAL-007).
+MIN_TAIL_DRAWS = 5
+
+
 def operating_points(
     nulls: Iterable[NullDistribution], config: CalibrationConfig
 ) -> list[OperatingPoint]:
+    """Operating points per (cell, far). A far the cell's draw count cannot
+    resolve (len(draws) * far < MIN_TAIL_DRAWS) is DROPPED, not extrapolated: the
+    later lookup then returns None and the ruling comes out UNDETERMINED, which is
+    the refusal-first contract (PMK-CAL-007, PMK-RUL-002)."""
     points: list[OperatingPoint] = []
     for null in nulls:
         for far in config.far_grid:
+            if len(null.draws) * far < MIN_TAIL_DRAWS:
+                continue
             points.append(
                 OperatingPoint(
                     task=null.task,
@@ -317,6 +334,12 @@ def operating_points(
                     n_null=len(null.draws),
                 )
             )
+    if not points:
+        raise CalibrationError(
+            f"no (cell, far) pair had enough null draws: the smallest far needs "
+            f"{MIN_TAIL_DRAWS} expected tail draws (n_null * far >= {MIN_TAIL_DRAWS}); "
+            "raise --n-null or drop the smallest far from --far-grid"
+        )
     return points
 
 

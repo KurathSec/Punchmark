@@ -17,7 +17,9 @@
 The distribution name is `punchmark` (PyPI simple index returned 404 on 2026-08-03). If
 the name is squatted before the first upload, publish as `punchmark-eval` with the
 import package and CLI unchanged (`punchmark`), mirroring the limen / limen-eval
-precedent. Record the decision here.
+precedent. The rename touches exactly: `[project] name` in pyproject.toml, the
+`pip install "punchmark==..."` line in action.yml, the install line in
+docs/quickstart.md and README.md, and this file. Record the decision here.
 
 ## After the release
 

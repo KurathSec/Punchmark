@@ -162,3 +162,48 @@ def test_task_alias_is_declared_and_recorded(fitted_doc, synth_dir, tmp_path) ->
 
     cert = certificate_from_ruling(ruling_body(ruling))
     assert f"task {TASK}_test, scored as {TASK}" in cert.line
+
+
+def test_stub_cap_forces_undetermined(fitted_doc, synth_dir, tmp_path) -> None:
+    """PMK-RUL-002/PMK-ARC-002: a stub share above the cap refuses to rule."""
+    src = synth_dir / f"{TASK}__synth-route-a.jsonl.gz"
+    rows = []
+    with gzip.open(src, "rt", encoding="utf-8") as fh:
+        for line in fh:
+            rows.append(json.loads(line))
+    n_stubs = int(len(rows) * 0.2)
+    for i, row in enumerate(rows[:n_stubs]):
+        rows[i] = {"sample": row["sample"] + "_stub", "profile": row["profile"],
+                   "language": row["language"]}
+    dst = tmp_path / f"{TASK}__synth-route-a.jsonl.gz"
+    with gzip.open(dst, "wt", encoding="utf-8") as fh:
+        for row in rows:
+            fh.write(json.dumps(row) + "\n")
+    _sidecar_for(dst, "synth/route-a")
+    rs = read_windowed(dst)
+    ruling = rule(fitted_doc, rs, RulePolicy(far=0.05), spec_version())
+    assert ruling.verdict is Verdict.UNDETERMINED
+    assert any("stub_share" in r for r in ruling.reasons)
+
+
+def test_uncalibrated_far_is_undetermined_with_the_grid_named(
+    fitted_doc, synth_dir
+) -> None:
+    """PMK-CAL-007/PMK-RUL-002: a far nothing was calibrated at refuses to rule."""
+    rs = read_windowed(synth_dir / f"{TASK}__synth-route-a.jsonl.gz")
+    ruling = rule(fitted_doc, rs, RulePolicy(far=0.02), spec_version())
+    assert ruling.verdict is Verdict.UNDETERMINED
+    assert any("no_operating_point" in r for r in ruling.reasons)
+    assert any("0.05" in r for r in ruling.reasons)  # the calibrated grid is named
+
+
+def test_missing_power_table_is_undetermined(fitted_doc, synth_dir) -> None:
+    """PMK-RUL-002: a passing statistic without a power table never rules
+    SAME-PRODUCER."""
+    from dataclasses import replace as _replace
+
+    gutted = _replace(fitted_doc, power=())
+    rs = read_windowed(synth_dir / f"{TASK}__synth-route-a.jsonl.gz")
+    ruling = rule(gutted, rs, RulePolicy(far=0.05), spec_version())
+    assert ruling.verdict is Verdict.UNDETERMINED
+    assert any("no_power_table" in r for r in ruling.reasons)

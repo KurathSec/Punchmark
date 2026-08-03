@@ -61,7 +61,7 @@ SEED = 20260803
 CAL_CONFIG = CalibrationConfig(
     far_grid=(0.001, 0.005, 0.01, 0.05, 0.1),
     m_grid=(25, 50, 100, 150, 300, 750),
-    n_null=4000,
+    n_null=5000,
     seed=SEED,
     min_clusters=8,
 )
@@ -71,7 +71,21 @@ POW_CONFIG = PowerConfig(n_splice=400, power_target=0.8, seed=SEED)
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", default="/home/kureist/Spaghetti-Architect")
+    parser.add_argument(
+        "--confirm-recalibration",
+        action="store_true",
+        help="required to OVERWRITE committed goldens: a moved operating point must "
+        "arrive together with a declared detector-version or spec-MAJOR bump "
+        "(PMK-GTE-003), and this flag is the builder-side confirmation",
+    )
     args = parser.parse_args()
+    if (HERE / "goldens" / "operating_point.json").exists() and not args.confirm_recalibration:
+        print(
+            "goldens already exist; refusing to overwrite without "
+            "--confirm-recalibration (PMK-GTE-003)",
+            file=sys.stderr,
+        )
+        return 1
     source = Path(args.source)
     candidates = CandidateSet(routes=tuple(sorted(ROUTES)))
     slugs = {route: route.replace("/", "-") for route in ROUTES}

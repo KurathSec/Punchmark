@@ -74,6 +74,21 @@ def read_baseline(path: Path) -> dict[str, Any]:
 
 
 def evaluate(doc: ModelDoc, baseline: dict[str, Any], spec_version: str) -> GateResult:
+    """Malformed baselines raise GateError (exit 2 at the CLI), never a bare
+    KeyError masquerading as a measured verdict (PMK-GTE-001)."""
+    try:
+        return _evaluate(doc, baseline, spec_version)
+    except GateError:
+        raise
+    except (KeyError, TypeError, IndexError) as exc:
+        raise GateError(
+            f"baseline is missing or malforms a required field ({exc!r}); not a "
+            "faithful gate-baseline/v1 document -- regenerate it with "
+            "punchmark gate --write-baseline"
+        ) from exc
+
+
+def _evaluate(doc: ModelDoc, baseline: dict[str, Any], spec_version: str) -> GateResult:
     lines: list[str] = []
     current = baseline_body(doc)
     version_changed = current["detector"] != baseline.get("detector")

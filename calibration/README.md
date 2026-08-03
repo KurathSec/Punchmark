@@ -13,5 +13,7 @@ from the sdist; the shipped wheel carries only the fitted default model.
   byte-compared by the drift gate (`tools/update_calibration.py --check`,
   `tests/test_operating_point_drift.py`).
 
-Content lands with the calibration commit; until then the drift gate reports
-"unevaluable", which is deliberately distinct from "pass" (PMK-GTE-002).
+The goldens are committed and the drift gate is armed: `tools/update_calibration.py
+--check` must pass, and regeneration (`spaghetti/build_corpus.py`) refuses to overwrite
+goldens without `--confirm-recalibration`, because a moved operating point must arrive
+together with a declared detector-version or spec-MAJOR bump (PMK-GTE-003).

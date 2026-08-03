@@ -1,8 +1,8 @@
 # Angle A finding
 
 Fit and calibrate on the 8 committed dev-split archives; validate on the 8 held-out
-test-split archives. Zero API calls, $0, one machine. Model `pmk-m-731a3beb2b8c52b8`,
-corpus `pmk-cor-32596a35e0452817`, spec 1.1.0. Every number below is read from a
+test-split archives. Zero API calls, $0, one machine. Model `pmk-m-c52e6e6014883edb`,
+corpus `pmk-cor-32596a35e0452817`, spec 2.0.0. Every number below is read from a
 committed artifact in `derived/`, regenerated deterministically by `run.py`; none is
 hand-edited.
 
@@ -14,11 +14,11 @@ a prompt-condition change and a two-week window gap. Whole-set identification of
 held-out archives is 8/8 canonically and 0.986 over clustered 150-row subsamples
 (CI lower bound 0.965). The recorded kill tests do not fire. What does NOT survive is
 the transfer of the calibrated false-alarm rate to content the thresholds were not
-calibrated on: the within-window same-route flag rate, promised at 1%, holds at 0.01%
-on calibration content and rises to a pooled 8% (up to 27% for one route) on the
-re-minted held-out content. The identification half of the instrument generalizes; the
-operating point is a property of the calibration content family, and the certificate's
-`scored as` clause is the marker that this caveat applies.
+calibrated on: the per-ruling within-window flag rate, promised at 1%, is 0.0% on
+calibration content and runs at 6-12% in three of the eight held-out (route, task)
+cells. The identification half of the instrument generalizes; the operating point is a
+property of the calibration content family, and the certificate's `scored as` clause is
+the marker that this caveat applies.
 
 ## KT1 -- held-out whole-set identification (`derived/kt1.json`)
 
@@ -39,27 +39,38 @@ operating point is a property of the calibration content family, and the certifi
 
 ## KT2 -- the false-alarm promise (`derived/kt2.json`)
 
-Two strata, deliberately separate.
+The measurement unit is one RULING: each cluster-respecting split-half of an archive
+yields two rulings at the declared 1% operating point, and rates are per ruling
+(2 x 2,500 splits = 5,000 rulings per archive). An earlier draft of this study counted
+the two-ruling union event against the per-ruling promise, overstating rates ~2x; the
+unit is now declared wherever a rate is compared to the far.
 
-- **Recorded form (fit stratum -- same-route pairs inside one window of the
-  calibration content):** pooled flag rate **0.0001** against the declared 0.01
-  (bootstrap upper bound 0.0002); canonical seed-pinned split-half pairs flagged:
-  **0 of 32**. The recorded kill condition -- rewired, see below -- **does not fire**.
+Two strata, deliberately separate; each archive's rate is judged against the declared
+far plus binomial noise at its own n (`cell_tolerance` = 0.0144), because a
+concentrated failure must not hide under a pooled mean.
+
+- **Recorded form (fit stratum -- same-route rulings inside one window of the
+  calibration content):** per-ruling flag rate **0.0000** in every fit cell; canonical
+  seed-pinned pairs flagged: **0 of 16** fit-stratum halves (and 0 of 16 held-out
+  halves). No fit cell exceeds tolerance. The kill **does not fire**.
 - **Transfer finding (held-out stratum -- dev-calibrated thresholds applied to
-  re-minted content under the declared `--task-as` alias):** pooled flag rate
-  **0.0803**, bootstrap 5% lower bound **0.0166 > 0.01**: the declared false-alarm
-  rate **does not transfer** to re-minted content. It concentrates in three cells --
-  Llama-3.1-8B `comprehend_test` 0.272, Llama-3.1-8B `refactor_test` 0.239,
-  Llama-3.3-70B `refactor_test` 0.130; the other thirteen archives are <= 0.0012 --
-  and the same three cells fail the rho=0 self-check in `derived/power_heldout.json`,
-  which is the same fact seen twice. Consequence, carried into `docs/honesty.md`: a
-  certificate's declared FAR is trustworthy over the calibration content family; on
-  other content it weakens to the rates measured here.
+  re-minted content under the declared `--task-as` alias):** pooled per-ruling rate
+  **0.037**; **3 of 8 cells exceed tolerance** -- Llama-3.1-8B `comprehend_test`
+  **0.121**, Llama-3.1-8B `refactor_test` **0.114**, Llama-3.3-70B `refactor_test`
+  **0.060**; the other five cells are <= 0.0006. Each exceeding cell is 6-12x the
+  promise over 5,000 rulings, far outside binomial noise even after selecting 3 of 16
+  cells. (The pooled archive-level bootstrap lower bound, 0.0076, does not clear the
+  far on its own -- at n=8 archives a pooled mean is the wrong lens for a concentrated
+  effect, which is exactly why the criterion is per cell.) The same three cells fail
+  the rho=0 self-check in `derived/power_heldout.json`: the same fact seen twice.
+  Consequence, carried into `docs/honesty.md`: a certificate's declared FAR is
+  trustworthy over the calibration content family; on other content it weakens to the
+  rates measured here.
 - Wiring (declared deviation): the recorded "ANY single flagged same-route pair breaks
   the operating point" is statistically incoherent under resampling -- at a true 1%
-  rate, >=1 flag among 32 canonical pairs occurs with probability ~0.27 -- so the kill
-  fires iff the fit stratum's bootstrap lower bound exceeds the declared FAR; canonical
-  flags are investigated and declared, never auto-kill.
+  rate, >=1 flag among 32 canonical halves occurs with probability ~0.27 -- so the
+  kill fires on per-cell tolerance exceedance (or a pooled fit-stratum lower bound
+  over the far); canonical flags are investigated and declared, never auto-kill.
 - Leave-one-route-out (diagnostic only; route unit n=4 sits exactly at the LOO floor,
   no confidence intervals): 3-way identification 6/6 for every held-out route; every
   excluded route maps closed-set onto some remaining candidate, which is the open-set
@@ -84,12 +95,13 @@ survives its sharpest recorded objection.
 
 At the shipped thresholds (m=750, FAR 0.01), held-out seeded substitutions resolve at
 rho* between **0.1 and 0.75** depending on the ordered pair; every pair resolves a full
-swap. At the 150-row probe size the hardest pairs are marginal by design (worst-pair
-miss 0.27-0.48 on the dev calibration), which is output (d) doing its job: a 150-row
-probe inherits that limit and says so. The three cells with failed rho=0 self-checks
-are the KT2 transfer cells; their power numbers are optimistic and flagged in the
-artifact. Seeded-substitution fidelity to real vendor changes cannot be validated and
-stands as a bound (PMK-POW-004).
+swap. The shipped power table now covers every calibrated far (a ruling at any declared
+operating point has a table to consult), and the rho=0 self-check is enforced inside
+`power_analysis` itself -- the dev calibration passes it; the three held-out transfer
+cells fail their held-out version, flagged per entry in the artifact. At the 150-row
+probe size the hardest pairs are marginal by design, which is output (d) doing its job:
+a 150-row probe inherits that limit and says so. Seeded-substitution fidelity to real
+vendor changes cannot be validated and stands as a bound (PMK-POW-004).
 
 ## Transfer probe -- the ablation arm (`derived/ablation_probe.json`)
 
@@ -112,7 +124,8 @@ declared.
 All 8 held-out archives rule **SAME-PRODUCER** at FAR 0.01 with `scored as` recorded;
 ruling ids pin detector v1, candidate set `pmk-cs-2f6b636d317d3ffe`, the operating
 point and the corpus hash. Read with the KT2 transfer caveat: for `scored as` rulings
-the nominal FAR is not validated on that content.
+the nominal FAR is not validated on that content, and for the three exceeding cells it
+is measured to be 6-12x looser.
 
 ## What this does not show
 

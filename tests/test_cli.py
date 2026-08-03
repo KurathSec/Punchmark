@@ -32,7 +32,8 @@ def workdir(tmp_path_factory: pytest.TempPathFactory) -> Path:
                 "fit", *[str(p) for p in archives],
                 "--candidates", "synth/route-a,synth/route-b,synth/route-c",
                 "--out", str(root / "model.pmk-model.json"),
-                "--m-grid", "25,50", "--n-null", "150", "--n-splice", "40",
+                "--m-grid", "25,50", "--far-grid", "0.05,0.1",
+                "--n-null", "150", "--n-splice", "40",
                 "--min-clusters", "4", "--seed", "5",
             ]
         )
@@ -45,7 +46,8 @@ def test_score_true_and_substituted(workdir: Path, capsys) -> None:
     model = str(workdir / "model.pmk-model.json")
     store = str(workdir / "rulings.jsonl")
     archive = workdir / "arch" / "synthtask__synth-route-a.jsonl.gz"
-    assert main(["score", str(archive), "--model", model, "--rulings", store]) == 0
+    assert main(["score", str(archive), "--model", model, "--rulings", store,
+                 "--far", "0.05"]) == 0
     out = capsys.readouterr().out
     assert "SAME-PRODUCER" in out
 
@@ -70,7 +72,8 @@ def test_score_true_and_substituted(workdir: Path, capsys) -> None:
     }
     Path(str(dst) + ".window.json").write_text(json.dumps(sidecar) + "\n")
     # a recorded SUBSTITUTED measurement is still exit 0
-    assert main(["score", str(dst), "--model", model, "--rulings", store]) == 0
+    assert main(["score", str(dst), "--model", model, "--rulings", store,
+                 "--far", "0.05"]) == 0
     assert "SUBSTITUTED" in capsys.readouterr().out
 
 
@@ -117,7 +120,7 @@ def test_refusal_exit_codes(workdir: Path, tmp_path: Path, capsys) -> None:
     # missing sidecar -> refusal (1), and the message prints the shape to write
     bare = tmp_path / "synthtask__synth-route-a.jsonl.gz"
     shutil.copyfile(workdir / "arch" / "synthtask__synth-route-a.jsonl.gz", bare)
-    assert main(["score", str(bare), "--model", model,
+    assert main(["score", str(bare), "--model", model, "--far", "0.05",
                  "--rulings", str(tmp_path / "r.jsonl")]) == 1
     err = capsys.readouterr().err
     assert "window/v1" in err
@@ -135,3 +138,51 @@ def test_census_and_spec_and_env(workdir: Path, capsys) -> None:
     assert "No weights claim" in capsys.readouterr().out
     assert main(["env"]) == 0
     assert "runtime dependencies: none" in capsys.readouterr().out
+
+
+def test_certify_unknown_ruling_is_unevaluable_not_measured_fail(
+    workdir: Path, capsys
+) -> None:
+    """A missing ruling is unevaluable (exit 2); exit 1 means exactly one thing --
+    a measured DOES NOT HOLD (PMK-GTE-001)."""
+    store = str(workdir / "rulings.jsonl")
+    assert main(["certify", "--ruling", "pmk-r-doesnotexist000", "--rulings", store]) == 2
+    assert "unevaluable" in capsys.readouterr().err
+
+
+def test_gate_chain_valid_refuses_missing_and_empty_stores(
+    workdir: Path, tmp_path: Path, capsys
+) -> None:
+    """PMK-GTE-002: a chain that checked nothing has not validated anything."""
+    model = str(workdir / "model.pmk-model.json")
+    baseline = str(workdir / "chainbase.json")
+    assert main(["gate", model, "--baseline", baseline, "--write-baseline"]) == 0
+    capsys.readouterr()
+    missing = str(tmp_path / "absent.jsonl")
+    assert main(["gate", model, "--baseline", baseline,
+                 "--require-chain-valid", "--rulings", missing]) == 2
+    empty = tmp_path / "empty.jsonl"
+    empty.write_text("")
+    assert main(["gate", model, "--baseline", baseline,
+                 "--require-chain-valid", "--rulings", str(empty)]) == 2
+
+
+def test_gate_malformed_baseline_is_unevaluable(workdir: Path, tmp_path: Path) -> None:
+    """A baseline missing required fields exits 2, never the measured-fail code."""
+    model = str(workdir / "model.pmk-model.json")
+    bad = tmp_path / "bad.json"
+    bad.write_text(
+        '{"punchmark_schema": "gate-baseline/v1", "operating_points": [{"task": "t"}]}\n'
+    )
+    assert main(["gate", model, "--baseline", str(bad)]) == 2
+
+
+def test_rescore_is_idempotent(workdir: Path, capsys) -> None:
+    """Identical inputs reproduce the identical ruling id; a re-run records
+    nothing new and is not a refusal (PMK-RUL-004)."""
+    model = str(workdir / "model.pmk-model.json")
+    store = str(workdir / "rulings.jsonl")
+    archive = workdir / "arch" / "synthtask__synth-route-a.jsonl.gz"
+    assert main(["score", str(archive), "--model", model, "--rulings", store,
+                 "--far", "0.05"]) == 0
+    assert "already recorded" in capsys.readouterr().out

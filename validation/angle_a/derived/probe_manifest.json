@@ -156,7 +156,7 @@
       "threshold_select_T8|base|standard|cpp"
     ]
   },
-  "model_id": "pmk-m-731a3beb2b8c52b8",
+  "model_id": "pmk-m-c52e6e6014883edb",
   "power_note": "expected probe power is the shipped model's m=150 power table; the hardest pairs are marginal at this size by design and a probe run inherits that limit",
   "seed": 20260803,
   "selector_version": "probe/v1"
