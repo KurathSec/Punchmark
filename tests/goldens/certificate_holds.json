@@ -1,0 +1,36 @@
+{
+  "calibration_sha256": "pmk-cor-0000000000000000",
+  "candidate_set_id": "pmk-cs-0000000000000000",
+  "candidates": [
+    "r/a",
+    "r/b"
+  ],
+  "certificate_id": "pmk-c-9d1c7b071948c833",
+  "detector": {
+    "id": "trivial",
+    "version": "1"
+  },
+  "does_not_show": [
+    "NO_WEIGHTS_CLAIM",
+    "NO_CAUSE_CLAIM",
+    "CLOSED_SET"
+  ],
+  "model_id": "pmk-m-0000000000000000",
+  "operating_point": {
+    "far": 0.01,
+    "threshold": -0.5
+  },
+  "punchmark_schema": "certificate/v1",
+  "rho_min": 0.3,
+  "rho_target": 1.0,
+  "route": "r/a",
+  "ruling_id": "pmk-r-2d1824e1da96bdbb",
+  "scope": "This certifies the route label as served within the named candidate set; it is not a statement about model weights.",
+  "spec_version": "0.1.0",
+  "task": "t",
+  "verdict": "SAME-PRODUCER",
+  "window": {
+    "end_utc": "2026-01-01T01:00:00+00:00",
+    "start_utc": "2026-01-01T00:00:00+00:00"
+  }
+}

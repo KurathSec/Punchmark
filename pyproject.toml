@@ -1,0 +1,106 @@
+[build-system]
+# hatchling >=1.27 for PEP 639 (SPDX license = "MIT" string).
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "punchmark"
+dynamic = ["version"]
+description = "Point it at the response archive a benchmark number was computed on and get a producer-identity verdict -- SAME-PRODUCER / SUBSTITUTED / UNDETERMINED at a declared false-alarm rate -- with a one-line certificate attachable to the published score."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Yuxiang Ji" }]
+keywords = [
+    "evaluation",
+    "auditing",
+    "fingerprinting",
+    "model-substitution",
+    "reproducibility",
+    "hosted-models",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development :: Testing",
+    "Typing :: Typed",
+]
+
+# ZERO runtime dependencies. The detector is closed-form arithmetic over hashed
+# character n-grams; calibration is resampling over a cached score table. Nothing here
+# needs numpy, a solver, or a model client. tomllib/hashlib/gzip are stdlib; the 3.12
+# floor buys math.sumprod for the dot products that keep scoring numpy-free.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.10"]
+docs = ["mkdocs>=1.6", "mkdocs-material>=9"]
+
+[project.scripts]
+# The tool-gap record that motivated this project writes the invocation as three verbs,
+# fit / score / certify, over archive paths. Bare verbs are too generic to claim on PATH
+# and PyPI, so the verbs keep their recorded shape as subcommands and the script keeps
+# the project name: `punchmark fit ...`, `punchmark score ...`, `punchmark certify ...`.
+punchmark = "punchmark.cli:main"
+
+[project.urls]
+Repository = "https://github.com/KurathSec/Punchmark"
+Issues = "https://github.com/KurathSec/Punchmark/issues"
+Changelog = "https://github.com/KurathSec/Punchmark/blob/main/CHANGELOG.md"
+
+[tool.hatch.version]
+path = "src/punchmark/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/punchmark"]
+# NOTICE states the two-directional claim boundary against the benchmark corpus the
+# calibration was fitted on. It must ride in the wheel, not only the sdist: the one
+# artifact most people install carries the sentence saying what a ruling does and does
+# not claim.
+force-include = { "NOTICE" = "punchmark/NOTICE" }
+
+[tool.hatch.build.targets.sdist]
+# Policy, asserted by .github/workflows/release.yml: these never ship.
+exclude = [
+    "/paper",
+    "/.github",
+    "/CLAUDE.md",
+    "/site",
+    "/scratch",
+    "/calibration",
+    "/validation",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "TID253"]
+ignore = ["E501"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+# ARCHITECTURE.md section 2: punchmark reads archives as FILES and never imports the
+# benchmark checkout that produced them -- there is no adapter and no sanctioned import
+# site, which is stricter than the sibling tools. Spaghetti Architect's top-level
+# packages install as `src`, `bench` and `eval`; all three are banned everywhere. The
+# numeric stack is banned pre-emptively -- nothing here imports it -- so that reaching
+# for it later trips the gate instead of widening it (zero-runtime-deps policy).
+banned-module-level-imports = ["src", "bench", "eval", "numpy", "scipy", "sklearn", "pandas"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/test_layering.py" = ["TID253"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src/punchmark"]

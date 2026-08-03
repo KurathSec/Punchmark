@@ -1,0 +1,21 @@
+[[ruling]]
+id = "PMK-SDC-001"
+title = "The window is declared, never inferred"
+text = """The collection window is by-construction metadata the caller declares in a
+window/v1 sidecar. Punchmark never infers time from content, filenames or mtimes. Without
+a sidecar there is no (route, window) unit, so fit, score and certify refuse -- and the
+refusal message prints the exact JSON the caller must write."""
+
+[[ruling]]
+id = "PMK-SDC-002"
+title = "The sidecar must agree with the filename"
+text = """The sidecar's declared route must slug-match the archive filename and its task
+must equal the filename task. The filename is the oracle (PMK-ARC-001); a sidecar may
+resolve a slug to a route name but never contradict it. Disagreement is a refusal, not a
+warning."""
+
+[[ruling]]
+id = "PMK-SDC-003"
+title = "The sidecar binds to the bytes"
+text = """A sidecar pins the sha256 of the archive it describes and is refused against any
+other bytes, so window metadata cannot be quietly re-pointed at different data."""

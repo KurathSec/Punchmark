@@ -1,0 +1,22 @@
+# Local-only working areas. paper/ and scratch/ never ship and never commit; the sdist
+# excludes them a second time as a fence (pyproject [tool.hatch.build.targets.sdist]).
+/paper/
+/scratch/
+
+# Virtualenv and caches.
+/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Docs build output.
+/site/
+
+# Build artifacts.
+/dist/
+*.egg-info/
+
+# NOTE: CLAUDE.md is deliberately tracked (project instructions are part of the tree);
+# it is excluded from the sdist, not from git.

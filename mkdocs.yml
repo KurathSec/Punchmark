@@ -1,0 +1,40 @@
+site_name: punchmark
+site_description: >-
+  A retrospective producer identifier for hosted LLM routes: point it at the
+  response archive a benchmark number was computed on and get a SAME-PRODUCER /
+  SUBSTITUTED / UNDETERMINED ruling at a declared false-alarm rate, with a
+  one-line certificate attachable to the published score.
+repo_url: https://github.com/KurathSec/Punchmark
+repo_name: KurathSec/Punchmark
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - Archives: archives.md
+  - Certificates: certificates.md
+  - Honesty: honesty.md
+  - Validation: validation.md
+  - Spec rulings: spec/rulings.md
+  - Contributing: contributing.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - tables

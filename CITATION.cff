@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use punchmark, please cite it as below."
+title: "punchmark: a retrospective producer identifier for hosted LLM routes"
+type: software
+authors:
+  - family-names: "Ji"
+    given-names: "Yuxiang"
+repository-code: "https://github.com/KurathSec/Punchmark"
+license: MIT
+keywords:
+  - evaluation
+  - auditing
+  - fingerprinting
+  - model-substitution
+  - reproducibility

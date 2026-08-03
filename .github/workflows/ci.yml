@@ -1,0 +1,81 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: |
+          python -m pip install -c constraints/ci.txt pytest ruff mypy
+          python -m pip install -e .
+      - name: Tests
+        run: pytest -q
+      - name: Lint
+        run: ruff check src/ tests/
+      - name: Types (hard gate)
+        run: mypy
+
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          python -m pip install -c constraints/ci.txt pytest
+          python -m pip install -e .
+      - name: Mechanical gates
+        run: |
+          pytest -q tests/test_layering.py tests/test_spec.py \
+                    tests/test_operating_point_drift.py
+      - name: Calibration drift (once goldens are committed)
+        run: |
+          if [ -d calibration/spaghetti/goldens ]; then
+            python tools/update_calibration.py --check
+          else
+            echo "no committed goldens yet; the drift tool arms with the calibration commit"
+          fi
+      - name: Generated docs are current
+        run: python tools/render_rulings.py --check
+
+  offline:
+    # The whole roundtrip must work with no network: punchmark makes no calls at
+    # runtime, and this job proves it (unshare drops the network namespace; if
+    # unshare is unavailable in the runner, the job refuses rather than skips).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: python -m pip install -e .
+      - name: Offline synth -> fit -> score -> certify -> gate
+        run: |
+          unshare -rn true || { echo "unshare unavailable; cannot prove offline"; exit 1; }
+          unshare -rn bash -e -c '
+            punchmark synth --out /tmp/demo --routes 3 --clusters 10 --k 2 --separation 0.6 --seed 1
+            punchmark fit /tmp/demo/synthtask__*.jsonl.gz \
+              --candidates synth/route-a,synth/route-b,synth/route-c \
+              --out /tmp/model.json --m-grid 25,50 --n-null 150 --n-splice 40 --min-clusters 4
+            punchmark score /tmp/demo/synthtask__synth-route-a.jsonl.gz \
+              --model /tmp/model.json --rulings /tmp/r.jsonl
+            RID=$(python -c "import json;print(json.loads(open(\"/tmp/r.jsonl\").readline())[\"ruling_id\"])")
+            punchmark certify --ruling "$RID" --rulings /tmp/r.jsonl
+            punchmark gate /tmp/model.json --baseline /tmp/b.json --write-baseline
+            punchmark gate /tmp/model.json --baseline /tmp/b.json --require-chain-valid --rulings /tmp/r.jsonl
+          '

@@ -1,0 +1,15 @@
+[[ruling]]
+id = "PMK-DET-001"
+title = "The detector seam"
+text = """A detector implements DetectorModel/FittedModel over ResponseSets: it never
+opens a file, never imports a reader, emits per-row per-candidate scores with a shared
+orientation (higher = closer to that candidate), and serializes to plain data that
+round-trips exactly. Every tunable choice inside a detector is itself a numbered ruling."""
+
+[[ruling]]
+id = "PMK-DET-002"
+title = "The trivial reference detector"
+text = """The scaffold ships 'trivial': per-(route, task) character-unigram centroids
+scored by negative L1 distance, deliberately tuning-free, so calibration, power, rulings,
+certificates and the gate are exercised end-to-end against planted truth before any real
+detector exists. It is a reference implementation, never a recommendation."""

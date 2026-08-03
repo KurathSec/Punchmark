@@ -1,0 +1,37 @@
+[[ruling]]
+id = "PMK-CAL-001"
+title = "The resampling cluster is the base sample"
+text = """Items are not independent: a sample's variants, profiles and languages share
+program content. The cluster unit for every subsample, split and splice is the base
+sample name; clusters move whole. Certificates report cluster counts beside item counts,
+because the effective sample size is bounded by clusters, not rows."""
+
+[[ruling]]
+id = "PMK-CAL-002"
+title = "The null is cross-fitted"
+text = """The null distribution of the set statistic T is built only from out-of-fold
+scores: clusters of each training archive are split into two folds, each fold is scored
+by the model fitted on the other. An in-sample null is optimistic, sets the threshold too
+tight, and silently overshoots the declared false-alarm rate on held-out data. The
+shipped model is fitted on everything; its thresholds come from the cross-fitted null and
+are therefore slightly conservative, which is declared rather than corrected."""
+
+[[ruling]]
+id = "PMK-CAL-003"
+title = "Null material is same-route, same-window"
+text = """The false-alarm rate is calibrated exclusively on subsets and split-halves of
+single archives: one route, one collection window. Same-route comparisons across windows
+(e.g. a dev archive against a test archive of the same route) are a labeled cross-window
+diagnostic with no verdict semantics, never null material. The residual exposure -- a
+substitution DURING the calibration window would be baked into the null -- cannot be
+closed retrospectively and is carried verbatim into every write-up."""
+
+[[ruling]]
+id = "PMK-CAL-004"
+title = "Thresholds are conservative empirical quantiles"
+text = """The threshold at declared false-alarm rate far is the conservative empirical
+far-quantile of the null draws (flagging at T < t keeps the empirical flag rate <= far).
+At scoring time the operating point for an archive of n items is the calibrated point
+with the largest m not exceeding n -- a smaller m has a wider null, which widens rather
+than narrows the flag region's distance from the null. An archive below the smallest
+calibrated m gets UNDETERMINED, never an extrapolated threshold."""

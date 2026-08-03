@@ -1,0 +1,45 @@
+name: "punchmark gate"
+description: >-
+  Fail CI when a punchmark fitted model's calibrated operating point moved without a
+  declared detector-version or spec-MAJOR bump. Consumes serialized artifacts only;
+  makes no statement about model weights or model quality.
+branding:
+  icon: "shield"
+  color: "gray-dark"
+inputs:
+  model:
+    description: "Path to the .pmk-model.json fitted-model file to gate"
+    required: true
+  baseline:
+    description: "Path to the committed gate-baseline/v1 operating_point.json"
+    required: true
+  rulings:
+    description: "Optional ruling store to chain-verify"
+    required: false
+    default: ""
+  version:
+    description: "punchmark version to install from PyPI; empty installs from the action checkout"
+    required: false
+    default: ""
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v7
+      with:
+        python-version: "3.12"
+    - name: Install punchmark
+      shell: bash
+      run: |
+        if [ -n "${{ inputs.version }}" ]; then
+          pip install "punchmark==${{ inputs.version }}"
+        else
+          pip install "${{ github.action_path }}"
+        fi
+    - name: Run punchmark gate
+      shell: bash
+      run: |
+        ARGS=""
+        if [ -n "${{ inputs.rulings }}" ]; then
+          ARGS="--require-chain-valid --rulings ${{ inputs.rulings }}"
+        fi
+        punchmark gate "${{ inputs.model }}" --baseline "${{ inputs.baseline }}" $ARGS

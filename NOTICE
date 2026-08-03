@@ -1,0 +1,22 @@
+punchmark -- claim boundary and provenance notice
+
+Scope of every punchmark verdict. A ruling or certificate produced by this tool is a
+statement about the producer identity of a response archive: whether the responses are
+consistent, at a declared false-alarm rate, with the route label they were collected
+under, relative to a closed candidate set. It is never a statement about model weights,
+about what changed when a verdict fires, or about the quality or capability of any model.
+
+Boundary with the benchmark that supplies the reference calibration corpus. The reference
+calibration is defined over the committed response archives of the Spaghetti Architect
+benchmark (https://github.com/KurathSec/Spaghetti-Architect), pinned by commit and hash in
+calibration/spaghetti/MANIFEST.json. That benchmark owns its generator, its difficulty and
+quality labels, its contamination protocol, and every accuracy or capability result
+computed from those archives. punchmark reads the archives as labelled specimens and owns
+only the producer-identification detector, its calibrated operating point, its rulings and
+certificates, and its power statements. Nothing in punchmark restates a benchmark result
+as a finding, and no punchmark calibration is evidence that any benchmark's baselines were
+served by stable or verified configurations.
+
+No completion text from that benchmark's archives is redistributed in this package or its
+repository; the corpus manifest pins hashes, and rebuilding requires the user's own
+checkout of the upstream repository.

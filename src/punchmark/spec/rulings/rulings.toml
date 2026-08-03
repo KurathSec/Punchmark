@@ -1,0 +1,36 @@
+[[ruling]]
+id = "PMK-RUL-001"
+title = "Three-zone verdicts; UNDETERMINED is first-class"
+text = """A ruling is SAME-PRODUCER, SUBSTITUTED or UNDETERMINED. SAME-PRODUCER means
+exactly: a substitution of fraction >= rho_target by any candidate in the set would have
+been flagged with the calibrated power, and none was. It is never 'the model did not
+change'. UNDETERMINED is a verdict in its own right -- the archive was too small, too
+clustered, too stubbed, below the calibrated floor, or below the power needed for the
+caller's rho_target -- and is never rounded into either other verdict."""
+
+[[ruling]]
+id = "PMK-RUL-002"
+title = "Refusal conditions are enumerated and mandatory"
+text = """A ruling must come out UNDETERMINED when: usable items are below the m floor;
+clusters are below the c floor; the stub share exceeds its cap; no operating point is
+calibrated at the requested false-alarm rate for the archive's size; the power table
+cannot support the caller's rho_target. A ruling must be refused outright (no verdict)
+when: the archive has no window sidecar; the declared route is outside the candidate set;
+the task was not calibrated. Absence of an alarm is never reported without the power that
+an alarm would have required."""
+
+[[ruling]]
+id = "PMK-RUL-003"
+title = "The store is append-only; rulings are superseded, never edited"
+text = """Ruling lines are appended to a JSONL store and never modified. Every line's id
+is a content hash re-verified on every read; a supersedes field names an earlier ruling
+in the same store. An edited line is tamper, detected and refused. Changing one's mind is
+a new ruling that supersedes the old one, with both remaining readable."""
+
+[[ruling]]
+id = "PMK-RUL-004"
+title = "A ruling id pins the contractual four"
+text = """The ruling id hashes a body that includes the detector id and version, the
+candidate set id, the operating point (far and threshold), and the calibration corpus
+hash -- plus the archive hash, window, spec version and verdict. Identical inputs
+reproduce identical ids; any change to what a verdict rests on changes the id."""

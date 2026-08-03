@@ -1,0 +1,6 @@
+# Pinned CI toolchain: an unpinned ruff/mypy bump must not turn a green tree red.
+# Pinned to the versions the tree is actually clean under (house rule shared with the
+# sibling tools).
+pytest==9.1.1
+ruff==0.16.0
+mypy==2.3.0

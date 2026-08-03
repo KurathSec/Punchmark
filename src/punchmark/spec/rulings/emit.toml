@@ -1,0 +1,22 @@
+[[ruling]]
+id = "PMK-EMIT-001"
+title = "Committed artifacts are byte-stable"
+text = """Every committed artifact (fitted-model file, ruling line, certificate, manifest,
+golden) is serialized through canonical.py: floats rounded half-even to 6 places with -0.0
+normalized, non-finite floats refused, sorted keys, 2-space indent, ASCII, trailing newline,
+gzip with mtime=0 and no embedded filename. Regeneration from identical inputs must be
+byte-identical; the drift gate compares bytes, not meanings."""
+
+[[ruling]]
+id = "PMK-EMIT-002"
+title = "Documents carry their own content address"
+text = """Ids of model files, rulings, certificates and manifests are content addresses:
+<prefix>-<first 16 hex of sha256> over the canonical single-line bytes with the id field
+removed. A document that fails its own hash was edited after it was written and is refused."""
+
+[[ruling]]
+id = "PMK-EMIT-003"
+title = "Every seed is derived, never sampled"
+text = """No stochastic procedure seeds itself from the clock or from process state. Every
+seed derives from labelled parts (procedure name, scope, index, the caller's seed) through
+sha256, so identical invocations replay identical resamples on any machine."""

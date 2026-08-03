@@ -1,0 +1,13 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  # The pip pins in constraints/ are the CI/build/docs toolchain, not runtime
+  # dependencies (there are none). A bump arrives as a PR and must clear the same
+  # gates as any change; it is never merged by a bot.
+  - package-ecosystem: pip
+    directory: /constraints
+    schedule:
+      interval: weekly

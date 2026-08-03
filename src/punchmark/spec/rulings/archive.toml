@@ -1,0 +1,32 @@
+[[ruling]]
+id = "PMK-ARC-001"
+title = "The filename is the producer label"
+text = """An archive's route identity comes from its filename slug, fixed by the
+experimenter at collection time, and never from row content. A slug resolves to a route
+only through the candidate set's own declared slugs (a slug alone cannot say which dash
+was a '/'). Nothing anywhere in punchmark derives identity from completion text except
+the detector under test, whose output is scored against this label."""
+
+[[ruling]]
+id = "PMK-ARC-002"
+title = "Error stubs are counted, surfaced, never featurized"
+text = """A row carrying exactly {sample, profile, language} and no raw_outputs is an API
+error stub: the collection failed for that item and the stub occupies its slot with zero
+draws. Stubs are counted per archive, reported in every ruling (n_stub_rows), capped by
+policy (a stub share above the cap forces UNDETERMINED), and never reach feature
+extraction. There are no partial rows: any other unknown shape is a typed refusal."""
+
+[[ruling]]
+id = "PMK-ARC-003"
+title = "Two row schemas, tier optional"
+text = """The native corpus ships rows with and without the tier key (the ladder archives
+carry none). Readers accept both schemas; tier is metadata for stratified reporting only
+and never a feature. Ragged draw counts are tolerated and counted, never padded."""
+
+[[ruling]]
+id = "PMK-ARC-004"
+title = "Text only, by construction"
+text = """The row type carries completion strings and identity fields; there is no place
+to put logprobs, headers, timing or finish reasons, so a detector that degrades when a
+provider withdraws a side channel cannot be built here by accident. The instrument is
+defined on the intersection of what archives reliably carry: response text."""

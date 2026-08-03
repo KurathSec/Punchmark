@@ -1,0 +1,51 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Version gates
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG=$(python -c "exec(open('src/punchmark/_version.py').read()); print(__version__)")
+          test "$TAG" = "$PKG" || { echo "tag $TAG != _version.py $PKG"; exit 1; }
+          grep -q "^## \[\?$TAG" CHANGELOG.md || grep -q "^## $TAG" CHANGELOG.md \
+            || { echo "CHANGELOG.md has no heading for $TAG"; exit 1; }
+      - name: Build
+        run: |
+          python -m pip install -c constraints/build.txt build
+          python -m build
+      - name: Sdist policy -- these never ship
+        run: |
+          TARBALL=$(ls dist/*.tar.gz)
+          for BAD in .github/ CLAUDE.md site/ scratch/ paper/ calibration/ validation/; do
+            if tar -tzf "$TARBALL" | grep -q "/$BAD"; then
+              echo "sdist contains forbidden path: $BAD"; exit 1
+            fi
+          done
+      - name: Wheel smoke -- offline roundtrip from the built artifact
+        run: |
+          python -m venv /tmp/smokevenv
+          /tmp/smokevenv/bin/pip install dist/*.whl
+          /tmp/smokevenv/bin/punchmark env
+          /tmp/smokevenv/bin/punchmark spec list > /dev/null
+          /tmp/smokevenv/bin/punchmark synth --out /tmp/sm --routes 2 --clusters 8 --k 2 --separation 0.7 --seed 2
+          /tmp/smokevenv/bin/punchmark fit /tmp/sm/synthtask__*.jsonl.gz \
+            --candidates synth/route-a,synth/route-b \
+            --out /tmp/sm/model.json --m-grid 20 --n-null 100 --n-splice 30 --min-clusters 3
+          /tmp/smokevenv/bin/punchmark score /tmp/sm/synthtask__synth-route-a.jsonl.gz \
+            --model /tmp/sm/model.json --rulings /tmp/sm/r.jsonl
+          /tmp/smokevenv/bin/punchmark gate /tmp/sm/model.json --baseline /tmp/sm/b.json --write-baseline
+          /tmp/smokevenv/bin/punchmark gate /tmp/sm/model.json --baseline /tmp/sm/b.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
