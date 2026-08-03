@@ -20,3 +20,6 @@ __pycache__/
 
 # NOTE: CLAUDE.md is deliberately tracked (project instructions are part of the tree);
 # it is excluded from the sdist, not from git.
+
+# Angle C purchased archives are local-only; never committed (PMK-COR-002).
+/validation/angle_c/archives/
