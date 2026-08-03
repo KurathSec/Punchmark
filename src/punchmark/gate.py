@@ -44,12 +44,13 @@ def baseline_body(doc: ModelDoc) -> dict[str, Any]:
         "operating_points": [
             {
                 "task": p.task,
+                "route": p.route,
                 "far": fmt_float(p.far),
                 "m": p.m,
                 "threshold": fmt_float(p.threshold),
             }
             for p in sorted(
-                doc.operating_points, key=lambda p: (p.task, p.far, p.m)
+                doc.operating_points, key=lambda p: (p.task, p.route, p.far, p.m)
             )
         ],
     }
@@ -84,11 +85,11 @@ def evaluate(doc: ModelDoc, baseline: dict[str, Any], spec_version: str) -> Gate
     )
 
     base_points = {
-        (p["task"], p["far"], p["m"]): p["threshold"]
+        (p["task"], p.get("route", "*"), p["far"], p["m"]): p["threshold"]
         for p in baseline["operating_points"]
     }
     cur_points = {
-        (p["task"], p["far"], p["m"]): p["threshold"]
+        (p["task"], p["route"], p["far"], p["m"]): p["threshold"]
         for p in current["operating_points"]
     }
     if not cur_points:

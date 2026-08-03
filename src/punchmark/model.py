@@ -132,9 +132,12 @@ class OperatingPoint:
     """A calibrated decision threshold: the deliverable, not a detail. ``far`` is
     the declared false-substitution-alarm rate; ``threshold`` is the empirical
     far-quantile of the same-route within-window null of the set statistic T at set
-    size ``m`` (PMK-CAL-004)."""
+    size ``m``, for one DECLARED route (PMK-CAL-004, PMK-CAL-006): pooling nulls
+    across routes would let one inseparable pair's noise widen every route's
+    threshold and silently spend power that the separated pairs actually have."""
 
     task: str
+    route: str
     far: float
     m: int
     threshold: float
@@ -227,6 +230,7 @@ class Ruling:
     n_stub_rows: int
     rho_target: float
     rho_min: float | None
+    scored_as: str | None = None
     reasons: tuple[str, ...] = field(default_factory=tuple)
     supersedes: str | None = None
     does_not_show: tuple[str, ...] = ("NO_WEIGHTS_CLAIM", "NO_CAUSE_CLAIM", "CLOSED_SET")

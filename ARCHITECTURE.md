@@ -92,7 +92,7 @@ serialization, gzip is written with mtime=0, and every random stream is seeded b
 
 - Cluster unit = base sample name; clusters move whole in every subsample, split and
   splice (PMK-CAL-001).
-- The null is cross-fitted 2-fold by cluster (PMK-CAL-002); the shipped model is fitted
+- The null is cross-fitted 2-fold by cluster (PMK-CAL-005); the shipped model is fitted
   on everything and its thresholds are therefore slightly conservative, declared.
 - Null material is same-route, same-window only (PMK-CAL-003); cross-window comparisons
   are diagnostics with no verdict semantics.

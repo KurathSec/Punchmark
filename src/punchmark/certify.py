@@ -22,6 +22,12 @@ _SCOPE_SENTENCE = (
 )
 
 
+def _task_text(body: dict[str, Any]) -> str:
+    scored_as = body.get("scored_as")
+    task = body["task"]
+    return f"task {task}, scored as {scored_as}" if scored_as else f"task {task}"
+
+
 def _window_text(body: dict[str, Any]) -> str:
     window = body.get("window")
     if not window:
@@ -67,6 +73,7 @@ def certificate_from_ruling(body: dict[str, Any]) -> Certificate:
         "verdict": verdict.value,
         "route": route,
         "task": task,
+        "scored_as": body.get("scored_as"),
         "window": body.get("window"),
         "operating_point": body["operating_point"],
         "candidate_set_id": body["candidate_set_id"],
@@ -85,7 +92,7 @@ def certificate_from_ruling(body: dict[str, Any]) -> Certificate:
 
     line = (
         f"punchmark certificate {cert_id}: producer identity of route {route} "
-        f"(task {task}, {_window_text(body)}) {clause} against candidate set "
+        f"({_task_text(body)}, {_window_text(body)}) {clause} against candidate set "
         f"{body['candidate_set_id']} ({n_routes} routes). {_SCOPE_SENTENCE} "
         f"[detector {body['detector']['id']} v{body['detector']['version']}; "
         f"model {body['model_id']}; ruling {ruling_id}]"

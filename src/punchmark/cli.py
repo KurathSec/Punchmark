@@ -36,6 +36,16 @@ from .synth import SynthSpec, default_routes, generate
 _ADHOC_CHECKOUT = {"repo": "ad-hoc", "commit": "unpinned"}
 
 
+def _model_path(arg: str) -> Path:
+    """Resolve --model: a path, or the literal 'default' for the shipped reference
+    model (fitted on the reference corpus's fit-role archives; PMK-COR-002)."""
+    if arg == "default":
+        from importlib import resources
+
+        return Path(str(resources.files("punchmark").joinpath("models/default.pmk.json")))
+    return Path(arg)
+
+
 def _read_windowed(
     path: Path, candidates: CandidateSet | None, sidecar_dir: str | None = None
 ) -> ResponseSet:
@@ -139,7 +149,7 @@ def _cmd_fit(args: argparse.Namespace) -> int:
 
 
 def _cmd_score(args: argparse.Namespace) -> int:
-    doc = read_model(Path(args.model))
+    doc = read_model(_model_path(args.model))
     rs = _read_windowed(Path(args.archive), doc.candidates, args.sidecars)
     policy = RulePolicy(
         far=args.far,
@@ -148,7 +158,7 @@ def _cmd_score(args: argparse.Namespace) -> int:
         c_floor=args.c_floor,
         stub_cap=args.stub_cap,
     )
-    ruling = rule(doc, rs, policy, spec_version())
+    ruling = rule(doc, rs, policy, spec_version(), scored_as=args.task_as)
     store = Path(args.rulings)
     append(store, ruling)
     print(f"{ruling.verdict.value}  route={ruling.route}  task={ruling.task}")
@@ -176,10 +186,10 @@ def _cmd_certify(args: argparse.Namespace) -> int:
                 file=sys.stderr,
             )
             return 2
-        doc = read_model(Path(args.model))
+        doc = read_model(_model_path(args.model))
         rs = _read_windowed(Path(args.archive), doc.candidates, args.sidecars)
         policy = RulePolicy(far=args.far, rho_target=args.rho_target)
-        ruling = rule(doc, rs, policy, spec_version())
+        ruling = rule(doc, rs, policy, spec_version(), scored_as=args.task_as)
         append(store, ruling)
         body = find(store, ruling.ruling_id)
     cert = certificate_from_ruling(body)
@@ -195,7 +205,7 @@ def _cmd_certify(args: argparse.Namespace) -> int:
 
 
 def _cmd_gate(args: argparse.Namespace) -> int:
-    doc = read_model(Path(args.model))
+    doc = read_model(_model_path(args.model))
     if args.write_baseline:
         from .canonical import canonical_json, write_text_deterministic
 
@@ -328,6 +338,11 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--stub-cap", type=float, default=0.05)
     p.add_argument("--rulings", default=str(DEFAULT_STORE))
     p.add_argument("--sidecars", help="directory holding <archive>.window.json sidecars")
+    p.add_argument(
+        "--task-as",
+        help="score this archive under a calibrated model task of the same family "
+        "(recorded in the ruling as scored_as; never inferred; PMK-RUL-005)",
+    )
     p.set_defaults(fn=_cmd_score)
 
     p = sub.add_parser("certify", help="emit the certificate for a ruling")
@@ -340,6 +355,11 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--out", help="write the certificate JSON here")
     p.add_argument("--json", action="store_true", help="print the certificate JSON to stdout")
     p.add_argument("--sidecars", help="directory holding <archive>.window.json sidecars")
+    p.add_argument(
+        "--task-as",
+        help="score this archive under a calibrated model task of the same family "
+        "(recorded in the ruling as scored_as; never inferred; PMK-RUL-005)",
+    )
     p.set_defaults(fn=_cmd_certify)
 
     p = sub.add_parser("gate", help="CI gate: fail when the operating point moved silently")

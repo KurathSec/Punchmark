@@ -35,8 +35,22 @@ def _finish(ruling: Ruling) -> Ruling:
     return replace(ruling, ruling_id=rid)
 
 
-def rule(doc: ModelDoc, rs: ResponseSet, policy: RulePolicy, spec_version: str) -> Ruling:
-    """Score one windowed archive against a fitted model and return its ruling."""
+def rule(
+    doc: ModelDoc,
+    rs: ResponseSet,
+    policy: RulePolicy,
+    spec_version: str,
+    scored_as: str | None = None,
+) -> Ruling:
+    """Score one windowed archive against a fitted model and return its ruling.
+
+    ``scored_as`` is the caller-declared task alias (PMK-RUL-005): an archive whose
+    filename task is a different split of a calibrated task family (e.g.
+    ``comprehend_test`` against the model task ``comprehend``) may be scored under
+    that model task, and the ruling records BOTH names. Nothing ever infers the
+    mapping.
+    """
+    effective_task = scored_as if scored_as is not None else rs.task
     if rs.window is None:
         raise SidecarError(
             f"{rs.source_name}: no collection window; a ruling is per-(route, window) "
@@ -48,9 +62,15 @@ def rule(doc: ModelDoc, rs: ResponseSet, policy: RulePolicy, spec_version: str) 
             f"{list(doc.candidates.routes)}; a closed-set verdict about an undeclared "
             "route would be meaningless"
         )
-    if rs.task not in doc.tasks:
+    if effective_task not in doc.tasks:
+        hint = (
+            "" if scored_as is not None else
+            "; if this archive is a different split of a calibrated task family, "
+            "declare the mapping with --task-as (recorded in the ruling, never inferred)"
+        )
         raise CalibrationError(
-            f"task {rs.task!r} was not calibrated in this model (tasks: {list(doc.tasks)})"
+            f"task {effective_task!r} was not calibrated in this model "
+            f"(tasks: {list(doc.tasks)}){hint}"
         )
 
     valid = rs.valid_rows
@@ -93,6 +113,7 @@ def rule(doc: ModelDoc, rs: ResponseSet, policy: RulePolicy, spec_version: str) 
                 n_stub_rows=rs.n_stub_rows,
                 rho_target=policy.rho_target,
                 rho_min=rho_min,
+                scored_as=scored_as if scored_as != rs.task else None,
                 reasons=reasons,
             )
         )
@@ -110,7 +131,7 @@ def rule(doc: ModelDoc, rs: ResponseSet, policy: RulePolicy, spec_version: str) 
         return base(Verdict.UNDETERMINED, None, {}, None, None, tuple(reasons))
 
     fitted = fitted_from_params(doc.detector_id, doc.candidates, doc.params, doc.view)
-    scored = fitted.score_rows(valid, rs.task)
+    scored = fitted.score_rows(valid, effective_task)
     rows = [
         ScoredRow(key=row.item_key, cluster=row.cluster, scores=s)
         for row, s in zip(valid, scored, strict=True)
@@ -120,10 +141,16 @@ def rule(doc: ModelDoc, rs: ResponseSet, policy: RulePolicy, spec_version: str) 
     }
     statistic = t_statistic(rows, rs.route, doc.candidates.routes)
 
-    op = lookup_threshold(doc.operating_points, rs.task, policy.far, n_items)
+    op = lookup_threshold(
+        doc.operating_points, effective_task, rs.route, policy.far, n_items
+    )
     if op is None:
         available = sorted(
-            {p.far for p in doc.operating_points if p.task == rs.task}
+            {
+                p.far
+                for p in doc.operating_points
+                if p.task == effective_task and p.route == rs.route
+            }
         )
         return base(
             Verdict.UNDETERMINED,
@@ -133,7 +160,7 @@ def rule(doc: ModelDoc, rs: ResponseSet, policy: RulePolicy, spec_version: str) 
             None,
             (
                 f"no_operating_point: nothing calibrated at far={policy.far} for "
-                f"task {rs.task!r} at m <= {n_items} (calibrated far grid: {available})",
+                f"task {effective_task!r} at m <= {n_items} (calibrated far grid: {available})",
             ),
         )
 
@@ -148,7 +175,10 @@ def rule(doc: ModelDoc, rs: ResponseSet, policy: RulePolicy, spec_version: str) 
     pairs = [
         p
         for p in doc.power
-        if p.task == rs.task and p.declared == rs.route and p.m == op.m and p.far == policy.far
+        if p.task == effective_task
+        and p.declared == rs.route
+        and p.m == op.m
+        and p.far == policy.far
     ]
     if not pairs:
         return base(
@@ -157,7 +187,7 @@ def rule(doc: ModelDoc, rs: ResponseSet, policy: RulePolicy, spec_version: str) 
             per_candidate,
             op.threshold,
             None,
-            (f"no_power_table: no power entries for (task={rs.task}, m={op.m})",),
+            (f"no_power_table: no power entries for (task={effective_task}, m={op.m})",),
         )
     unresolved = [
         p for p in pairs if p.rho_min is None or p.rho_min > policy.rho_target

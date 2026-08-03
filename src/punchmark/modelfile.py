@@ -63,6 +63,7 @@ def _body(doc: ModelDoc) -> dict[str, Any]:
         "operating_points": [
             {
                 "task": p.task,
+                "route": p.route,
                 "far": fmt_float(p.far),
                 "m": p.m,
                 "threshold": fmt_float(p.threshold),
@@ -157,6 +158,7 @@ def read_model(path: Path) -> ModelDoc:
             operating_points=tuple(
                 OperatingPoint(
                     task=str(p["task"]),
+                    route=str(p["route"]),
                     far=float(p["far"]),
                     m=int(p["m"]),
                     threshold=float(p["threshold"]),

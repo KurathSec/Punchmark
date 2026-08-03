@@ -18,6 +18,10 @@ from tests.conftest import CANDIDATES, TASK, read_windowed
 
 
 def _sidecar_for(path: Path, route: str) -> None:
+    _sidecar_for_task(path, route, TASK)
+
+
+def _sidecar_for_task(path: Path, route: str, task: str) -> None:
     import hashlib
 
     digest = "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
@@ -26,7 +30,7 @@ def _sidecar_for(path: Path, route: str) -> None:
         "archive": path.name,
         "archive_sha256": digest,
         "route": route,
-        "task": TASK,
+        "task": task,
         "window": {
             "start_utc": "2026-01-01T00:00:00+00:00",
             "end_utc": "2026-01-01T01:00:00+00:00",
@@ -136,3 +140,25 @@ def test_refusals_window_route_task(fitted_doc, synth_dir) -> None:
     )
     with pytest.raises(CalibrationError, match="not calibrated"):
         rule(fitted_doc, off_task, RulePolicy(), spec_version())
+
+
+def test_task_alias_is_declared_and_recorded(fitted_doc, synth_dir, tmp_path) -> None:
+    """PMK-RUL-005: a different-split filename task scores under a declared model
+    task; the ruling records both; without the declaration it refuses with a hint."""
+    src = synth_dir / f"{TASK}__synth-route-a.jsonl.gz"
+    dst = tmp_path / f"{TASK}_test__synth-route-a.jsonl.gz"
+    shutil.copyfile(src, dst)
+    _sidecar_for_task(dst, "synth/route-a", f"{TASK}_test")
+    rs = read_windowed(dst)
+    with pytest.raises(CalibrationError, match="--task-as"):
+        rule(fitted_doc, rs, RulePolicy(far=0.01), spec_version())
+    ruling = rule(fitted_doc, rs, RulePolicy(far=0.01), spec_version(), scored_as=TASK)
+    assert ruling.verdict is Verdict.SAME_PRODUCER
+    assert ruling.task == f"{TASK}_test"
+    assert ruling.scored_as == TASK
+
+    from punchmark.certify import certificate_from_ruling
+    from punchmark.rulings import ruling_body
+
+    cert = certificate_from_ruling(ruling_body(ruling))
+    assert f"task {TASK}_test, scored as {TASK}" in cert.line

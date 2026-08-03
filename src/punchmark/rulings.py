@@ -27,6 +27,7 @@ def ruling_body(r: Ruling) -> dict[str, Any]:
         "verdict": r.verdict.value,
         "route": r.route,
         "task": r.task,
+        "scored_as": r.scored_as,
         "window": None if r.window is None else r.window.as_dict(),
         "archive_sha256": r.archive_sha256,
         "model_id": r.model_id,

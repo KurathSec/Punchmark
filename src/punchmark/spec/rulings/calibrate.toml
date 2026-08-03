@@ -8,13 +8,14 @@ because the effective sample size is bounded by clusters, not rows."""
 
 [[ruling]]
 id = "PMK-CAL-002"
-title = "The null is cross-fitted"
-text = """The null distribution of the set statistic T is built only from out-of-fold
-scores: clusters of each training archive are split into two folds, each fold is scored
-by the model fitted on the other. An in-sample null is optimistic, sets the threshold too
-tight, and silently overshoots the declared false-alarm rate on held-out data. The
-shipped model is fitted on everything; its thresholds come from the cross-fitted null and
-are therefore slightly conservative, which is declared rather than corrected."""
+title = "The null is cross-fitted (superseded by PMK-CAL-005)"
+status = "superseded"
+text = """Superseded: this ruling drew the 2-fold cluster split independently PER ARCHIVE.
+Item content is shared across routes by construction, so per-archive folds let route A's
+held-out cluster leak into the training half through route B's near-identical responses
+to the same items, inflating the null's left tail until true substitutions fell inside
+it. PMK-CAL-005 keeps the cross-fitting principle with one fold map shared across
+archives."""
 
 [[ruling]]
 id = "PMK-CAL-003"
@@ -35,3 +36,27 @@ At scoring time the operating point for an archive of n items is the calibrated 
 with the largest m not exceeding n -- a smaller m has a wider null, which widens rather
 than narrows the flag region's distance from the null. An archive below the smallest
 calibrated m gets UNDETERMINED, never an extrapolated threshold."""
+
+[[ruling]]
+id = "PMK-CAL-005"
+title = "The null is cross-fitted with one shared fold map"
+text = """The null distribution of the set statistic T is built only from out-of-fold
+scores: cluster names are split into two folds by ONE global assignment shared across
+every training archive (item content is shared across routes by construction, so cluster
+X must sit in the same fold for every route -- per-archive folds leak held-out content
+through the other routes' responses to the same items and corrupt the null; that failure
+was observed, not hypothesized, and is why this ruling supersedes PMK-CAL-002). Each fold
+is scored by the model fitted on the other. An in-sample null is optimistic and silently
+overshoots the declared false-alarm rate on held-out data. The shipped model is fitted on
+everything; its thresholds come from the cross-fitted null and are therefore slightly
+conservative, which is declared rather than corrected."""
+
+[[ruling]]
+id = "PMK-CAL-006"
+title = "Thresholds are per declared route"
+text = """The null that fixes a threshold is built from the DECLARED route's own
+same-window archives only; nulls are never pooled across routes. Pooling would let one
+near-inseparable candidate pair's noise (observed: two routes whose task answers are
+byte-identical on most items) widen every route's threshold and silently spend power the
+separated pairs actually have. An operating point is therefore a (task, route, far, m)
+cell, and a ruling's threshold always came from the null of the route it rules on."""

@@ -1,0 +1,125 @@
+{
+  "checkout": {
+    "commit": "826f4cbf8f4d4c7e2d8473374694360c43fbb820",
+    "repo": "https://github.com/KurathSec/Spaghetti-Architect"
+  },
+  "files": [],
+  "manifest_id": "pmk-cor-32596a35e0452817",
+  "mode": "manifest",
+  "note": "Reference corpus for the four-route candidate set. Mode 'manifest' per PMK-COR-002: no completion text is re-published here; rebuild verifies a local checkout byte-for-byte. role=fit archives (public dev split) are the only inputs to the shipped calibration; role=heldout archives are reserved for the validation study and never touch a threshold.",
+  "punchmark_schema": "corpus/v1",
+  "sources": [
+    {
+      "path": "bench/out/ladder/comprehend__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+      "role": "fit",
+      "rows": 1500,
+      "sha256": "sha256:4b83c93f11c44e3d3e6092bc6c01255d7d2e4de574a97f7332e4bc09c798becb",
+      "stub_records_skipped": 0
+    },
+    {
+      "path": "bench/out/ladder/comprehend__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+      "role": "fit",
+      "rows": 1500,
+      "sha256": "sha256:5e58f6041873afb9627e5750d7b765144cbbfc358048b5ab99a9e3c6b6b75c8b",
+      "stub_records_skipped": 0
+    },
+    {
+      "path": "bench/out/ladder/comprehend__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+      "role": "fit",
+      "rows": 1500,
+      "sha256": "sha256:b271d56c5f5914da2e0b371983d12e7c04e8f77637068386a7845210c3fe0a82",
+      "stub_records_skipped": 0
+    },
+    {
+      "path": "bench/out/ladder/comprehend__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+      "role": "fit",
+      "rows": 1500,
+      "sha256": "sha256:8f8c8710964aaeed0fda9f8af1bb5871ecbbe8d9f64fbb3918fba4a54b2458c2",
+      "stub_records_skipped": 0
+    },
+    {
+      "path": "bench/out/g3/refactor_dev__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+      "role": "fit",
+      "rows": 1500,
+      "sha256": "sha256:205f426c5f8f2b3b4dbb5528ca27a4c93f2d7035bf2b7c706fa02fdc67a143a3",
+      "stub_records_skipped": 0
+    },
+    {
+      "path": "bench/out/g3/refactor_dev__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+      "role": "fit",
+      "rows": 1500,
+      "sha256": "sha256:cf010b7b9597e1924a71863ee1646753017632d205cfe9a4ce8547848bdf4cd4",
+      "stub_records_skipped": 0
+    },
+    {
+      "path": "bench/out/g3/refactor_dev__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+      "role": "fit",
+      "rows": 1500,
+      "sha256": "sha256:93563d7b2e2b6665e6fd1d4edc7b36ea291718a94306a5fcea1c3969e9bbba01",
+      "stub_records_skipped": 0
+    },
+    {
+      "path": "bench/out/g3/refactor_dev__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+      "role": "fit",
+      "rows": 1500,
+      "sha256": "sha256:9ee5ec9d7161888e2e29c07aab9fbbeeaeedc60a3a3d758dd337ea5f13eb3da5",
+      "stub_records_skipped": 0
+    },
+    {
+      "path": "bench/out/g3/comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+      "role": "heldout",
+      "rows": 1860,
+      "sha256": "sha256:996e23732ae03024d9aa075221d07c0df45da586b0032bc5e507f7b2441b9896",
+      "stub_records_skipped": 0
+    },
+    {
+      "path": "bench/out/g3/comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+      "role": "heldout",
+      "rows": 1860,
+      "sha256": "sha256:b0dc1479488da0f6382e23fa17dfba558eb9a631c45493291492006844086f52",
+      "stub_records_skipped": 1
+    },
+    {
+      "path": "bench/out/g3/comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+      "role": "heldout",
+      "rows": 1860,
+      "sha256": "sha256:b244a8b2425b9375c8207c1d53758fae07ad051060f6c73c80d9461c837930c2",
+      "stub_records_skipped": 0
+    },
+    {
+      "path": "bench/out/g3/comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+      "role": "heldout",
+      "rows": 1860,
+      "sha256": "sha256:fc73c8d55fd989a8828647f03d6b4306981ed6e4f03f9e0352670fff08a55597",
+      "stub_records_skipped": 13
+    },
+    {
+      "path": "bench/out/g3/refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+      "role": "heldout",
+      "rows": 1860,
+      "sha256": "sha256:7b3076f49b0cabeb34f97475de6624467425fbb02325a18f63a9e968aebb100b",
+      "stub_records_skipped": 1
+    },
+    {
+      "path": "bench/out/g3/refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+      "role": "heldout",
+      "rows": 1860,
+      "sha256": "sha256:f5a85b0cc49206cb45ff2678c1f42267041caa469dc69a1d2b183b5ba6fbbe0a",
+      "stub_records_skipped": 3
+    },
+    {
+      "path": "bench/out/g3/refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+      "role": "heldout",
+      "rows": 1860,
+      "sha256": "sha256:a38a9705337ea967de6a48ecbbfc13254382c60ba9a003479e14f8e55007c6df",
+      "stub_records_skipped": 2
+    },
+    {
+      "path": "bench/out/g3/refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+      "role": "heldout",
+      "rows": 1860,
+      "sha256": "sha256:8cb753c10d6da8958fc017e7d50f4bc742f7b1b5d976349a1015bb356f97961c",
+      "stub_records_skipped": 3
+    }
+  ]
+}

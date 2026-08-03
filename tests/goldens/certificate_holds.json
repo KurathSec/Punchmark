@@ -5,7 +5,7 @@
     "r/a",
     "r/b"
   ],
-  "certificate_id": "pmk-c-9d1c7b071948c833",
+  "certificate_id": "pmk-c-1ea41b9589d1b8a8",
   "detector": {
     "id": "trivial",
     "version": "1"
@@ -24,8 +24,9 @@
   "rho_min": 0.3,
   "rho_target": 1.0,
   "route": "r/a",
-  "ruling_id": "pmk-r-2d1824e1da96bdbb",
+  "ruling_id": "pmk-r-e61b748b67c918bf",
   "scope": "This certifies the route label as served within the named candidate set; it is not a statement about model weights.",
+  "scored_as": null,
   "spec_version": "0.1.0",
   "task": "t",
   "verdict": "SAME-PRODUCER",

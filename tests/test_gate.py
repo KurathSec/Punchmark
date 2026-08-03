@@ -31,6 +31,7 @@ def _moved(doc):
     points = list(doc.operating_points)
     points[0] = OperatingPoint(
         task=points[0].task,
+        route=points[0].route,
         far=points[0].far,
         m=points[0].m,
         threshold=points[0].threshold - 1.0,

@@ -102,7 +102,9 @@ def test_nulls_and_operating_points_keep_the_far_promise(train_sets) -> None:
     for null in nulls:
         for far in CAL_CONFIG.far_grid:
             point = next(
-                p for p in points if (p.task, p.m, p.far) == (null.task, null.m, far)
+                p
+                for p in points
+                if (p.task, p.route, p.m, p.far) == (null.task, null.route, null.m, far)
             )
             empirical = sum(1 for d in null.draws if d < point.threshold) / len(null.draws)
             assert empirical <= far, (
@@ -123,10 +125,11 @@ def test_null_needs_enough_clusters() -> None:
 
 def test_lookup_threshold_is_conservative_and_refuses_below_floor() -> None:
     points = [
-        OperatingPoint(task="t", far=0.01, m=25, threshold=-1.0, n_null=100),
-        OperatingPoint(task="t", far=0.01, m=50, threshold=-0.5, n_null=100),
+        OperatingPoint(task="t", route="r/a", far=0.01, m=25, threshold=-1.0, n_null=100),
+        OperatingPoint(task="t", route="r/a", far=0.01, m=50, threshold=-0.5, n_null=100),
     ]
-    assert lookup_threshold(points, "t", 0.01, 60).m == 50
-    assert lookup_threshold(points, "t", 0.01, 49).m == 25
-    assert lookup_threshold(points, "t", 0.01, 10) is None
-    assert lookup_threshold(points, "t", 0.05, 60) is None
+    assert lookup_threshold(points, "t", "r/a", 0.01, 60).m == 50
+    assert lookup_threshold(points, "t", "r/a", 0.01, 49).m == 25
+    assert lookup_threshold(points, "t", "r/a", 0.01, 10) is None
+    assert lookup_threshold(points, "t", "r/a", 0.05, 60) is None
+    assert lookup_threshold(points, "t", "r/b", 0.01, 60) is None

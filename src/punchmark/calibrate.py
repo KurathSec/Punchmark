@@ -5,9 +5,9 @@ The operating point is the deliverable. Everything here follows four rulings:
 - the resampling cluster unit is the base sample name (PMK-CAL-001): a sample's
   variants, profiles and languages share program content and move together in
   every subsample and splice;
-- the null is CROSS-FITTED (PMK-CAL-002): the null distribution of the set
-  statistic T is built only from out-of-fold scores (2-fold split by cluster
-  within each training archive), because an in-sample null is optimistic, sets
+- the null is CROSS-FITTED (PMK-CAL-005): the null distribution of the set
+  statistic T is built only from out-of-fold scores (2-fold split by cluster,
+  ONE fold map shared across archives), because an in-sample null is optimistic, sets
   the threshold too tight, and silently overshoots the declared false-alarm rate
   on held-out data. The shipped model is fitted on everything; its thresholds
   come from the cross-fitted null and are therefore slightly conservative,
@@ -76,6 +76,7 @@ class CalibrationConfig:
 @dataclass(frozen=True, slots=True)
 class NullDistribution:
     task: str
+    route: str
     m: int
     draws: tuple[float, ...]
     n_archives: int
@@ -176,28 +177,36 @@ def crossfit_scored(
     candidates: CandidateSet,
     seed: int,
 ) -> list[ScoredSet]:
-    """Out-of-fold score tables for every training archive (PMK-CAL-002).
+    """Out-of-fold score tables for every training archive (PMK-CAL-005).
 
-    Clusters of each archive are split into two folds deterministically; model A
-    is fitted on fold-A rows of every archive and scores fold-B rows, and vice
-    versa. Row order within each archive is preserved."""
-    folds: dict[str, dict[str, int]] = {}
+    The fold assignment is ONE global map keyed by cluster name, shared across
+    every archive: item content is shared across routes by construction (the same
+    prompts go to every candidate), so cluster X must sit in the same fold for
+    every route -- otherwise route A's held-out cluster leaks into the training
+    half through route B's (often near-identical) responses to the same items,
+    and the null grows a spurious heavy tail that swallows true substitutions.
+    Model A is fitted on fold-A rows of every archive and scores fold-B rows, and
+    vice versa. Row order within each archive is preserved."""
+    names = sorted({row.cluster for rs in train for row in rs.valid_rows})
+    if len(names) < 2:
+        raise CalibrationError("cross-fitting needs at least two clusters")
+    rng = random.Random(derive_seed("crossfit-folds", seed))
+    rng.shuffle(names)
+    cut = len(names) // 2
+    fold_of = {n: (0 if i < cut else 1) for i, n in enumerate(names)}
     for rs in train:
-        rng = random.Random(derive_seed("crossfit-folds", rs.source_name, seed))
-        names = sorted({row.cluster for row in rs.valid_rows})
-        if len(names) < 2:
+        archive_folds = {fold_of[row.cluster] for row in rs.valid_rows}
+        if archive_folds != {0, 1}:
             raise CalibrationError(
-                f"{rs.source_name}: cross-fitting needs at least two clusters"
+                f"{rs.source_name}: all clusters landed in one fold; cross-fitting "
+                "needs both (more clusters, or a different seed)"
             )
-        rng.shuffle(names)
-        cut = len(names) // 2
-        folds[rs.source_name] = {n: (0 if i < cut else 1) for i, n in enumerate(names)}
 
     def restrict(rs: ResponseSet, fold: int) -> ResponseSet:
         rows = tuple(
             row
             for row in rs.rows
-            if not row.is_stub and folds[rs.source_name][row.cluster] == fold
+            if not row.is_stub and fold_of[row.cluster] == fold
         )
         return ResponseSet(
             route=rs.route,
@@ -218,7 +227,7 @@ def crossfit_scored(
         rows = rs.valid_rows
         scored_rows: list[ScoredRow] = []
         for fold in (0, 1):
-            fold_rows = [r for r in rows if folds[rs.source_name][r.cluster] == fold]
+            fold_rows = [r for r in rows if fold_of[r.cluster] == fold]
             if not fold_rows:
                 continue
             # fold-0 rows are scored by the model fitted on fold 1, and vice versa
@@ -240,13 +249,15 @@ def build_nulls(
     candidates: CandidateSet,
     config: CalibrationConfig,
 ) -> list[NullDistribution]:
-    """Null draws of T per (task, m), pooled over that task's archives: for each
-    archive, cluster-respecting subsets scored against the archive's OWN route."""
-    by_task: dict[str, list[ScoredSet]] = {}
+    """Null draws of T per (task, DECLARED route, m) (PMK-CAL-006): for each of the
+    route's archives, cluster-respecting subsets scored against the archive's OWN
+    route. Nulls are never pooled across routes: an inseparable pair's noise would
+    widen every route's threshold."""
+    by_cell: dict[tuple[str, str], list[ScoredSet]] = {}
     for ss in oof:
-        by_task.setdefault(ss.task, []).append(ss)
+        by_cell.setdefault((ss.task, ss.route), []).append(ss)
     nulls: list[NullDistribution] = []
-    for task, sets in sorted(by_task.items()):
+    for (task, route), sets in sorted(by_cell.items()):
         for m in config.m_grid:
             draws: list[float] = []
             n_clusters_min: int | None = None
@@ -274,6 +285,7 @@ def build_nulls(
             nulls.append(
                 NullDistribution(
                     task=task,
+                    route=route,
                     m=m,
                     draws=tuple(draws),
                     n_archives=usable,
@@ -298,6 +310,7 @@ def operating_points(
             points.append(
                 OperatingPoint(
                     task=null.task,
+                    route=null.route,
                     far=far,
                     m=null.m,
                     threshold=conservative_quantile(null.draws, far),
@@ -308,12 +321,21 @@ def operating_points(
 
 
 def lookup_threshold(
-    points: Sequence[OperatingPoint], task: str, far: float, n_items: int
+    points: Sequence[OperatingPoint],
+    task: str,
+    route: str,
+    far: float,
+    n_items: int,
 ) -> OperatingPoint | None:
-    """The operating point for an archive of ``n_items`` rows: the largest
-    calibrated m not exceeding it (conservative; PMK-CAL-004). None when the
-    archive is below the calibrated floor -- an UNDETERMINED, never a guess."""
-    eligible = [p for p in points if p.task == task and p.far == far and p.m <= n_items]
+    """The operating point for the DECLARED route at an archive of ``n_items``
+    rows: the largest calibrated m not exceeding it (conservative; PMK-CAL-004,
+    PMK-CAL-006). None when the archive is below the calibrated floor -- an
+    UNDETERMINED, never a guess."""
+    eligible = [
+        p
+        for p in points
+        if p.task == task and p.route == route and p.far == far and p.m <= n_items
+    ]
     if not eligible:
         return None
     return max(eligible, key=lambda p: p.m)

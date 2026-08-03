@@ -34,3 +34,13 @@ text = """The ruling id hashes a body that includes the detector id and version,
 candidate set id, the operating point (far and threshold), and the calibration corpus
 hash -- plus the archive hash, window, spec version and verdict. Identical inputs
 reproduce identical ids; any change to what a verdict rests on changes the id."""
+
+[[ruling]]
+id = "PMK-RUL-005"
+title = "Cross-split scoring is declared, never inferred"
+text = """An archive whose filename task is a different split of a calibrated task family
+(e.g. comprehend_test against the model task comprehend) may be scored under that model
+task only through an explicit caller declaration (--task-as). The ruling records both
+names: task stays the filename truth, scored_as records the model task the thresholds and
+power table came from. Punchmark never infers the mapping from names or content, and a
+certificate for an aliased ruling says 'scored as' in the same clause as the task."""

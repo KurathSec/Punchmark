@@ -95,12 +95,14 @@ def splice(
 
 
 def _threshold_for(
-    points: Sequence[OperatingPoint], task: str, far: float, m: int
+    points: Sequence[OperatingPoint], task: str, route: str, far: float, m: int
 ) -> float:
     for p in points:
-        if p.task == task and p.far == far and p.m == m:
+        if p.task == task and p.route == route and p.far == far and p.m == m:
             return p.threshold
-    raise CalibrationError(f"no operating point for (task={task}, far={far}, m={m})")
+    raise CalibrationError(
+        f"no operating point for (task={task}, route={route}, far={far}, m={m})"
+    )
 
 
 def power_analysis(
@@ -121,13 +123,13 @@ def power_analysis(
     curve: list[CurvePoint] = []
     power_points: list[PowerPoint] = []
     tasks = sorted({ss.task for ss in oof})
-    calibrated = {(p.task, p.m) for p in points}
+    calibrated = {(p.task, p.route, p.m) for p in points}
     for task in tasks:
         routes = [r for t, r in by_task_route if t == task]
         for m in cal_config.m_grid:
-            if (task, m) not in calibrated:
-                continue
             for declared in sorted(routes):
+                if (task, declared, m) not in calibrated:
+                    continue
                 base = by_task_route[(task, declared)]
                 if sum(len(v) for v in base.clusters.values()) < m:
                     continue
@@ -137,7 +139,7 @@ def power_analysis(
                     donor = by_task_route[(task, substitute)]
                     rho_min: float | None = None
                     for far in sorted(cal_config.far_grid):
-                        threshold = _threshold_for(points, task, far, m)
+                        threshold = _threshold_for(points, task, declared, far, m)
                         # miss at full substitution is the curve's y-axis
                         misses = 0
                         for i in range(config.n_splice):
@@ -162,7 +164,7 @@ def power_analysis(
                         )
                     # rho* at the declared 1% point (or the closest available far)
                     far_star = 0.01 if 0.01 in cal_config.far_grid else cal_config.far_grid[0]
-                    threshold = _threshold_for(points, task, far_star, m)
+                    threshold = _threshold_for(points, task, declared, far_star, m)
                     for rho in sorted(config.rho_grid):
                         if rho == 0.0:
                             continue
@@ -214,7 +216,7 @@ def rho_zero_selfcheck(
         clusters = ss.clusters
         if sum(len(v) for v in clusters.values()) < m:
             continue
-        threshold = _threshold_for(points, ss.task, far, m)
+        threshold = _threshold_for(points, ss.task, ss.route, far, m)
         for i in range(n_draws):
             rng = random.Random(derive_seed("rho-zero", ss.source_name, m, f"far={far}", i, seed))
             rows = cluster_subset(clusters, m, rng)
