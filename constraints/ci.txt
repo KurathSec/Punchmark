@@ -2,5 +2,5 @@
 # Pinned to the versions the tree is actually clean under (house rule shared with the
 # sibling tools).
 pytest==9.1.1
-ruff==0.16.0
+ruff==0.16.1
 mypy==2.3.0
