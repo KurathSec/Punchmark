@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to punchmark. The format follows Keep a Changelog; versions follow
+All notable changes to punchmark. The format follows Keep a Changelog. Versions follow
 SemVer. The rulings-spec version moves independently (see
 `src/punchmark/spec/rulings/index.toml`).
 
@@ -21,7 +21,8 @@ SemVer. The rulings-spec version moves independently (see
 - The Angle A validation study (`validation/angle_a/`): held-out identification,
   the false-alarm promise and its measured non-transfer to re-minted content,
   the formatting-ablation kill test, held-out power, the frozen 150-row probe.
-- 41 spec rulings, 40 active (PMK-CAL-002 superseded by PMK-CAL-005); rulings-spec
+- 41 spec rulings, 40 active (PMK-CAL-002 superseded by PMK-CAL-005). Rulings-spec
   at 2.0.0.
 - CLI: `fit`, `score`, `certify`, `gate`, `corpus`, `synth`, `census`, `spec`, `env`,
-  `cite`; `--task-as` declared cross-split scoring; `--sidecars` directory override.
+  `cite`, plus `--task-as` declared cross-split scoring and the `--sidecars` directory
+  override.

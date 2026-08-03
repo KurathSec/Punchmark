@@ -11,7 +11,7 @@ verb reads local files you name and writes where you say.
 
 ## The synthetic roundtrip
 
-Everything below runs on planted-truth archives generated locally; no model is
+Everything below runs on planted-truth archives generated locally. No model is
 called and nothing is downloaded.
 
 ```sh
@@ -40,23 +40,24 @@ punchmark gate model.pmk-model.json --baseline baseline.json
 ```
 
 `fit` prints the calibrated operating points, the miss-rate-versus-false-alarm
-curve, and rho\* -- the minimum substituted fraction each ordered candidate pair
+curve, and rho\*, the minimum substituted fraction each ordered candidate pair
 could have resolved at this k and item count.
 
 ## Bring your own archives
 
 punchmark reads gzipped-JSONL response archives plus one sidecar per archive.
-Two facts are never inferred from content:
+Two facts are never inferred from content: the producer label and the
+collection window.
 
-**The producer label is the filename.** Archives are named
+The producer label is the filename. Archives are named
 `<task>__<route-slug>.jsonl.gz`, where the slug is the route name with `/`
 replaced by `-` (route `vendor/model-x` -> `mytask__vendor-model-x.jsonl.gz`).
-You fixed it at collection time; nothing in the rows can change it. The row
+You fixed it at collection time, and nothing in the rows can change it. The row
 schemas are specified in [Archives](archives.md), and
 `punchmark census archive.jsonl.gz` describes what an archive holds (rows,
 stubs, clusters, modal k, sha256).
 
-**The collection window is a sidecar you write**, at
+The collection window is a sidecar you write, at
 `<archive-filename>.window.json`, schema `window/v1`:
 
 ```json
@@ -76,7 +77,7 @@ stubs, clusters, modal k, sha256).
 ```
 
 Timestamps must carry an explicit timezone. The sidecar's route must slug-match
-the filename and its `archive_sha256` must match the bytes on disk, so window
-metadata cannot be quietly re-pointed at different data. Running `fit`, `score`
-or `certify` without a sidecar refuses -- and the refusal prints the exact JSON
-to write, pre-filled with the archive's real hash.
+the filename, and its `archive_sha256` must match the bytes on disk. Window
+metadata therefore cannot be quietly re-pointed at different data. Running
+`fit`, `score` or `certify` without a sidecar refuses, and the refusal prints
+the exact JSON to write, pre-filled with the archive's real hash.

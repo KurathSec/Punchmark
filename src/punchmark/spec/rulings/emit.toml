@@ -5,7 +5,8 @@ text = """Every committed artifact (fitted-model file, ruling line, certificate,
 golden) is serialized through canonical.py: floats rounded half-even to 6 places with -0.0
 normalized, non-finite floats refused, sorted keys, 2-space indent, ASCII, trailing newline,
 gzip with mtime=0 and no embedded filename. Regeneration from identical inputs must be
-byte-identical; the drift gate compares bytes, not meanings."""
+byte-identical. The drift gate compares the bytes themselves, so output that means the
+same thing but differs in bytes still counts as drift."""
 
 [[ruling]]
 id = "PMK-EMIT-002"

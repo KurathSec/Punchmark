@@ -3,19 +3,20 @@ id = "PMK-CAL-001"
 title = "The resampling cluster is the base sample"
 text = """Items are not independent: a sample's variants, profiles and languages share
 program content. The cluster unit for every subsample, split and splice is the base
-sample name; clusters move whole. Certificates report cluster counts beside item counts,
-because the effective sample size is bounded by clusters, not rows."""
+sample name, and clusters move whole. Certificates report cluster counts beside item
+counts, because the effective sample size is bounded by the number of clusters and a row
+count would overstate it."""
 
 [[ruling]]
 id = "PMK-CAL-002"
 title = "The null is cross-fitted (superseded by PMK-CAL-005)"
 status = "superseded"
 text = """Superseded: this ruling drew the 2-fold cluster split independently PER ARCHIVE.
-Item content is shared across routes by construction, so per-archive folds let route A's
-held-out cluster leak into the training half through route B's near-identical responses
-to the same items, inflating the null's left tail until true substitutions fell inside
-it. PMK-CAL-005 keeps the cross-fitting principle with one fold map shared across
-archives."""
+The corpus shares item content across routes by design, so per-archive folds let route
+A's held-out cluster leak into the training half through route B's near-identical
+responses to the same items. That leak inflated the null's left tail until true
+substitutions fell inside it. PMK-CAL-005 keeps the cross-fitting principle with one fold
+map shared across archives."""
 
 [[ruling]]
 id = "PMK-CAL-003"
@@ -23,9 +24,10 @@ title = "Null material is same-route, same-window"
 text = """The false-alarm rate is calibrated exclusively on subsets and split-halves of
 single archives: one route, one collection window. Same-route comparisons across windows
 (e.g. a dev archive against a test archive of the same route) are a labeled cross-window
-diagnostic with no verdict semantics, never null material. The residual exposure -- a
-substitution DURING the calibration window would be baked into the null -- cannot be
-closed retrospectively and is carried verbatim into every write-up."""
+diagnostic with no verdict semantics. They are never used as null material. One residual
+exposure remains: a substitution DURING the calibration window would be baked into the
+null. That exposure cannot be closed retrospectively and is carried verbatim into every
+write-up."""
 
 [[ruling]]
 id = "PMK-CAL-004"
@@ -33,31 +35,31 @@ title = "Thresholds are conservative empirical quantiles"
 text = """The threshold at declared false-alarm rate far is the conservative empirical
 far-quantile of the null draws (flagging at T < t keeps the empirical flag rate <= far).
 At scoring time the operating point for an archive of n items is the calibrated point
-with the largest m not exceeding n -- a smaller m has a wider null, which widens rather
-than narrows the flag region's distance from the null. An archive below the smallest
-calibrated m gets UNDETERMINED, never an extrapolated threshold."""
+with the largest m not exceeding n. A smaller m has a wider null, which can only widen
+the flag region's distance from the null. An archive below the smallest calibrated m gets
+UNDETERMINED. No threshold is ever extrapolated for it."""
 
 [[ruling]]
 id = "PMK-CAL-005"
 title = "The null is cross-fitted with one shared fold map"
 text = """The null distribution of the set statistic T is built only from out-of-fold
 scores: cluster names are split into two folds by ONE global assignment shared across
-every training archive (item content is shared across routes by construction, so cluster
-X must sit in the same fold for every route -- per-archive folds leak held-out content
-through the other routes' responses to the same items and corrupt the null; that failure
-was observed, not hypothesized, and is why this ruling supersedes PMK-CAL-002). Each fold
-is scored by the model fitted on the other. An in-sample null is optimistic and silently
-overshoots the declared false-alarm rate on held-out data. The shipped model is fitted on
-everything; its thresholds come from the cross-fitted null and are therefore slightly
-conservative, which is declared rather than corrected."""
+every training archive. The corpus shares item content across routes by design, so
+cluster X must sit in the same fold for every route. Per-archive folds leak held-out
+content through the other routes' responses to the same items and corrupt the null. That
+failure was observed in practice, and it is why this ruling supersedes PMK-CAL-002. Each
+fold is scored by the model fitted on the other. An in-sample null is optimistic and
+silently overshoots the declared false-alarm rate on held-out data. The shipped model is
+fitted on everything. Its thresholds come from the cross-fitted null and are therefore
+slightly conservative. That bias is declared, and no correction is applied."""
 
 [[ruling]]
 id = "PMK-CAL-006"
 title = "Thresholds are per declared route"
 text = """The null that fixes a threshold is built from the DECLARED route's own
-same-window archives only; nulls are never pooled across routes. Pooling would let one
-near-inseparable candidate pair's noise (observed: two routes whose task answers are
-byte-identical on most items) widen every route's threshold and silently spend power the
+same-window archives only. Nulls are never pooled across routes. Pooling would let noise
+from one near-inseparable candidate pair (observed: two routes whose task answers are
+byte-identical on most items) widen every route's threshold, silently spending power the
 separated pairs actually have. An operating point is therefore a (task, route, far, m)
 cell, and a ruling's threshold always came from the null of the route it rules on."""
 
@@ -65,10 +67,10 @@ cell, and a ruling's threshold always came from the null of the route it rules o
 id = "PMK-CAL-007"
 title = "A quantile needs draws; draws are budgeted over usable archives"
 text = """An operating point at false-alarm rate far exists only when the cell's null has at
-least 5 expected tail draws (n_draws * far >= 5): below that the empirical quantile
+least 5 expected tail draws (n_draws * far >= 5). Below that the empirical quantile
 degenerates to the sample minimum, whose true exceedance probability EXCEEDS the declared
-far while showing zero empirical flags. Unresolvable (cell, far) pairs are dropped -- the
+far while showing zero empirical flags. Unresolvable (cell, far) pairs are dropped: the
 later lookup returns None and the ruling comes out UNDETERMINED (refusal-first,
-PMK-RUL-002) -- and a fit whose whole grid is unresolvable is refused with the arithmetic
-in the message. Null draws are budgeted over the cell's USABLE archives, so an archive
+PMK-RUL-002). A fit whose whole grid is unresolvable is refused, with the arithmetic in
+the message. Null draws are budgeted over the cell's USABLE archives, so an archive
 skipped for the m or min-clusters floors cannot silently shrink the cell below n_null."""

@@ -20,30 +20,30 @@ Field by field:
 | field | meaning |
 |---|---|
 | `pmk-c-...` | The certificate id: a content hash of the certificate body. Identical inputs reproduce identical ids. |
-| `route ...` | The route label being certified -- the label, as served, never the weights behind it (PMK-CRT-002). |
-| `task ..., window ...` | The claim's unit: one (route, window) per ruling. The window comes verbatim from the caller-written sidecar. A ruling scored under a declared task alias additionally prints `scored as <model task>` (PMK-RUL-005) -- the marker that the calibrated false-alarm rate was measured on different content than this archive's. |
+| `route ...` | The route label being certified: the label as served. The weights behind it are outside the claim (PMK-CRT-002). |
+| `task ..., window ...` | The claim's unit: one (route, window) per ruling. The window comes verbatim from the caller-written sidecar. A ruling scored under a declared task alias additionally prints `scored as <model task>` (PMK-RUL-005). That marker means the calibrated false-alarm rate was measured on different content than this archive's. |
 | `HOLDS at false-alarm rate 0.01` | The verdict clause at the operating point *you* declared with `--far`. The other clauses are `DOES NOT HOLD ... statistic fell below the calibrated threshold ...` and `IS UNDETERMINED (reasons)`. |
 | `minimum resolvable substituted fraction 0.02` | rho\*: the smallest substituted fraction the archive's k and item count could have resolved for the worst candidate pair. Only a `HOLDS` line carries it. |
 | `against candidate set pmk-cs-... (3 routes)` | The closed set the verdict is relative to, by content id and size. |
 | the scope sentence | Fixed wording, carried by every certificate (PMK-CRT-002): *"This certifies the route label as served within the named candidate set; it is not a statement about model weights."* |
-| `[detector ...; model ...; ruling ...]` | Provenance: detector id and version, fitted-model id, and the ruling id this certificate derives from -- enough to re-derive the line from the rulings store. |
+| `[detector ...; model ...; ruling ...]` | Provenance: detector id and version, fitted-model id, and the ruling id this certificate derives from. This is enough to re-derive the line from the rulings store. |
 
 ## The tri-state exit code
 
 `punchmark certify` exits **0** on `HOLDS`, **1** on `DOES NOT HOLD`, **2** on
-`UNDETERMINED` or unevaluable input. Both non-zero codes are red: an
+`UNDETERMINED` or unevaluable input. Both non-zero codes are red. An
 undetermined certificate can never read as success, and any pipeline that
 special-cases exit 2 back to green has defeated the instrument. `UNDETERMINED`
-carries its reasons in the line -- too few items or clusters, a stub share over
+carries its reasons in the line: too few items or clusters, a stub share over
 the cap, no operating point calibrated at the requested false-alarm rate, or a
 power limit.
 
 ## What SAME-PRODUCER means exactly
 
 `SAME-PRODUCER` means: **a substitution of fraction >= rho_target by any
-candidate in the set would have been flagged with the calibrated power; none
-was** (PMK-RUL-001). It is a statement about what the archive could have
-detected and did not -- never a positive identification of what served the
+candidate in the set would have been flagged with the calibrated power, and
+none was** (PMK-RUL-001). It is a statement about what the archive could have
+detected and did not detect. It does not positively identify what served the
 route. When some candidate pair is unresolvable at your `--rho-target`, a
 passing statistic is forced to `UNDETERMINED`: absence of an alarm is not
 evidence there.
@@ -51,8 +51,8 @@ evidence there.
 ## The closed-set caveat
 
 Every verdict is relative to the candidate set declared at fit time
-(PMK-CRT-003). A producer outside that set was never considered; scoring a route
-that is not in the set is refused rather than answered. If the true producer is
-not among your candidates, no punchmark verdict -- including `SAME-PRODUCER` --
-says anything about it. Declare the candidates you actually mean, and read every
-certificate with its set.
+(PMK-CRT-003). A producer outside that set was never considered. If you score a
+route that is not in the set, punchmark refuses instead of answering. If the
+true producer is not among your candidates, no punchmark verdict, including
+`SAME-PRODUCER`, says anything about it. Declare the candidates you actually
+mean, and read every certificate with its set.

@@ -9,9 +9,10 @@ measured failure outranks a missing input. argparse usage errors land on exit 2,
 [[ruling]]
 id = "PMK-GTE-002"
 title = "An empty comparison never passes"
-text = """A gate that checked nothing has not gated anything: a baseline with no
+text = """A gate that checked nothing has not gated anything. A baseline with no
 operating points, a model file with none, or a selection that matches nothing is
-unevaluable (exit 2), never a pass. A typo in a filter must not turn CI green."""
+unevaluable (exit 2), and it is never a pass. A typo in a filter must not turn CI
+green."""
 
 [[ruling]]
 id = "PMK-GTE-003"
@@ -19,5 +20,5 @@ title = "Operating points move only with a declared bump"
 text = """The gate fails (exit 1) when any calibrated operating point, the calibration
 corpus hash, or the candidate set differs from the committed baseline while the detector
 version and the spec MAJOR are unchanged. A silently moved threshold is the failure mode
-this instrument exists to make visible in others; punchmark holds itself to the same
+this instrument exists to make visible in others. Punchmark holds itself to the same
 rule, in-repo (the drift test) and downstream (this gate)."""

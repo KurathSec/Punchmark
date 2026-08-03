@@ -1,18 +1,18 @@
 [[ruling]]
 id = "PMK-DET-001"
 title = "The detector seam"
-text = """A detector implements DetectorModel/FittedModel over ResponseSets: it never
-opens a file, never imports a reader, emits per-row per-candidate scores with a shared
-orientation (higher = closer to that candidate), and serializes to plain data that
+text = """A detector implements DetectorModel/FittedModel over ResponseSets. It never
+opens a file and never imports a reader. It emits per-row per-candidate scores with a
+shared orientation (higher = closer to that candidate) and serializes to plain data that
 round-trips exactly. Every tunable choice inside a detector is itself a numbered ruling."""
 
 [[ruling]]
 id = "PMK-DET-002"
 title = "The trivial reference detector"
 text = """The scaffold ships 'trivial': per-(route, task) character-unigram centroids
-scored by negative L1 distance, deliberately tuning-free, so calibration, power, rulings,
-certificates and the gate are exercised end-to-end against planted truth before any real
-detector exists. It is a reference implementation, never a recommendation."""
+scored by negative L1 distance. It is tuning-free by design, so calibration, power,
+rulings, certificates and the gate are exercised end-to-end against planted truth before
+any real detector exists. It is a reference implementation. It is not a recommendation."""
 
 [[ruling]]
 id = "PMK-DET-003"
@@ -20,16 +20,16 @@ title = "The chargram multinomial"
 text = """The calibrated detector is a per-(route, task) Jeffreys-smoothed multinomial over
 hashed character n-gram buckets: theta_{r,b} = (c_{r,b} + 0.5) / (C_r + 0.5 * D) with the
 chargram/v1 spec (orders 3-5, D = 2^18, crc32 hashing). Per-row evidence is the per-gram-
-normalized log-likelihood, so a row is one evidence unit at any draw count. Closed form, no
-optimizer; posteriors are never used (thresholds are empirical null quantiles). Log-probs
-are rounded to 6 places at fit time so params are compact, byte-stable and round-trip
-exactly."""
+normalized log-likelihood, so a row is one evidence unit at any draw count. The fit is
+closed form with no optimizer. Posteriors are never used: thresholds are empirical null
+quantiles. Log-probs are rounded to 6 places at fit time so params are compact,
+byte-stable and round-trip exactly."""
 
 [[ruling]]
 id = "PMK-DET-004"
 title = "The primary view is CANON@1, frozen"
 text = """Shipped calibrations fit and score on the CANON@1 text view, chosen and frozen
-before any held-out scoring; a detector may not be fitted on one view and scored on
+before any held-out scoring. A detector may not be fitted on one view and scored on
 another (the model file records the view and reconstruction refuses a mismatch). RAW@1 and
 ABL@1 exist so the recorded formatting-ablation study can ask whether the fingerprint is a
-prompt-template artefact; results on those views never ship as a calibration."""
+prompt-template artefact. Results on those views never ship as a calibration."""

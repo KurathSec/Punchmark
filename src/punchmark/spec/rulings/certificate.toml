@@ -4,14 +4,15 @@ title = "A certificate derives from exactly one ruling"
 text = """The certificate is a one-line text plus a certificate/v1 JSON document, both
 generated from one verified ruling body. It never aggregates rulings and never carries a
 number that is not in its ruling or model file. HOLDS maps to exit 0, DOES NOT HOLD to
-exit 1, UNDETERMINED to exit 2 -- an undetermined certificate can never read as success."""
+exit 1, UNDETERMINED to exit 2, so an undetermined certificate can never read as
+success."""
 
 [[ruling]]
 id = "PMK-CRT-002"
 title = "No weights claim, ever"
 text = """Every certificate carries the sentence: 'This certifies the route label as
 served within the named candidate set; it is not a statement about model weights.' The
-sentence is part of the golden-pinned line format; dropping or weakening it is a spec
+sentence is part of the golden-pinned line format. Dropping or weakening it is a spec
 MAJOR change. A public route name does not denote a fixed configuration, and this
 instrument does not repair that."""
 
@@ -19,6 +20,6 @@ instrument does not repair that."""
 id = "PMK-CRT-003"
 title = "Verdicts are closed-set"
 text = """Identification and substitution verdicts are relative to the declared candidate
-set. A producer outside the set will be mapped to its nearest member; SAME-PRODUCER is
-'best match within candidate set C', not an identity proof. The certificate names the
-candidate set id and count in the same sentence as the verdict."""
+set. A producer outside the set will be mapped to its nearest member. SAME-PRODUCER means
+'best match within candidate set C', and it is not an identity proof. The certificate
+names the candidate set id and count in the same sentence as the verdict."""

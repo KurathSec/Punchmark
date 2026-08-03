@@ -2,17 +2,17 @@
 id = "PMK-POW-001"
 title = "Substitutions are seeded on the score table"
 text = """The power population is built by splicing: for declared route r0 and substitute
-r', a fraction rho of a subset's rows -- whole clusters, matched by item key -- are
-replaced with the same items' scored rows from r''s archive. The splice happens on cached
-scores, never on text, so a substitution of known size and identity exists in the
-evaluation set by construction."""
+r', a fraction rho of a subset's rows (whole clusters, matched by item key) are replaced
+with the same items' scored rows from r''s archive. The splice happens on cached scores
+and never touches text, so the evaluation set is guaranteed to contain a substitution of
+known size and identity."""
 
 [[ruling]]
 id = "PMK-POW-002"
 title = "rho = 0 must reproduce the null"
 text = """An unspliced (rho = 0) power draw is a null draw. The self-check asserts the
 flag rate of rho = 0 subsets at the calibrated threshold comes out <= the declared
-false-alarm rate up to resampling noise; a violation means the splice machinery or the
+false-alarm rate up to resampling noise. A violation means the splice machinery or the
 calibration is broken, and the run refuses to report power."""
 
 [[ruling]]
@@ -20,10 +20,10 @@ id = "PMK-POW-003"
 title = "The minimum resolvable separation is a first-class output"
 text = """For every ordered candidate pair, task and set size, punchmark reports rho*:
 the smallest substituted fraction on the grid detected with the calibrated power at the
-declared false-alarm rate, or None when even a full swap is unresolvable. rho* is what
-makes a null legible as a power limit rather than as reassurance, and a SAME-PRODUCER
-verdict is refused (UNDETERMINED) when the caller's rho_target is below what the archive
-could have resolved."""
+declared false-alarm rate, or None when even a full swap is unresolvable. rho* makes a
+null result legible as a power limit rather than as reassurance. A
+SAME-PRODUCER verdict is refused (UNDETERMINED) when the caller's rho_target is below
+what the archive could have resolved."""
 
 [[ruling]]
 id = "PMK-POW-004"

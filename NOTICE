@@ -1,9 +1,9 @@
-punchmark -- claim boundary and provenance notice
+punchmark: claim boundary and provenance notice
 
 Scope of every punchmark verdict. A ruling or certificate produced by this tool is a
-statement about the producer identity of a response archive: whether the responses are
-consistent, at a declared false-alarm rate, with the route label they were collected
-under, relative to a closed candidate set. It is never a statement about model weights,
+statement about the producer identity of a response archive. It says whether the
+responses are consistent, at a declared false-alarm rate, with the route label they were
+collected under, relative to a closed candidate set. It is never a statement about model weights,
 about what changed when a verdict fires, or about the quality or capability of any model.
 
 Boundary with the benchmark that supplies the reference calibration corpus. The reference
@@ -18,5 +18,5 @@ as a finding, and no punchmark calibration is evidence that any benchmark's base
 served by stable or verified configurations.
 
 No completion text from that benchmark's archives is redistributed in this package or its
-repository; the corpus manifest pins hashes, and rebuilding requires the user's own
+repository. The corpus manifest pins hashes, and rebuilding requires the user's own
 checkout of the upstream repository.

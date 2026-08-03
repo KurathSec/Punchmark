@@ -3,8 +3,8 @@ id = "PMK-FEA-001"
 title = "Features consume raw_outputs strings and nothing else"
 text = """Feature extraction receives the completion strings of one row and no identity or
 bookkeeping fields. Stubs, tier presence and schema shape correlate with split and archive
-in the native corpus; a feature that could see them would learn the split, not the
-producer. Enforced by signature: the featurizer takes a sequence of strings."""
+in the native corpus, so a feature that could see them would learn the split instead of
+the producer. Enforced by signature: the featurizer takes a sequence of strings."""
 
 [[ruling]]
 id = "PMK-FEA-002"
@@ -12,13 +12,13 @@ title = "One row is one evidence unit"
 text = """At temperature 0 most draw sets collapse to one or two distinct strings, so
 draws are pooled per row (counts per distinct string, scaled by multiplicity) and
 likelihoods are normalized per gram. A row contributes the same evidence weight whether
-its k draws are identical or not; k is never treated as k independent observations. Power
+its k draws are identical or not. k is never treated as k independent observations. Power
 statements are made in items, qualified by measured effective draws."""
 
 [[ruling]]
 id = "PMK-FEA-003"
 title = "Text views are versioned ids"
 text = """A text normalization is a versioned view (RAW@1, CANON@1, ABL@1) named in every
-fitted model and ruling id. Changing a normalization is a new view version, never an edit.
-The primary view is frozen before any held-out scoring; fitting on one view and scoring on
-another is refused."""
+fitted model and ruling id. Changing a normalization means creating a new view version.
+An existing view is never edited. The primary view is frozen before any held-out scoring,
+and fitting on one view while scoring on another is refused."""
