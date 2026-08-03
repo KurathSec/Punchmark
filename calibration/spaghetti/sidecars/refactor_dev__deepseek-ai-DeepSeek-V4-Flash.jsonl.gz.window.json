@@ -1,0 +1,41 @@
+{
+  "archive": "refactor_dev__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+  "archive_sha256": "sha256:205f426c5f8f2b3b4dbb5528ca27a4c93f2d7035bf2b7c706fa02fdc67a143a3",
+  "collector": {
+    "derived_from": [
+      {
+        "file": "refactor__deepseek-ai-DeepSeek-V4-Flash.json",
+        "kind": "finalize env.timestamp_utc",
+        "utc": "2026-06-28T17:04:08.105388+00:00"
+      },
+      {
+        "file": "refactor__meta-llama-Llama-3.3-70B-Instruct-Turbo.json",
+        "kind": "finalize env.timestamp_utc",
+        "utc": "2026-06-28T16:58:02.536133+00:00"
+      },
+      {
+        "file": "refactor__meta-llama-Meta-Llama-3.1-8B-Instruct.json",
+        "kind": "finalize env.timestamp_utc",
+        "utc": "2026-06-28T16:58:01.725526+00:00"
+      },
+      {
+        "file": "refactor__mistralai-Mistral-Small-3.2-24B-Instruct-2506.json",
+        "kind": "finalize env.timestamp_utc",
+        "utc": "2026-06-28T16:58:02.131964+00:00"
+      }
+    ],
+    "k": 8,
+    "max_tokens": 2048,
+    "provider": "DeepInfra (one OpenAI-compatible endpoint for all four routes)",
+    "temperature": 0.0,
+    "window_derivation": "group window = [min, max] over the four routes' run timestamps for this (task, split) collection; env.timestamp_utc is a run-completion time, so collection began somewhat before the bracket start; entries marked partial-mtime contribute their checkpoint file's mtime because no finalize record exists"
+  },
+  "declared_by": "calibration/spaghetti/build_sidecars.py",
+  "punchmark_schema": "window/v1",
+  "route": "deepseek-ai/DeepSeek-V4-Flash",
+  "task": "refactor_dev",
+  "window": {
+    "end_utc": "2026-06-28T17:04:08.105388+00:00",
+    "start_utc": "2026-06-28T16:58:01.725526+00:00"
+  }
+}
