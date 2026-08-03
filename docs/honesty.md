@@ -36,5 +36,14 @@ whose minimum resolvable substituted fraction exceeds what you asked about, gets
 UNDETERMINED -- absence of an alarm is never evidence by itself (PMK-RUL-001,
 PMK-POW-003).
 
+**Its false-alarm rate is a property of the calibration content, measured -- not assumed
+-- elsewhere.** The validation study measured what happens when the shipped, dev-calibrated
+per-route thresholds are applied to re-minted content under a declared task alias
+(`--task-as`): same-route within-window flag rates rose far above the declared 1% for some
+(route, task) cells (see `validation/angle_a/derived/kt2.json`). A certificate's declared
+false-alarm rate is therefore trustworthy over the calibration content family; on other
+content it weakens to the transfer rates actually measured, and a `scored as` clause in a
+certificate is the marker that this caveat applies.
+
 **It makes no capability claims.** Nothing here states or implies a benchmark result or
 a comparison between models; see NOTICE for the claim boundary with the upstream corpus.

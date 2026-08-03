@@ -1,0 +1,135 @@
+{
+  "content_channel_at_chance_all_pairs": false,
+  "note": "channels approximated by the shipped views: ABL strips fences, case and whitespace and truncates to 200 chars (content-ish); CANON strips the fragile outer-fence/whitespace channel but keeps case; RAW keeps everything (PMK-DET-004)",
+  "per_pair_mean_margin": {
+    "ABL@1": {
+      "comprehend:deepseek-ai/DeepSeek-V4-Flash|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.135239,
+      "comprehend:deepseek-ai/DeepSeek-V4-Flash|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.512687,
+      "comprehend:deepseek-ai/DeepSeek-V4-Flash|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.162624,
+      "comprehend:meta-llama/Llama-3.3-70B-Instruct-Turbo|deepseek-ai/DeepSeek-V4-Flash": 0.07012,
+      "comprehend:meta-llama/Llama-3.3-70B-Instruct-Turbo|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.486891,
+      "comprehend:meta-llama/Llama-3.3-70B-Instruct-Turbo|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.174059,
+      "comprehend:meta-llama/Meta-Llama-3.1-8B-Instruct|deepseek-ai/DeepSeek-V4-Flash": 0.43884,
+      "comprehend:meta-llama/Meta-Llama-3.1-8B-Instruct|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.646431,
+      "comprehend:meta-llama/Meta-Llama-3.1-8B-Instruct|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.134266,
+      "comprehend:mistralai/Mistral-Small-3.2-24B-Instruct-2506|deepseek-ai/DeepSeek-V4-Flash": 0.113477,
+      "comprehend:mistralai/Mistral-Small-3.2-24B-Instruct-2506|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.266411,
+      "comprehend:mistralai/Mistral-Small-3.2-24B-Instruct-2506|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.245183,
+      "refactor_dev:deepseek-ai/DeepSeek-V4-Flash|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.190981,
+      "refactor_dev:deepseek-ai/DeepSeek-V4-Flash|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.119061,
+      "refactor_dev:deepseek-ai/DeepSeek-V4-Flash|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.075786,
+      "refactor_dev:meta-llama/Llama-3.3-70B-Instruct-Turbo|deepseek-ai/DeepSeek-V4-Flash": 0.145813,
+      "refactor_dev:meta-llama/Llama-3.3-70B-Instruct-Turbo|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.169689,
+      "refactor_dev:meta-llama/Llama-3.3-70B-Instruct-Turbo|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.107891,
+      "refactor_dev:meta-llama/Meta-Llama-3.1-8B-Instruct|deepseek-ai/DeepSeek-V4-Flash": 0.174818,
+      "refactor_dev:meta-llama/Meta-Llama-3.1-8B-Instruct|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.326239,
+      "refactor_dev:meta-llama/Meta-Llama-3.1-8B-Instruct|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.092872,
+      "refactor_dev:mistralai/Mistral-Small-3.2-24B-Instruct-2506|deepseek-ai/DeepSeek-V4-Flash": 0.167965,
+      "refactor_dev:mistralai/Mistral-Small-3.2-24B-Instruct-2506|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.251465,
+      "refactor_dev:mistralai/Mistral-Small-3.2-24B-Instruct-2506|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.159733
+    },
+    "CANON@1": {
+      "comprehend:deepseek-ai/DeepSeek-V4-Flash|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.225943,
+      "comprehend:deepseek-ai/DeepSeek-V4-Flash|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.652804,
+      "comprehend:deepseek-ai/DeepSeek-V4-Flash|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.262627,
+      "comprehend:meta-llama/Llama-3.3-70B-Instruct-Turbo|deepseek-ai/DeepSeek-V4-Flash": 0.123051,
+      "comprehend:meta-llama/Llama-3.3-70B-Instruct-Turbo|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.848111,
+      "comprehend:meta-llama/Llama-3.3-70B-Instruct-Turbo|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.463589,
+      "comprehend:meta-llama/Meta-Llama-3.1-8B-Instruct|deepseek-ai/DeepSeek-V4-Flash": 0.513311,
+      "comprehend:meta-llama/Meta-Llama-3.1-8B-Instruct|meta-llama/Llama-3.3-70B-Instruct-Turbo": 1.026555,
+      "comprehend:meta-llama/Meta-Llama-3.1-8B-Instruct|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.13455,
+      "comprehend:mistralai/Mistral-Small-3.2-24B-Instruct-2506|deepseek-ai/DeepSeek-V4-Flash": 0.16591,
+      "comprehend:mistralai/Mistral-Small-3.2-24B-Instruct-2506|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.589508,
+      "comprehend:mistralai/Mistral-Small-3.2-24B-Instruct-2506|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.243052,
+      "refactor_dev:deepseek-ai/DeepSeek-V4-Flash|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.195918,
+      "refactor_dev:deepseek-ai/DeepSeek-V4-Flash|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.153422,
+      "refactor_dev:deepseek-ai/DeepSeek-V4-Flash|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.063764,
+      "refactor_dev:meta-llama/Llama-3.3-70B-Instruct-Turbo|deepseek-ai/DeepSeek-V4-Flash": 0.216558,
+      "refactor_dev:meta-llama/Llama-3.3-70B-Instruct-Turbo|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.075371,
+      "refactor_dev:meta-llama/Llama-3.3-70B-Instruct-Turbo|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.117793,
+      "refactor_dev:meta-llama/Meta-Llama-3.1-8B-Instruct|deepseek-ai/DeepSeek-V4-Flash": 0.22958,
+      "refactor_dev:meta-llama/Meta-Llama-3.1-8B-Instruct|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.135187,
+      "refactor_dev:meta-llama/Meta-Llama-3.1-8B-Instruct|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.110101,
+      "refactor_dev:mistralai/Mistral-Small-3.2-24B-Instruct-2506|deepseek-ai/DeepSeek-V4-Flash": 0.135524,
+      "refactor_dev:mistralai/Mistral-Small-3.2-24B-Instruct-2506|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.168593,
+      "refactor_dev:mistralai/Mistral-Small-3.2-24B-Instruct-2506|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.120977
+    },
+    "RAW@1": {
+      "comprehend:deepseek-ai/DeepSeek-V4-Flash|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.293226,
+      "comprehend:deepseek-ai/DeepSeek-V4-Flash|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.823435,
+      "comprehend:deepseek-ai/DeepSeek-V4-Flash|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.452379,
+      "comprehend:meta-llama/Llama-3.3-70B-Instruct-Turbo|deepseek-ai/DeepSeek-V4-Flash": 0.150782,
+      "comprehend:meta-llama/Llama-3.3-70B-Instruct-Turbo|meta-llama/Meta-Llama-3.1-8B-Instruct": 1.043303,
+      "comprehend:meta-llama/Llama-3.3-70B-Instruct-Turbo|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.680098,
+      "comprehend:meta-llama/Meta-Llama-3.1-8B-Instruct|deepseek-ai/DeepSeek-V4-Flash": 2.119299,
+      "comprehend:meta-llama/Meta-Llama-3.1-8B-Instruct|meta-llama/Llama-3.3-70B-Instruct-Turbo": 1.888369,
+      "comprehend:meta-llama/Meta-Llama-3.1-8B-Instruct|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.127301,
+      "comprehend:mistralai/Mistral-Small-3.2-24B-Instruct-2506|deepseek-ai/DeepSeek-V4-Flash": 2.076259,
+      "comprehend:mistralai/Mistral-Small-3.2-24B-Instruct-2506|meta-llama/Llama-3.3-70B-Instruct-Turbo": 1.736467,
+      "comprehend:mistralai/Mistral-Small-3.2-24B-Instruct-2506|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.44889,
+      "refactor_dev:deepseek-ai/DeepSeek-V4-Flash|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.227485,
+      "refactor_dev:deepseek-ai/DeepSeek-V4-Flash|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.220532,
+      "refactor_dev:deepseek-ai/DeepSeek-V4-Flash|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.138498,
+      "refactor_dev:meta-llama/Llama-3.3-70B-Instruct-Turbo|deepseek-ai/DeepSeek-V4-Flash": 0.244066,
+      "refactor_dev:meta-llama/Llama-3.3-70B-Instruct-Turbo|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.0787,
+      "refactor_dev:meta-llama/Llama-3.3-70B-Instruct-Turbo|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.118584,
+      "refactor_dev:meta-llama/Meta-Llama-3.1-8B-Instruct|deepseek-ai/DeepSeek-V4-Flash": 0.254205,
+      "refactor_dev:meta-llama/Meta-Llama-3.1-8B-Instruct|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.121362,
+      "refactor_dev:meta-llama/Meta-Llama-3.1-8B-Instruct|mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.099852,
+      "refactor_dev:mistralai/Mistral-Small-3.2-24B-Instruct-2506|deepseek-ai/DeepSeek-V4-Flash": 0.163742,
+      "refactor_dev:mistralai/Mistral-Small-3.2-24B-Instruct-2506|meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.149008,
+      "refactor_dev:mistralai/Mistral-Small-3.2-24B-Instruct-2506|meta-llama/Meta-Llama-3.1-8B-Instruct": 0.105271
+    }
+  },
+  "per_view": {
+    "ABL@1": {
+      "canonical_correct": "8/8",
+      "pooled_m150": 0.991,
+      "subsample_accuracy_m150": {
+        "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 0.994,
+        "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 0.998,
+        "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 0.962,
+        "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": 0.996,
+        "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 0.996,
+        "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 1.0,
+        "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 0.982,
+        "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": 1.0
+      }
+    },
+    "CANON@1": {
+      "canonical_correct": "8/8",
+      "pooled_m150": 0.9845,
+      "subsample_accuracy_m150": {
+        "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 0.99,
+        "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 1.0,
+        "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 0.962,
+        "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": 1.0,
+        "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 0.994,
+        "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 0.93,
+        "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 1.0,
+        "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": 1.0
+      }
+    },
+    "RAW@1": {
+      "canonical_correct": "8/8",
+      "pooled_m150": 0.9895,
+      "subsample_accuracy_m150": {
+        "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 0.99,
+        "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 1.0,
+        "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 0.982,
+        "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": 0.998,
+        "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 1.0,
+        "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 0.946,
+        "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 1.0,
+        "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": 1.0
+      }
+    }
+  },
+  "premise_void": false,
+  "recorded_form": {
+    "abl_pooled_m150": 0.991,
+    "fires": false,
+    "fires_iff": "raw > 0.95 AND abl < 0.50",
+    "raw_pooled_m150": 0.9895
+  }
+}

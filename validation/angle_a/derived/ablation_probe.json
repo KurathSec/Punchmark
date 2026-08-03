@@ -1,0 +1,46 @@
+{
+  "confound_declared": "these archives were collected ~2 weeks after the calibration corpus under a DIFFERENT prompt condition (unannotated), with serving-side drift uncontrolled; identification transfer only -- verdict vocabulary is forbidden for this arm and it is excluded from the calibration corpus and all false-alarm calibration",
+  "correct": "8/8",
+  "results": {
+    "comprehend_unannotated__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": {
+      "declared_label": "deepseek-ai/DeepSeek-V4-Flash",
+      "identified": "deepseek-ai/DeepSeek-V4-Flash",
+      "k": 1
+    },
+    "comprehend_unannotated__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": {
+      "declared_label": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "identified": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "k": 1
+    },
+    "comprehend_unannotated__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": {
+      "declared_label": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "identified": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "k": 1
+    },
+    "comprehend_unannotated__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": {
+      "declared_label": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+      "identified": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+      "k": 1
+    },
+    "refactor_unannotated__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": {
+      "declared_label": "deepseek-ai/DeepSeek-V4-Flash",
+      "identified": "deepseek-ai/DeepSeek-V4-Flash",
+      "k": 1
+    },
+    "refactor_unannotated__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": {
+      "declared_label": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "identified": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "k": 1
+    },
+    "refactor_unannotated__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": {
+      "declared_label": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "identified": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "k": 1
+    },
+    "refactor_unannotated__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": {
+      "declared_label": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+      "identified": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+      "k": 1
+    }
+  }
+}

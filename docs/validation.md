@@ -1,23 +1,27 @@
 # Validation
 
-The validation study for the reference corpus lives in `validation/` (repo only, not in
-the sdist) and has not run yet: this page gains its numbers when `validation/angle_a/`
-lands, and every number on it will trace to a committed derived artifact there.
+The validation study for the reference corpus lives in `validation/angle_a/` (repo only,
+not in the sdist): fit and calibrate on the 8 public dev-split archives, validate on the
+8 held-out test-split archives, zero API calls. Full narrative:
+`validation/angle_a/FINDING.md`; every number traces to a committed artifact under
+`validation/angle_a/derived/`, regenerated deterministically by `run.py`.
 
-What the study will report, and against which pre-registered thresholds:
+Headline (model `pmk-m-731a3beb2b8c52b8`, corpus `pmk-cor-32596a35e0452817`):
 
-- **KT1 -- held-out identification.** Clustered-subsample whole-set identification on
-  the held-out archives at the declared 1% false-substitution-alarm rate, with a
-  clustered-bootstrap confidence interval; the canonical whole-archive identifications
-  reported alongside with an exact small-n bound, never as a bare accuracy.
-- **KT2 -- the false-alarm promise.** Measured within-window same-route flag rate
-  against the declared 1%, tested one-sided with cluster respect; canonical seed-pinned
-  split-half pair rulings reported individually.
-- **KT3 -- the formatting ablation.** Identification under the raw, canonical and
-  ablated text views, plus a format-channel/content-channel stratification, so a
-  template-artefact detector cannot pass as a producer identifier.
-- **Power.** The miss-rate-versus-false-alarm curve and the minimum resolvable
-  substituted fraction rho* per ordered candidate pair, with each pair's
-  indistinguishable-item rate printed as its information floor.
+| question | result | artifact |
+|---|---|---|
+| Held-out whole-set identification | 8/8 canonical; 0.9863 over clustered 150-row subsamples (CI lower 0.965) -- **KT1 passes** | `kt1.json` |
+| False-alarm promise on calibration content | flag rate 0.0001 vs declared 0.01; 0/32 canonical pairs flagged -- **KT2 holds** | `kt2.json` |
+| False-alarm transfer to re-minted content | pooled 0.0803, lower bound 0.0166 -- **does not transfer**; concentrated in 3 of 16 cells (up to 0.27) | `kt2.json` |
+| Formatting-artefact kill (ablated text) | ablated-view identification 0.991 -- the fingerprint is content, **KT3 does not fire** | `kt3.json` |
+| Minimum resolvable substituted fraction | rho* 0.1-0.75 per ordered pair at m=750, FAR 0.01; full swaps always resolve | `power_heldout.json` |
+| Prompt-change + two-week transfer probe | 8/8 identification (declared confounded; no verdicts) | `ablation_probe.json` |
 
-A fired kill test is a reportable finding, not a failure of the tool.
+The transfer row is the study's load-bearing caveat and is carried into
+[what a ruling does not show](honesty.md): a certificate's declared false-alarm rate is a
+property of the calibration content family, and the `scored as` clause marks rulings
+where it is not validated.
+
+A fired kill test would have been a reportable finding, not a failure of the tool; the
+wiring deviations from the recorded kill-test wording (small-n identification, the
+incoherent any-single-pair clause) are declared in FINDING.md.

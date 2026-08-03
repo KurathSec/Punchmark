@@ -1,0 +1,63 @@
+{
+  "canonical_correct": "8/8",
+  "canonical_exact_lower_bound_95": 0.6877,
+  "canonical_whole_archive": {
+    "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": {
+      "declared": "deepseek-ai/DeepSeek-V4-Flash",
+      "identified": "deepseek-ai/DeepSeek-V4-Flash"
+    },
+    "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": {
+      "declared": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "identified": "meta-llama/Llama-3.3-70B-Instruct-Turbo"
+    },
+    "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": {
+      "declared": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "identified": "meta-llama/Meta-Llama-3.1-8B-Instruct"
+    },
+    "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": {
+      "declared": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+      "identified": "mistralai/Mistral-Small-3.2-24B-Instruct-2506"
+    },
+    "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": {
+      "declared": "deepseek-ai/DeepSeek-V4-Flash",
+      "identified": "deepseek-ai/DeepSeek-V4-Flash"
+    },
+    "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": {
+      "declared": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "identified": "meta-llama/Llama-3.3-70B-Instruct-Turbo"
+    },
+    "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": {
+      "declared": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "identified": "meta-llama/Meta-Llama-3.1-8B-Instruct"
+    },
+    "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": {
+      "declared": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+      "identified": "mistralai/Mistral-Small-3.2-24B-Instruct-2506"
+    }
+  },
+  "cluster_bootstrap_ci_lower_5pct": 0.965,
+  "kt1_pass": true,
+  "kt1_threshold": "canonical 8/8 AND pooled >= 0.95 AND CI lower >= 0.90",
+  "subsample_accuracy_m150": {
+    "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 0.9945,
+    "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 1.0,
+    "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 0.9725,
+    "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": 0.9995,
+    "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 0.9945,
+    "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 0.9295,
+    "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 1.0,
+    "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": 1.0
+  },
+  "subsample_pooled": 0.9863,
+  "tier_bc_note": "tier B/C are the only structurally unseen families (24 clusters, 360 rows per archive); suggestive, not significant, at this cluster count",
+  "tier_bc_only_accuracy_m150": {
+    "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 0.944,
+    "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 1.0,
+    "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 0.98,
+    "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": 0.982,
+    "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": 0.46,
+    "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": 1.0,
+    "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": 1.0,
+    "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": 1.0
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "draw_degeneracy": {
+    "comprehend__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": {
+      "all_draws_identical_share": 0.7073,
+      "mean_distinct_draws": 1.48
+    },
+    "comprehend__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": {
+      "all_draws_identical_share": 0.844,
+      "mean_distinct_draws": 1.268
+    },
+    "comprehend__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": {
+      "all_draws_identical_share": 0.874,
+      "mean_distinct_draws": 1.154
+    },
+    "comprehend__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": {
+      "all_draws_identical_share": 0.7047,
+      "mean_distinct_draws": 1.498
+    },
+    "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": {
+      "all_draws_identical_share": 0.6382,
+      "mean_distinct_draws": 1.6683
+    },
+    "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": {
+      "all_draws_identical_share": 0.7751,
+      "mean_distinct_draws": 1.4502
+    },
+    "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": {
+      "all_draws_identical_share": 0.8699,
+      "mean_distinct_draws": 1.1591
+    },
+    "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": {
+      "all_draws_identical_share": 0.6881,
+      "mean_distinct_draws": 1.5615
+    },
+    "refactor_dev__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": {
+      "all_draws_identical_share": 0.536,
+      "mean_distinct_draws": 1.884
+    },
+    "refactor_dev__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": {
+      "all_draws_identical_share": 0.4927,
+      "mean_distinct_draws": 1.8773
+    },
+    "refactor_dev__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": {
+      "all_draws_identical_share": 0.686,
+      "mean_distinct_draws": 1.446
+    },
+    "refactor_dev__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": {
+      "all_draws_identical_share": 0.514,
+      "mean_distinct_draws": 1.7987
+    },
+    "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": {
+      "all_draws_identical_share": 0.5395,
+      "mean_distinct_draws": 1.9645
+    },
+    "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": {
+      "all_draws_identical_share": 0.4793,
+      "mean_distinct_draws": 1.8864
+    },
+    "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": {
+      "all_draws_identical_share": 0.7002,
+      "mean_distinct_draws": 1.4139
+    },
+    "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": {
+      "all_draws_identical_share": 0.5584,
+      "mean_distinct_draws": 1.6995
+    }
+  },
+  "info_floor_deepseek_l70b_comprehend_dev": {
+    "byte_identical_first_draw": 841,
+    "n_shared_items": 1500,
+    "ws_normalized_identical_first_draw": 841
+  },
+  "ladder_rows_carry_tier": false,
+  "mistral_comprehend_test_stubs": 13,
+  "total_completions": 214856,
+  "total_rows": 26880,
+  "total_stub_rows": 23
+}
