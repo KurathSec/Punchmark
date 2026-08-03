@@ -55,7 +55,7 @@ def _cmd_fit(args: argparse.Namespace) -> int:
     candidates = CandidateSet(routes=tuple(sorted(set(args.candidates.split(",")))))
     paths = [Path(p) for p in args.archives]
     train = [_read_windowed(p, candidates, args.sidecars) for p in paths]
-    detector = build_detector(args.detector)
+    detector = build_detector(args.detector, view=args.view)
     cal_config = CalibrationConfig(
         far_grid=_parse_floats(args.far_grid),
         m_grid=_parse_ints(args.m_grid),
@@ -305,7 +305,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("archives", nargs="+", metavar="ARCHIVE")
     p.add_argument("--candidates", required=True, help="comma-separated route names")
     p.add_argument("--out", required=True, help="output .pmk-model.json path")
-    p.add_argument("--detector", default="trivial")
+    p.add_argument("--detector", default="chargram")
+    p.add_argument("--view", help="text view for the chargram detector (default CANON@1)")
     p.add_argument("--far-grid", default="0.001,0.005,0.01,0.05,0.1")
     p.add_argument("--m-grid", default="25,50,100,150")
     p.add_argument("--n-null", type=int, default=2000)

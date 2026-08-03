@@ -109,7 +109,7 @@ def rule(doc: ModelDoc, rs: ResponseSet, policy: RulePolicy, spec_version: str) 
     if reasons:
         return base(Verdict.UNDETERMINED, None, {}, None, None, tuple(reasons))
 
-    fitted = fitted_from_params(doc.detector_id, doc.candidates, doc.params)
+    fitted = fitted_from_params(doc.detector_id, doc.candidates, doc.params, doc.view)
     scored = fitted.score_rows(valid, rs.task)
     rows = [
         ScoredRow(key=row.item_key, cluster=row.cluster, scores=s)

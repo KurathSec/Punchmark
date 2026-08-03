@@ -1,4 +1,4 @@
 # The rulings-spec version. Moves independently of the package version: MAJOR when a
 # ruling is superseded or the meaning of an artifact changes, MINOR when rulings are
 # added, PATCH for wording fixes that do not change meaning.
-version = "0.1.0"
+version = "0.2.0"
