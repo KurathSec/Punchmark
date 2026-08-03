@@ -1,4 +1,4 @@
 # Pinned build backend for release artifacts: a backend release must not change the
 # bytes of a tagged sdist/wheel after the fact.
-hatchling==1.27.0
+hatchling==1.31.0
 build==1.5.0
