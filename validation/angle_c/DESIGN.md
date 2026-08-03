@@ -52,11 +52,26 @@ Exact slugs and providers are pinned at purchase and recorded with access dates
 (purchasability decay is the recorded project risk). Every route below is collected
 INSIDE the Angle C window; none reuses a June-committed archive as a live comparison arm.
 
-1. **Same weights, two providers (load-bearing).** One open-weight model id served by two
-   different hosted providers, BOTH purchased in-window: `deepinfra-new` and
-   `providerB-new`. Provider B must publicly disclose serving precision and must not
-   dynamically route; its disclosed precision must match DeepInfra's for the pair to carry
-   the "same weights" label.
+1. **Same weights, two providers (load-bearing). Provider B resolved: Together AI.** A
+   provider search (six candidates, cross-checked) found exactly one clean match:
+   Together AI serves `meta-llama/Llama-3.3-70B-Instruct-Turbo` — the EXACT committed
+   slug — at publicly disclosed FP8, the same precision class DeepInfra serves it at (the
+   `-Turbo` suffix is Together's own FP8 tier naming, which is where the committed slug
+   came from). Together is a first-party backend (no dynamic routing), OpenAI-compatible
+   (`https://api.together.ai/v1/chat/completions`), pay-as-you-go (~$1.04/1M tokens). The
+   other five candidates were rejected: Fireworks and Groq do not disclose serverless
+   precision; Hyperbolic and Nebius serve the model without the `-Turbo` FP8 tier and do
+   not disclose precision; Novita serves the base model but at a MISMATCHED precision.
+   The pair is therefore: `deepinfra-new` (Llama-3.3-70B-Instruct-Turbo, re-bought
+   in-window) vs `together-new` (same slug, in-window), both FP8.
+
+   **Residual caveat, stated:** matching disclosed FP8 controls the base weights and the
+   precision CLASS, not the exact quantization scheme (per-tensor vs per-channel scales,
+   which tensors are quantized, calibration). Two providers both declaring FP8 is a much
+   tighter control than v1's slug-only assumption, but a separation on this pair is
+   "serving stack plus any FP8-scheme difference", not pure serving stack. The
+   quantized-vs-full pair (item 4) bounds how large a precision difference can look, and
+   the verdict is read against it.
 2. **Time-drift control (decomposes window from provider).** Re-purchase the same slug on
    DeepInfra in-window (`deepinfra-new`) and score it against the June-committed DeepInfra
    archive of that slug. This is same-weights, same-provider, cross-window: it measures
@@ -68,6 +83,13 @@ INSIDE the Angle C window; none reuses a June-committed archive as a live compar
    from one provider that exposes the choice. This is the measured effect size of a pure
    precision difference, used to condition the load-bearing verdict.
 5. **A near-twin (a genuinely hard pair).** Two instruct tunes of one base.
+6. **Optional secondary arm — a naturally-occurring precision substitution.** The provider
+   search found that Novita serves `deepseek-ai/DeepSeek-V4-Flash` at disclosed FP8 while
+   DeepInfra serves the same slug at "FP4 + FP8 Mixed" (MoE experts in FP4). This is a
+   real same-slug, different-precision pair in the wild — exactly the silent-substitution
+   hazard PF-16 worries about. It is a bonus arm, not load-bearing: it tests whether the
+   detector flags a genuine precision substitution behind an unchanged slug. Include only
+   if budget allows after the load-bearing pair.
 
 Open-weight routes only; closed commercial routes never enter any corpus (PMK-COR-002).
 
@@ -177,14 +199,14 @@ verdict.
 
 These are genuinely external or budgetary and cannot be settled from the repo:
 
-1. **Provider B for the same-weights pair.** Which second host serves an open-weight slug
-   that DeepInfra also serves, discloses its serving precision, and does not dynamically
-   route? The whole load-bearing contrast depends on this existing; if no
-   precision-disclosing match is purchasable, Angle C narrows to the family-size and
-   quantized-vs-full pairs and the serving-stack question stays open (a reportable null).
-2. **Credentials and billing.** Which key and account should each provider bill? The
-   DeepInfra key currently in `bench/config.json` is plaintext and its account should be
-   confirmed (and rotated if it was ever exposed); other providers need their own keys.
-3. **The spend ceiling** (`--max-usd`) and the call ceiling.
-4. **The exact route/slug list** at purchase time, with precisions, pinned prices, and
-   access dates recorded in the route table.
+1. ~~Provider B~~ **RESOLVED: Together AI** (see route 1 above). No longer open.
+2. **Credentials and billing.** A Together AI account and API key are needed (the study
+   has none yet). The DeepInfra key in `bench/config.json` is plaintext; its account
+   should be confirmed and the key rotated if it was ever exposed. Which accounts bill?
+3. **The spend ceiling** (`--max-usd`, no default) and the call ceiling. The load-bearing
+   pair plus drift control plus one different-weights control is ~4-5 routes x 1,200 calls;
+   at Together's ~$1/1M and DeepInfra's similar rate with ~2k tokens/call, order $5-12.
+4. **Whether to include the optional arms** (near-twin, family-size, the Novita precision
+   substitution), each ~1,200 calls / ~$1-2.
+5. **Go/no-go on spending.** Nothing is purchased until you authorize a ceiling and
+   confirm the accounts.
