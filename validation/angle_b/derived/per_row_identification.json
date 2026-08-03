@@ -1,0 +1,76 @@
+{
+  "chance_level": 0.25,
+  "first_draw_by_task_mean": {
+    "comprehend_test": 0.569,
+    "refactor_test": 0.6043
+  },
+  "model_id": "pmk-m-c52e6e6014883edb",
+  "per_archive": {
+    "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": {
+      "acc_first_draw": 0.2065,
+      "acc_pooled": 0.3032,
+      "n_rows": 1860,
+      "route": "deepseek-ai/DeepSeek-V4-Flash",
+      "task": "comprehend_test"
+    },
+    "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": {
+      "acc_first_draw": 0.9559,
+      "acc_pooled": 0.957,
+      "n_rows": 1859,
+      "route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "task": "comprehend_test"
+    },
+    "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": {
+      "acc_first_draw": 0.7,
+      "acc_pooled": 0.7016,
+      "n_rows": 1860,
+      "route": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "task": "comprehend_test"
+    },
+    "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": {
+      "acc_first_draw": 0.4136,
+      "acc_pooled": 0.4976,
+      "n_rows": 1847,
+      "route": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+      "task": "comprehend_test"
+    },
+    "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": {
+      "acc_first_draw": 0.6213,
+      "acc_pooled": 0.638,
+      "n_rows": 1859,
+      "route": "deepseek-ai/DeepSeek-V4-Flash",
+      "task": "refactor_test"
+    },
+    "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": {
+      "acc_first_draw": 0.538,
+      "acc_pooled": 0.5487,
+      "n_rows": 1857,
+      "route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "task": "refactor_test"
+    },
+    "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": {
+      "acc_first_draw": 0.6636,
+      "acc_pooled": 0.6749,
+      "n_rows": 1858,
+      "route": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "task": "refactor_test"
+    },
+    "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": {
+      "acc_first_draw": 0.5945,
+      "acc_pooled": 0.615,
+      "n_rows": 1857,
+      "route": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+      "task": "refactor_test"
+    }
+  },
+  "pooled": {
+    "first_draw": 0.5868,
+    "pooled": 0.6171
+  },
+  "question": "per-row producer classification on held-out archives: does one archived row carry producer signal comparable to one chat response in the published per-response setting?",
+  "reference_point": {
+    "figure": "97.1% five-way per-response accuracy on chat text",
+    "non_comparability": "different domain (code vs chat), candidate count (4 vs 5), sampling (temperature 0 vs free), and classifier family (closed-form multinomial vs trained classifier); a reference point, never a target",
+    "source": "llm-idiosyncrasies (ICML 2025)"
+  }
+}
