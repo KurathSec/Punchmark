@@ -45,9 +45,19 @@ def certificate_from_ruling(body: dict[str, Any]) -> Certificate:
         verdict = Verdict(body["verdict"])
         route = body["route"]
         task = body["task"]
-        far = body["operating_point"]["far"]
+        operating_point = body["operating_point"]
+        far = operating_point["far"]
+        threshold = operating_point["threshold"]
         n_routes = len(body["candidates"])
         ruling_id = body["ruling_id"]
+        n_items = body["n_items"]
+        n_clusters = body["n_clusters"]
+        statistic = body["statistic"]
+        candidate_set_id = body["candidate_set_id"]
+        detector = body["detector"]
+        detector_id = detector["id"]
+        detector_version = detector["version"]
+        model_id = body["model_id"]
     except (KeyError, ValueError, TypeError) as exc:
         raise CertificateError(f"ruling body is malformed ({exc!r})") from exc
 
@@ -63,8 +73,7 @@ def certificate_from_ruling(body: dict[str, Any]) -> Certificate:
     elif verdict is Verdict.SUBSTITUTED:
         clause = (
             f"DOES NOT HOLD at false-alarm rate {far}: statistic "
-            f"{body['statistic']} fell below the calibrated threshold "
-            f"{body['operating_point']['threshold']}"
+            f"{statistic} fell below the calibrated threshold {threshold}"
         )
     else:
         reasons = "; ".join(body.get("reasons", [])) or "unspecified"
@@ -99,11 +108,11 @@ def certificate_from_ruling(body: dict[str, Any]) -> Certificate:
     line = (
         f"punchmark certificate {cert_id}: producer identity of route {route} "
         f"({_task_text(body)}, {_window_text(body)}) {clause} against candidate set "
-        f"{body['candidate_set_id']} ({n_routes} routes) "
-        f"over {body['n_items']} items in {body['n_clusters']} clusters. "
+        f"{candidate_set_id} ({n_routes} routes) "
+        f"over {n_items} items in {n_clusters} clusters. "
         f"{_SCOPE_SENTENCE} "
-        f"[detector {body['detector']['id']} v{body['detector']['version']}; "
-        f"model {body['model_id']}; ruling {ruling_id}]"
+        f"[detector {detector_id} v{detector_version}; "
+        f"model {model_id}; ruling {ruling_id}]"
     )
     return Certificate(certificate_id=cert_id, ruling_id=ruling_id, line=line, body=cert_body)
 

@@ -5,7 +5,7 @@
 ```sh
 python -m venv .venv && . .venv/bin/activate
 pip install -e ".[dev]" -c constraints/ci.txt
-pytest && ruff check src tests tools && mypy
+pytest && ruff check src tests tools validation && mypy
 ```
 
 Python >= 3.12. There are zero runtime dependencies, and that is an intentional
@@ -36,8 +36,10 @@ A ruling id is immutable forever, so existing rulings are not edited. Changing
 what an existing id *means* silently rewrites every verdict ever issued under
 it. To change a decision, mark the old stanza `status = "superseded"`, add a new
 ruling with a new id, and bump the rulings-spec version in
-`src/punchmark/spec/rulings/index.toml`. A supersession is always a MAJOR bump;
-MINOR is for added rulings and PATCH for wording fixes that do not change meaning.
+`src/punchmark/spec/rulings/index.toml`. A supersession is always a MAJOR bump, as is
+any change to what an artifact asserts. MINOR covers added rulings and an artifact
+gaining a backward-compatible field whose assertion is unchanged. PATCH is for wording
+fixes that do not change meaning.
 The drift gate and `punchmark gate` compare only the spec MAJOR, so a supersession
 shipped as MINOR would let a moved operating point through undeclared. `require()`
 refuses superseded ids at runtime, so stale citations fail loudly.

@@ -4,9 +4,12 @@ Generates archives in the exact native shape -- ``<task>__<slug>.jsonl.gz`` plus
 ``window/v1`` sidecar each -- for invented routes whose 'style' is planted by
 construction: each route draws its completions from a vocabulary that mixes a
 shared common pool with a route-specific pool at a declared ``separation`` rate.
-At separation 0 the routes are byte-indistinguishable by design; at 1 they are
-trivially separable. Every test that claims the pipeline can identify a producer
-runs against this harness, where the truth is planted rather than assumed.
+At separation 0 no route-specific vocabulary is planted: every route draws from the
+shared common pool alone, so the routes are drawn from the same distribution. Their
+bytes still differ, because each route's item stream is seeded by its own name. At
+separation 1 they are trivially separable. Every test that claims the pipeline can
+identify a producer runs against this harness, where the truth is planted rather than
+assumed.
 
 Determinism: every stream is seeded via ``canonical.derive_seed`` (PMK-EMIT-003);
 identical arguments give byte-identical archives.

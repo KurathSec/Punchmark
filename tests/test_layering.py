@@ -71,9 +71,12 @@ def _imports(path: Path) -> set[str]:
 
 
 def _module_files() -> dict[str, Path]:
-    files = {p.stem: p for p in SRC.glob("*.py")}
-    files["spec"] = SRC / "spec" / "registry.py"
-    return files
+    """Every module in the package, subpackages included, keyed by dotted name.
+    A top-level glob would leave subpackage modules unchecked."""
+    return {
+        p.relative_to(SRC).with_suffix("").as_posix().replace("/", "."): p
+        for p in SRC.rglob("*.py")
+    }
 
 
 def test_no_foreign_imports_anywhere_even_lazy() -> None:

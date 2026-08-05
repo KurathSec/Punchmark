@@ -5,9 +5,9 @@ ICLR 2025; PyPI v0.0.2, 2024-10-24) consume this corpus's archives?
 Run this under a scratch environment with the package installed; it is not a
 punchmark dependency. The script does three things and records all of them:
 
-1. Packaging facts: the alpha imports only after installing undeclared
+1. Packaging facts: the package imports only after installing undeclared
    dependencies by hand (observed: tqdm, then transformers), which is direct
-   evidence for the "abandoned alpha" half of the occupancy claim.
+   evidence that the only in-domain installable is an unmaintained alpha.
 2. Consumption facts: the package has no archive reader and no notion of a
    route label. Everything below (reading gzipped JSONL, matching items,
    unicode-encoding completions, padding, building CompletionSample objects)
@@ -87,6 +87,20 @@ def main() -> int:
             "task": "comprehend_test",
         },
         "results": {},
+        "interpretation": (
+            "Off-label result, recorded honestly. The package is built for tokenized "
+            "completion distributions over a shared prompt set with a reference "
+            "distribution (its one-sample test). Its two-sample MMD is run here on raw "
+            "archived text encoded to unicode code points, which is not its intended "
+            "input. The permutation p-value estimator returns values OUTSIDE [0, 1] "
+            "(negative for same-route null pairs, above 1 for a cross-route pair), and "
+            "the statistic ordering is inverted: same-route null pairs score high while "
+            "cross-route pairs collapse to 0.0. No valid distributional verdict can be "
+            "extracted from this input. That is a second, independent reason nothing "
+            "installable today consumes an archive and returns a producer-identity "
+            "verdict: beyond the undeclared dependencies and the absent archive reader, "
+            "the package does not produce a usable answer when force-fed an archive."
+        ),
     }
     try:
         import torch

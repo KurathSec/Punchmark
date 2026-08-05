@@ -1,6 +1,7 @@
 """Mechanical gate 1: the committed calibration regenerates its committed goldens.
 
-Armed once the calibration commit lands (limen precedent: skipif until then).
+The gate is armed: the goldens are committed, and a missing goldens tree fails
+instead of skipping.
 Moving a golden requires tools/update_calibration.py --write --confirm-spec-bump
 after a real detector-version or spec-MAJOR change; this test is the in-repo
 tooth and `punchmark gate` is the downstream one (PMK-GTE-003).
@@ -11,8 +12,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import pytest
-
 from punchmark.canonical import canonical_json
 from punchmark.gate import baseline_body
 from punchmark.modelfile import read_model
@@ -21,10 +20,16 @@ from punchmark.spec import spec_version
 ROOT = Path(__file__).parent.parent
 GOLDENS = ROOT / "calibration" / "spaghetti" / "goldens"
 
-pytestmark = pytest.mark.skipif(
-    not GOLDENS.exists(),
-    reason="no committed calibration goldens yet (they land with the calibration commit)",
-)
+
+def test_the_committed_goldens_are_present() -> None:
+    """The gate is armed: goldens are committed, so a missing tree is a failure
+    rather than a skip. Deleting them must not turn this gate green."""
+    assert GOLDENS.is_dir(), (
+        f"{GOLDENS} is missing; the calibration goldens are committed and this gate "
+        "must not pass without them"
+    )
+    assert (GOLDENS / "default.pmk-model.json").is_file()
+    assert (GOLDENS / "operating_point.json").is_file()
 
 
 def test_committed_baseline_matches_committed_model_bytes() -> None:

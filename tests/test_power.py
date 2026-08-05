@@ -84,12 +84,21 @@ def test_power_analysis_full_pipeline_and_rho_zero_selfcheck(train_sets) -> None
     assert rate <= 0.05 + 0.05
 
 
-def test_miss_curve_is_monotone_in_far(train_sets) -> None:
-    """Raising the tolerated false-alarm rate can only lower (or keep) the miss."""
-    oof = crossfit_scored(build_detector("trivial"), train_sets, CANDIDATES, seed=5)
+def test_miss_curve_is_monotone_in_far(hard_train_sets) -> None:
+    """Raising the tolerated false-alarm rate can only lower (or keep) the miss.
+
+    Uses a deliberately harder fixture than the shared one: at the shared
+    separation every miss is already 0.0, so the assertion could not fail and the
+    test proved nothing.
+    """
+    oof = crossfit_scored(build_detector("trivial"), hard_train_sets, CANDIDATES, seed=5)
     nulls = build_nulls(oof, CANDIDATES, CAL_CONFIG)
     points = tuple(operating_points(nulls, CAL_CONFIG))
     result = power_analysis(oof, CANDIDATES, points, CAL_CONFIG, POW_CONFIG)
+    misses_seen = {c.miss for c in result.curve}
+    assert len(misses_seen) > 1, (
+        "fixture is too easy: every miss is identical, so monotonicity is vacuous"
+    )
     by_pair: dict[tuple, list] = {}
     for c in result.curve:
         by_pair.setdefault((c.task, c.declared, c.substitute, c.m), []).append(c)

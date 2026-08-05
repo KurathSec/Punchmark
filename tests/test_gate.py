@@ -64,6 +64,7 @@ def test_moved_calibration_corpus_fails(fitted_doc, tmp_path: Path) -> None:
     moved = replace(fitted_doc, calibration_sha256="pmk-cor-ffffffffffffffff")
     result = evaluate(moved, read_baseline(baseline), spec_version())
     assert result.exit_code == 1
+    assert any("calibration corpus moved" in line for line in result.lines)
 
 
 def test_empty_baseline_is_unevaluable(fitted_doc, tmp_path: Path) -> None:

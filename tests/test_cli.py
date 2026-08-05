@@ -177,12 +177,22 @@ def test_gate_malformed_baseline_is_unevaluable(workdir: Path, tmp_path: Path) -
     assert main(["gate", model, "--baseline", str(bad)]) == 2
 
 
-def test_rescore_is_idempotent(workdir: Path, capsys) -> None:
-    """Identical inputs reproduce the identical ruling id; a re-run records
-    nothing new and is not a refusal (PMK-RUL-004)."""
+def test_rescore_is_idempotent(workdir: Path, tmp_path: Path, capsys) -> None:
+    """Identical inputs reproduce the identical ruling id, so a re-run records
+    nothing new and is not a refusal (PMK-RUL-004). Self-contained: it scores
+    twice into its own store rather than depending on an earlier test."""
     model = str(workdir / "model.pmk-model.json")
-    store = str(workdir / "rulings.jsonl")
+    store = tmp_path / "idempotent.jsonl"
     archive = workdir / "arch" / "synthtask__synth-route-a.jsonl.gz"
-    assert main(["score", str(archive), "--model", model, "--rulings", store,
-                 "--far", "0.05"]) == 0
-    assert "already recorded" in capsys.readouterr().out
+    argv = ["score", str(archive), "--model", model, "--rulings", str(store), "--far", "0.05"]
+
+    assert main(argv) == 0
+    first = capsys.readouterr().out
+    assert "appended to" in first
+    after_first = store.read_text()
+
+    assert main(argv) == 0
+    second = capsys.readouterr().out
+    assert "already recorded" in second
+    assert "appended to" not in second
+    assert store.read_text() == after_first  # nothing new was written

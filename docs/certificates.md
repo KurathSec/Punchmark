@@ -16,9 +16,10 @@ about model weights.
 [detector chargram v1; model pmk-m-3f963322e6324fe5; ruling pmk-r-3c53036ea627aa37]
 ```
 
-The ids in that block come from a specific run of the quickstart. Re-running it
-reproduces them only if you use the same seeds and arguments; the shape of the
-line is what to read here, not the exact hashes.
+Those ids are deterministic: the quickstart's commands reproduce them exactly, since
+every seed is derived rather than sampled. They are not pinned by any test, so a
+detector or generator change would move them without failing CI. Read the shape of the
+line here rather than the exact hashes.
 
 Field by field:
 

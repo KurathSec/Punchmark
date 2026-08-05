@@ -18,16 +18,37 @@ ROOT = Path(__file__).parent.parent
 ID_SHAPE = re.compile(r"\bPMK-[A-Z]{3,4}-\d{3}\b")
 
 
-def _citation_corpus() -> dict[Path, str]:
+# The citation corpus answers "is this ruling cited by the implementation?", so it
+# deliberately excludes generated pages and study write-ups: a ruling cited only from
+# a FINDING.md is not cited by the code that implements it.
+_CITATION_PATTERNS = ("src/punchmark/**/*.py", "tests/**/*.py", "docs/**/*.md",
+                      "*.md", "tools/**/*.py", "validation/**/*.py")
+# The resolution corpus answers "does every id-shaped string name a real ruling?",
+# which must sweep every text file a reader could follow, study write-ups included.
+_RESOLUTION_PATTERNS = _CITATION_PATTERNS + (
+    "validation/**/*.md", "calibration/**/*.md", "calibration/**/*.py",
+    "src/punchmark/spec/rulings/*.toml", ".github/**/*.md", ".github/**/*.yml",
+)
+_GENERATED = ("docs/spec/rulings.md",)
+
+
+def _read(patterns: tuple[str, ...]) -> dict[Path, str]:
+    generated = {ROOT / g for g in _GENERATED}
     files: dict[Path, str] = {}
-    generated = ROOT / "docs" / "spec" / "rulings.md"  # cites everything by construction
-    for pattern in ("src/punchmark/**/*.py", "tests/**/*.py", "docs/**/*.md",
-                    "*.md", "tools/**/*.py", "validation/**/*.py"):
+    for pattern in patterns:
         for path in ROOT.glob(pattern):
-            if path == generated:
+            if path in generated or not path.is_file():
                 continue
             files[path] = path.read_text(encoding="utf-8")
     return files
+
+
+def _citation_corpus() -> dict[Path, str]:
+    return _read(_CITATION_PATTERNS)
+
+
+def _resolution_corpus() -> dict[Path, str]:
+    return _read(_RESOLUTION_PATTERNS)
 
 
 def test_version_parses() -> None:
@@ -50,7 +71,9 @@ def test_every_active_ruling_is_cited_outside_its_own_toml() -> None:
 
 
 def test_every_id_shaped_string_resolves() -> None:
-    corpus = _citation_corpus()
+    """Every PMK-shaped string anywhere a reader could follow must name a real
+    ruling. This sweeps wider than the citation corpus, study write-ups included."""
+    corpus = _resolution_corpus()
     known = {d.id for d in all_decisions()}
     phantoms = set()
     for text in corpus.values():

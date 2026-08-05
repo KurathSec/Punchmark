@@ -82,3 +82,25 @@ def model_path(fitted_doc: ModelDoc, tmp_path_factory: pytest.TempPathFactory) -
     path = tmp_path_factory.mktemp("model") / "test.pmk-model.json"
     write_model(path, fitted_doc)
     return path
+
+
+@pytest.fixture(scope="session")
+def hard_synth_dir(tmp_path_factory: pytest.TempPathFactory) -> Path:
+    """A low-separation corpus where the detector is genuinely uncertain, so
+    curves have a range to be monotone over. The shared fixture is separable
+    enough that every miss collapses to 0.0."""
+    out = tmp_path_factory.mktemp("synth-hard")
+    generate(
+        out,
+        SynthSpec(
+            routes=ROUTES, tasks=(TASK,), n_clusters=12, k=3, separation=0.06, seed=29
+        ),
+    )
+    return out
+
+
+@pytest.fixture(scope="session")
+def hard_train_sets(hard_synth_dir: Path):
+    return [
+        read_windowed(p) for p in sorted(hard_synth_dir.glob(f"{TASK}__*.jsonl.gz"))
+    ]

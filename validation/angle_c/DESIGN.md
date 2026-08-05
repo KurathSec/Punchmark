@@ -109,10 +109,10 @@ splits evaluation into two explicitly separate models:
   unchanged. Used ONLY for routes whose slug is in its 4-route candidate set. Both sides
   of the same-weights pair qualify, because Together serves the exact committed slug: the
   DeepInfra side, the Together side, and the time-drift control. Scoring the Together
-  archive under the shipped model is the direct instrument for the load-bearing question.
-  Produces T-statistics
-  and SAME-PRODUCER/SUBSTITUTED verdicts at the shipped FAR via `--task-as`. Its
-  candidate_set_id and operating points are never changed; the drift gate stays green.
+  archive under the shipped model is the direct instrument for the load-bearing
+  question. Produces T-statistics and SAME-PRODUCER/SUBSTITUTED verdicts at the shipped
+  FAR via `--task-as`. Its candidate_set_id and operating points are never changed, and
+  the drift gate stays green.
 - **Angle-C side model (identification only).** A SEPARATE detector with its own
   `model_id` and `candidate_set_id`, fit on the committed dev archives PLUS the purchased
   archives, stored under `validation/angle_c/` and NEVER under `calibration/`. It is used
@@ -217,7 +217,7 @@ These are genuinely external or budgetary and cannot be settled from the repo:
    pair plus drift control plus one different-weights control is ~4-5 routes x 1,200 calls;
    at ~2k tokens/call that is ~2.4M tokens per route; at the ~$1.04/1M pinned above
    (DeepInfra similar), ~$2.50 per route, so 4-5 routes is order $10-13.
-4. **Whether to include the optional arms** (near-twin, family-size, the Novita precision
+4. **Whether to include the optional arms** (near-twin, the Novita precision
    substitution), each ~1,200 calls / ~$2-3.
 5. **Go/no-go on spending.** Nothing is purchased until you authorize a ceiling and
    confirm the accounts.

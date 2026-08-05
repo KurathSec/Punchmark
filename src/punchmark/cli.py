@@ -53,16 +53,17 @@ def _read_windowed(
     return load_and_attach(rs, path, Path(sidecar_dir) if sidecar_dir else None)
 
 
-def _record(store: Path, ruling_obj: Ruling) -> None:
+def _record(store: Path, ruling_obj: Ruling) -> bool:
     """Append a ruling unless the identical ruling is already recorded: identical
-    inputs reproduce identical ids (PMK-RUL-004), so a re-run is idempotent, not a
-    refusal."""
+    inputs reproduce identical ids (PMK-RUL-004), so a re-run is idempotent rather
+    than a refusal. Returns True when the store gained a line."""
     from .rulings import verify as _verify
 
     if any(b["ruling_id"] == ruling_obj.ruling_id for b in _verify(store)):
         print(f"  ruling {ruling_obj.ruling_id} already recorded in {store}")
-    else:
-        append(store, ruling_obj)
+        return False
+    append(store, ruling_obj)
+    return True
 
 
 def _parse_floats(text: str) -> tuple[float, ...]:
@@ -188,7 +189,7 @@ def _cmd_score(args: argparse.Namespace) -> int:
     )
     ruling = rule(doc, rs, policy, spec_version(), scored_as=args.task_as)
     store = Path(args.rulings)
-    _record(store, ruling)
+    appended = _record(store, ruling)
     print(f"{ruling.verdict.value}  route={ruling.route}  task={ruling.task}")
     print(
         f"  T={ruling.statistic if ruling.statistic is not None else 'n/a'}  "
@@ -199,7 +200,8 @@ def _cmd_score(args: argparse.Namespace) -> int:
         for reason in ruling.reasons:
             print(f"  reason: {reason}")
     print(f"  items={ruling.n_items} clusters={ruling.n_clusters} stubs={ruling.n_stub_rows}")
-    print(f"  ruling {ruling.ruling_id} appended to {store}")
+    if appended:
+        print(f"  ruling {ruling.ruling_id} appended to {store}")
     return 0
 
 

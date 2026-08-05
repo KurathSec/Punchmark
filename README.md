@@ -64,11 +64,13 @@ finding about the capabilities of any model.
 
 The reference calibration corpus is defined over the committed response archives of the
 public [Spaghetti Architect](https://github.com/KurathSec/Spaghetti-Architect) benchmark,
-pinned by commit and per-file hash in `calibration/spaghetti/MANIFEST.json`. No completion
-text is re-published here; `punchmark corpus rebuild --corpus calibration/spaghetti --source <checkout>` verifies a local
-checkout byte-for-byte. Results in this repository are statements about producer identity
-of those archives as re-analysed here. They are not claims about, or corrections to, any
-capability table published from that benchmark elsewhere.
+pinned by commit and per-file hash in `calibration/spaghetti/MANIFEST.json`. No
+completion text is re-published here; the command
+`punchmark corpus rebuild --corpus calibration/spaghetti --source <checkout>`
+verifies a local checkout byte-for-byte. Results in this repository are statements
+about producer identity of those archives as re-analysed here. They are not claims
+about, or corrections to, any capability table published from that benchmark
+elsewhere.
 
 ## License
 

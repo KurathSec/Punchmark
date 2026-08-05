@@ -1,4 +1,7 @@
-# The rulings-spec version. Moves independently of the package version: MAJOR when a
-# ruling is superseded or the meaning of an artifact changes, MINOR when rulings are
-# added, PATCH for wording fixes that do not change meaning.
+# The rulings-spec version. Moves independently of the package version:
+#   MAJOR when a ruling is superseded, or when an artifact's assertion changes
+#         (including dropping or weakening a pinned sentence);
+#   MINOR when rulings are added, or when an artifact gains a backward-compatible
+#         field that leaves its assertion unchanged;
+#   PATCH for wording fixes that do not change meaning.
 version = "2.1.0"

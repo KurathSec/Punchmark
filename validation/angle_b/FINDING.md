@@ -58,9 +58,9 @@ to run it on this corpus. Recorded facts:
 
 The package answers "same distribution?" for a pair of samples the user must construct;
 it never answers "which producer" and never attaches a verdict to a published number.
-Both halves of Angle B point the same way: the discovery
-literature exists, but nothing installable consumes an archive and returns a
-producer-identity verdict, which is the gap punchmark fills.
+Both halves of Angle B point the same way: the discovery literature exists, but nothing
+installable consumes an archive and returns a producer-identity verdict, which is the
+gap punchmark fills.
 
 ## Reproduce
 

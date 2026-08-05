@@ -2,8 +2,9 @@
 
 The shipped mode is manifest + local rebuild (PMK-COR-002): the manifest pins the
 upstream checkout commit and the sha256 of every source archive, and
-``punchmark corpus rebuild --source <checkout>`` verifies the local bytes against
-those pins. No completion text rides in this repository -- the corpus identity
+``punchmark corpus rebuild --corpus <dir> --source <checkout>`` verifies the local
+bytes against those pins. No completion text rides in this repository: the corpus
+identity
 every ruling cites (PMK-COR-001) is the content hash of the manifest itself, and
 that hash is exactly as binding over a manifest as over a copy.
 

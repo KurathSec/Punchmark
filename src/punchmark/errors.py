@@ -1,8 +1,11 @@
 """Exception taxonomy.
 
 Every refusal punchmark issues is one of these, and every message names the fix.
-A refusal is exit code 1 at the CLI; malformed usage or unevaluable input is exit 2.
-Neither is ever allowed to look like a measured verdict.
+A refusal is exit code 1 at the CLI under fit, score and gate. Under certify every
+typed refusal is exit 2 instead, because exit 1 there means exactly one thing: a
+measured DOES NOT HOLD (PMK-CRT-001, PMK-GTE-001). Malformed usage and unevaluable
+input are always exit 2. None of these is ever allowed to look like a measured
+verdict.
 """
 
 from __future__ import annotations
