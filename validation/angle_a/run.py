@@ -21,16 +21,17 @@ E7  probe         -- the frozen 150-row probe subset and its manifest
 E8  transfer      -- ablation-arm archives (k=1, different prompt condition,
                      ~2 weeks later): identification-only diagnostic, declared
                      confounded; NO verdict vocabulary
-E9  certificates  -- canonical held-out rulings + certificates + gate snapshot
+E9  certificates  -- canonical held-out rulings and their certificates
 
 Kill-test wiring (deviations from the recorded wording are declared in
 FINDING.md): KT1 passes iff canonical 8/8 AND pooled subsample accuracy at m=150
->= 0.95 with cluster-bootstrap CI lower bound >= 0.90. KT2 fires iff the measured
-within-window flag rate significantly exceeds the declared 1% (cluster-bootstrap
-lower bound over archives > 0.01) or the null cannot be estimated; canonical
-flags are reported and investigated, never auto-kill. KT3's recorded binary form
-fires iff RAW accuracy > 0.95 AND ABL accuracy < 0.50; independently, the
-premise-void verdict requires the ABL (content) channel at chance for all pairs.
+>= 0.95 with cluster-bootstrap CI lower bound >= 0.90. KT2 fires iff any FIT-stratum
+cell's per-ruling flag rate exceeds the declared 1% beyond binomial noise at its own
+n (the cell tolerance), or the fit stratum's pooled bootstrap lower bound exceeds the
+declared rate. Canonical flags are reported and investigated and never trigger an
+automatic kill. KT3's recorded binary form fires iff RAW accuracy > 0.95 AND ABL
+accuracy < 0.50; the premise-void verdict requires that AND the ABL (content) channel
+at chance for every pair, so at-chance content is necessary but not sufficient.
 """
 
 from __future__ import annotations

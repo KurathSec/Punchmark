@@ -6,7 +6,7 @@ from the sdist. The shipped wheel carries only the fitted default model.
 - `spaghetti/`: the reference corpus over the upstream benchmark's 16 committed
   response archives. Ships as **manifest + local rebuild** (PMK-COR-002), so no
   completion text lives here. `MANIFEST.json` pins the upstream commit and per-file
-  sha256, and `punchmark corpus rebuild --source <checkout>` verifies a local checkout
+  sha256, and `punchmark corpus rebuild --corpus calibration/spaghetti --source <checkout>` verifies a local checkout
   byte-for-byte. The manifest's content hash is the corpus identity every ruling pins
   (PMK-COR-001).
 - `spaghetti/goldens/`: the committed fitted model and its operating-point baseline,

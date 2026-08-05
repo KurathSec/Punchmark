@@ -42,13 +42,8 @@ jobs:
         run: |
           pytest -q tests/test_layering.py tests/test_spec.py \
                     tests/test_operating_point_drift.py
-      - name: Calibration drift (once goldens are committed)
-        run: |
-          if [ -d calibration/spaghetti/goldens ]; then
-            python tools/update_calibration.py --check
-          else
-            echo "no committed goldens yet; the drift tool arms with the calibration commit"
-          fi
+      - name: Calibration drift
+        run: python tools/update_calibration.py --check
       - name: Generated docs are current
         run: python tools/render_rulings.py --check
 

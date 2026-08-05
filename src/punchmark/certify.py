@@ -1,6 +1,10 @@
 """The certificate emitter: one line of text plus a machine-readable document,
 always derived from exactly one ruling (PMK-CRT-001).
 
+The item and cluster counts ride in both the line and the body (PMK-CAL-001):
+the effective sample size is bounded by the number of clusters, so a certificate
+reporting rows alone would overstate what its verdict rests on.
+
 The wording rules are rulings, not style: the certificate certifies the ROUTE
 LABEL as served, never the weights (PMK-CRT-002), and every verdict is relative
 to a closed candidate set (PMK-CRT-003). The tri-state maps to exit codes at the
@@ -74,6 +78,8 @@ def certificate_from_ruling(body: dict[str, Any]) -> Certificate:
         "route": route,
         "task": task,
         "scored_as": body.get("scored_as"),
+        "n_items": body.get("n_items"),
+        "n_clusters": body.get("n_clusters"),
         "window": body.get("window"),
         "operating_point": body["operating_point"],
         "candidate_set_id": body["candidate_set_id"],
@@ -93,7 +99,9 @@ def certificate_from_ruling(body: dict[str, Any]) -> Certificate:
     line = (
         f"punchmark certificate {cert_id}: producer identity of route {route} "
         f"({_task_text(body)}, {_window_text(body)}) {clause} against candidate set "
-        f"{body['candidate_set_id']} ({n_routes} routes). {_SCOPE_SENTENCE} "
+        f"{body['candidate_set_id']} ({n_routes} routes) "
+        f"over {body['n_items']} items in {body['n_clusters']} clusters. "
+        f"{_SCOPE_SENTENCE} "
         f"[detector {body['detector']['id']} v{body['detector']['version']}; "
         f"model {body['model_id']}; ruling {ruling_id}]"
     )

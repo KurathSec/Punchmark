@@ -6,14 +6,19 @@ as a `certificate/v1` document. Here is a real line from the synthetic
 quickstart roundtrip:
 
 ```
-punchmark certificate pmk-c-d5679c8bf50a759a: producer identity of route
+punchmark certificate pmk-c-9f159a6c9f021abb: producer identity of route
 synth/route-a (task synthtask, window
 2026-01-01T00:00:00+00:00..2026-01-01T01:00:00+00:00) HOLDS at false-alarm rate
 0.01; minimum resolvable substituted fraction 0.02 against candidate set
-pmk-cs-169b400fc8599df1 (3 routes). This certifies the route label as served
-within the named candidate set; it is not a statement about model weights.
-[detector chargram v1; model pmk-m-6a790f4c55e11c83; ruling pmk-r-f495ef7e9b0bba5f]
+pmk-cs-169b400fc8599df1 (3 routes) over 72 items in 12 clusters. This certifies
+the route label as served within the named candidate set; it is not a statement
+about model weights.
+[detector chargram v1; model pmk-m-3f963322e6324fe5; ruling pmk-r-3c53036ea627aa37]
 ```
+
+The ids in that block come from a specific run of the quickstart. Re-running it
+reproduces them only if you use the same seeds and arguments; the shape of the
+line is what to read here, not the exact hashes.
 
 Field by field:
 
@@ -25,6 +30,7 @@ Field by field:
 | `HOLDS at false-alarm rate 0.01` | The verdict clause at the operating point *you* declared with `--far`. The other clauses are `DOES NOT HOLD ... statistic fell below the calibrated threshold ...` and `IS UNDETERMINED (reasons)`. |
 | `minimum resolvable substituted fraction 0.02` | rho\*: the smallest substituted fraction the archive's k and item count could have resolved for the worst candidate pair. Only a `HOLDS` line carries it. |
 | `against candidate set pmk-cs-... (3 routes)` | The closed set the verdict is relative to, by content id and size. |
+| `over 72 items in 12 clusters` | What the verdict rests on. The cluster count is the one that bounds the effective sample size, since items inside a cluster share program content, so a row count on its own would overstate the evidence (PMK-CAL-001). |
 | the scope sentence | Fixed wording, carried by every certificate (PMK-CRT-002): *"This certifies the route label as served within the named candidate set; it is not a statement about model weights."* |
 | `[detector ...; model ...; ruling ...]` | Provenance: detector id and version, fitted-model id, and the ruling id this certificate derives from. This is enough to re-derive the line from the rulings store. |
 

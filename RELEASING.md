@@ -1,6 +1,6 @@
 # Releasing
 
-1. Ensure `main` is green: tests, ruff, mypy --strict, the three mechanical gates, and
+1. Ensure `main` is green: tests, ruff, mypy --strict, the three mechanical gates,
    `tools/update_calibration.py --check`.
 2. Move `src/punchmark/_version.py` to the release version; move the `Unreleased`
    section of CHANGELOG.md under the new version heading. If any spec ruling was

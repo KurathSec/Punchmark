@@ -6,7 +6,7 @@
 
 - [ ] `pytest` green, including the three mechanical gates (operating-point
       drift, spec coverage, layering). **No gate was worked around.**
-- [ ] `ruff check src tests tools` and `mypy` (strict) green.
+- [ ] `ruff check src tests tools validation` and `mypy` (strict) green.
 - [ ] Every load-bearing choice that changed carries a numbered spec ruling --
       added or superseded with a version bump, never edited -- cited from the
       code and pinned by a test.

@@ -22,7 +22,7 @@ SemVer. The rulings-spec version moves independently (see
   the false-alarm promise and its measured non-transfer to re-minted content,
   the formatting-ablation kill test, held-out power, the frozen 150-row probe.
 - 41 spec rulings, 40 active (PMK-CAL-002 superseded by PMK-CAL-005). Rulings-spec
-  at 2.0.0.
+  at 2.1.0.
 - CLI: `fit`, `score`, `certify`, `gate`, `corpus`, `synth`, `census`, `spec`, `env`,
   `cite`, plus `--task-as` declared cross-split scoring and the `--sidecars` directory
   override.

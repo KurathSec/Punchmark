@@ -77,8 +77,13 @@ INSIDE the Angle C window; none reuses a June-committed archive as a live compar
    archive of that slug. This is same-weights, same-provider, cross-window: it measures
    what five weeks of drift alone looks like, so the load-bearing pair's separation can be
    read against it.
-3. **Same family, two sizes.** One more same-family size pair beyond the committed
-   Llama-3.1-8B / Llama-3.3-70B, if available.
+3. **Same family, two sizes (the different-weights control the power gate requires;
+   not optional).** One same-family size pair, both sides purchased in-window. The power
+   gate needs a control that RESOLVES, so this role goes to a size pair rather than to
+   the near-twin of item 5, which is chosen to be hard and would systematically force
+   the underpowered outcome. Pin the concrete pair at purchase; if none is purchasable,
+   the load-bearing contrast is reported as underpowered rather than run without a
+   control.
 4. **Quantized vs full (precision yardstick).** The same slug at two quantization levels
    from one provider that exposes the choice. This is the measured effect size of a pure
    precision difference, used to condition the load-bearing verdict.
@@ -87,9 +92,10 @@ INSIDE the Angle C window; none reuses a June-committed archive as a live compar
    search found that Novita serves `deepseek-ai/DeepSeek-V4-Flash` at disclosed FP8 while
    DeepInfra serves the same slug at "FP4 + FP8 Mixed" (MoE experts in FP4). This is a
    real same-slug, different-precision pair in the wild — exactly the silent-substitution
-   hazard PF-16 worries about. It is a bonus arm, not load-bearing: it tests whether the
-   detector flags a genuine precision substitution behind an unchanged slug. Include only
-   if budget allows after the load-bearing pair.
+   hazard this arm exists to probe: the slug stays fixed while the served precision
+   moves. It is a bonus arm rather than load-bearing, and it tests whether the detector
+   flags a genuine precision substitution behind an unchanged slug. Include only if
+   budget allows after the load-bearing pair.
 
 Open-weight routes only; closed commercial routes never enter any corpus (PMK-COR-002).
 
@@ -100,8 +106,11 @@ shipped operating point" is mechanically impossible and internally contradictory
 splits evaluation into two explicitly separate models:
 
 - **Shipped model (verification only).** `calibration/spaghetti/goldens/default.pmk-model.json`,
-  unchanged. Used ONLY for routes whose slug is in its 4-route candidate set: the
-  same-weights pair's DeepInfra side, and the time-drift control. Produces T-statistics
+  unchanged. Used ONLY for routes whose slug is in its 4-route candidate set. Both sides
+  of the same-weights pair qualify, because Together serves the exact committed slug: the
+  DeepInfra side, the Together side, and the time-drift control. Scoring the Together
+  archive under the shipped model is the direct instrument for the load-bearing question.
+  Produces T-statistics
   and SAME-PRODUCER/SUBSTITUTED verdicts at the shipped FAR via `--task-as`. Its
   candidate_set_id and operating points are never changed; the drift gate stays green.
 - **Angle-C side model (identification only).** A SEPARATE detector with its own
@@ -201,12 +210,14 @@ These are genuinely external or budgetary and cannot be settled from the repo:
 
 1. ~~Provider B~~ **RESOLVED: Together AI** (see route 1 above). No longer open.
 2. **Credentials and billing.** A Together AI account and API key are needed (the study
-   has none yet). The DeepInfra key in `bench/config.json` is plaintext; its account
-   should be confirmed and the key rotated if it was ever exposed. Which accounts bill?
+   has none yet). The DeepInfra key in `bench/config.json` is plaintext and the upstream
+   project records it as already exposed, so rotating it is unconditional and must happen
+   before any Angle C spend. Which accounts bill?
 3. **The spend ceiling** (`--max-usd`, no default) and the call ceiling. The load-bearing
    pair plus drift control plus one different-weights control is ~4-5 routes x 1,200 calls;
-   at Together's ~$1/1M and DeepInfra's similar rate with ~2k tokens/call, order $5-12.
+   at ~2k tokens/call that is ~2.4M tokens per route; at the ~$1.04/1M pinned above
+   (DeepInfra similar), ~$2.50 per route, so 4-5 routes is order $10-13.
 4. **Whether to include the optional arms** (near-twin, family-size, the Novita precision
-   substitution), each ~1,200 calls / ~$1-2.
+   substitution), each ~1,200 calls / ~$2-3.
 5. **Go/no-go on spending.** Nothing is purchased until you authorize a ceiling and
    confirm the accounts.

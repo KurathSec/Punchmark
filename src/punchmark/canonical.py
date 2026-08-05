@@ -65,7 +65,8 @@ def derive_seed(*parts: str | int) -> int:
     """Deterministic seed from labelled parts (PMK-EMIT-003).
 
     No stochastic procedure in punchmark may seed itself from the clock; every seed
-    is derived from the spec version, the scope, the procedure name, and an index.
+    derives from labelled parts (the procedure name, the scope it runs in, an index,
+    and the caller's seed) hashed with sha256.
     """
     text = "|".join(str(p) for p in parts)
     return int.from_bytes(hashlib.sha256(text.encode("utf-8")).digest()[:8], "big")

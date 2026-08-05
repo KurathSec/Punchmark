@@ -1,4 +1,4 @@
-Angle A readout (model pmk-m-c52e6e6014883edb, corpus pmk-cor-32596a35e0452817, spec 2.0.0)
+Angle A readout (model pmk-m-c52e6e6014883edb, corpus pmk-cor-32596a35e0452817, spec 2.1.0)
 KT1: canonical 8/8, subsample@150 0.9863, CI lower 0.965 -> PASS
 KT2 (recorded, fit stratum): per-ruling rate 0.0 (declared 0.01), canonical flags 0/16 fit / 0/16 heldout -> HOLDS
 KT2 transfer (heldout stratum, re-minted content): pooled rate 0.037, 3/8 cells beyond tolerance 0.0144 -> DOES NOT TRANSFER

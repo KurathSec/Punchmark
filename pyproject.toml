@@ -34,7 +34,7 @@ classifiers = [
 # ZERO runtime dependencies. The detector is closed-form arithmetic over hashed
 # character n-grams; calibration is resampling over a cached score table. Nothing here
 # needs numpy, a solver, or a model client. tomllib/hashlib/gzip are stdlib; the 3.12
-# floor buys math.sumprod for the dot products that keep scoring numpy-free.
+# floor is set by the stdlib features the tree relies on (tomllib, itertools.batched).
 dependencies = []
 
 [project.optional-dependencies]

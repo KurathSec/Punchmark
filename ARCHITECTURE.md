@@ -104,6 +104,13 @@ used as seeds. `tests/test_determinism.py` runs the pipeline in two processes un
 - Thresholds are conservative empirical quantiles with conservative set-size lookup
   (PMK-CAL-004). Below the calibrated floor the result is UNDETERMINED, because
   thresholds are never extrapolated.
+- Thresholds are per declared route. Nulls are never pooled across routes, so one
+  near-inseparable pair's noise cannot widen every route's threshold. An operating
+  point is a (task, route, far, m) cell (PMK-CAL-006).
+- A quantile needs draws. A (cell, far) pair with fewer than five expected tail
+  draws is dropped rather than extrapolated: the lookup returns None and the ruling
+  comes out UNDETERMINED. Null draws are budgeted over the usable archives of a cell
+  (PMK-CAL-007).
 - Seeded substitutions splice score-table rows as whole clusters, matched by item key
   (PMK-POW-001). rho = 0 must reproduce the null (PMK-POW-002). The minimum resolvable
   substituted fraction rho* is an output in its own right (PMK-POW-003), and seeded

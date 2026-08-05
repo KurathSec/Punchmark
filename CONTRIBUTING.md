@@ -36,9 +36,11 @@ A ruling id is immutable forever, so existing rulings are not edited. Changing
 what an existing id *means* silently rewrites every verdict ever issued under
 it. To change a decision, mark the old stanza `status = "superseded"`, add a new
 ruling with a new id, and bump the rulings-spec version in
-`src/punchmark/spec/rulings/index.toml`. Bump MAJOR when the meaning of any
-recorded artifact changes and MINOR otherwise. `require()` refuses superseded
-ids at runtime, so stale citations fail loudly.
+`src/punchmark/spec/rulings/index.toml`. A supersession is always a MAJOR bump;
+MINOR is for added rulings and PATCH for wording fixes that do not change meaning.
+The drift gate and `punchmark gate` compare only the spec MAJOR, so a supersession
+shipped as MINOR would let a moved operating point through undeclared. `require()`
+refuses superseded ids at runtime, so stale citations fail loudly.
 
 ## Adding a spec ruling
 

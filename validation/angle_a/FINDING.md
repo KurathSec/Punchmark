@@ -51,7 +51,9 @@ far plus binomial noise at its own n (`cell_tolerance` = 0.0144), because a
 concentrated failure must not hide under a pooled mean.
 
 - **Recorded form (fit stratum: same-route rulings inside one window of the
-  calibration content):** per-ruling flag rate **0.0000** in every fit cell.
+  calibration content):** per-ruling flag rate **0.0000** in seven of the eight fit
+  cells, and **0.0002** in comprehend DeepSeek-V4-Flash (one flagged ruling in 5,000,
+  about 70x under the 0.0144 cell tolerance); pooled fit-stratum rate **0.0**.
   Canonical seed-pinned pairs flagged: **0 of 16** fit-stratum halves (and 0 of 16
   held-out halves). No fit cell exceeds tolerance. The kill **does not fire**.
 - **Transfer finding (held-out stratum: dev-calibrated thresholds applied to

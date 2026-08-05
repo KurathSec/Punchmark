@@ -5,7 +5,7 @@
     "r/a",
     "r/b"
   ],
-  "certificate_id": "pmk-c-1ea41b9589d1b8a8",
+  "certificate_id": "pmk-c-8b87ae6814aefbb3",
   "detector": {
     "id": "trivial",
     "version": "1"
@@ -16,6 +16,8 @@
     "CLOSED_SET"
   ],
   "model_id": "pmk-m-0000000000000000",
+  "n_clusters": 10,
+  "n_items": 50,
   "operating_point": {
     "far": 0.01,
     "threshold": -0.5

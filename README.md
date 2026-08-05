@@ -25,7 +25,7 @@ Four outputs:
 3. **A one-line certificate** attachable to the published score:
    *"producer identity of route R over window W HOLDS at false-alarm rate 0.01 against
    candidate set C."*
-4. **The minimum candidate separation your k and item count could have resolved**, so a
+4. **The minimum substituted fraction your k and item count could have resolved**, so a
    null result reads as a power limit and not as reassurance.
 
 ## What a verdict means, and what it does not
@@ -65,7 +65,7 @@ finding about the capabilities of any model.
 The reference calibration corpus is defined over the committed response archives of the
 public [Spaghetti Architect](https://github.com/KurathSec/Spaghetti-Architect) benchmark,
 pinned by commit and per-file hash in `calibration/spaghetti/MANIFEST.json`. No completion
-text is re-published here; `punchmark corpus rebuild --source <checkout>` verifies a local
+text is re-published here; `punchmark corpus rebuild --corpus calibration/spaghetti --source <checkout>` verifies a local
 checkout byte-for-byte. Results in this repository are statements about producer identity
 of those archives as re-analysed here. They are not claims about, or corrections to, any
 capability table published from that benchmark elsewhere.
