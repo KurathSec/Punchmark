@@ -50,7 +50,8 @@ to run it on this corpus. Recorded facts:
    a length mismatch).
 3. Measurement. With that glue, the two-sample MMD (Hamming kernel, permutation
    p-values) produces invalid output on this off-label input: p-values outside [0, 1]
-   (negative for same-route null pairs, above 1 for a cross-route pair), and an inverted
+   (negative for three of the four same-route null pairs, above 1 for one cross-route
+   pair), and an inverted
    ordering where same-route null pairs score a large statistic while cross-route pairs
    collapse to 0.0. No valid distributional verdict can be extracted. The package is
    built for tokenized samples with a reference distribution, not raw archived text, and

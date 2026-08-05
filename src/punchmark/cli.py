@@ -152,9 +152,12 @@ def _cmd_fit(args: argparse.Namespace) -> int:
     print(f"fitted {doc.model_id} -> {out}")
     print(f"candidates: {', '.join(candidates.routes)}  (set {candidates.candidate_set_id})")
     print(f"calibration corpus: {corpus_sha}")
-    print("operating points (task, far, m -> threshold):")
-    for p in sorted(doc.operating_points, key=lambda p: (p.task, p.far, p.m)):
-        print(f"  {p.task}  far={p.far}  m={p.m}  t={p.threshold:.6f}  (n_null={p.n_null})")
+    print("operating points (task, route, far, m -> threshold):")
+    for p in sorted(doc.operating_points, key=lambda p: (p.task, p.route, p.far, p.m)):
+        print(
+            f"  {p.task}  {p.route}  far={p.far}  m={p.m}  "
+            f"t={p.threshold:.6f}  (n_null={p.n_null})"
+        )
     print("miss-rate-versus-false-alarm curve (worst pair per task, largest m):")
     for task in doc.tasks:
         largest = max(c.m for c in doc.curve if c.task == task)
@@ -445,7 +448,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(fn=_cmd_certify)
 
     p = sub.add_parser("gate", help="CI gate: fail when the operating point moved silently")
-    p.add_argument("model", metavar="MODELFILE")
+    p.add_argument("model", metavar="MODELFILE", help=MODEL_HELP)
     p.add_argument("--baseline", required=True)
     p.add_argument("--write-baseline", action="store_true")
     p.add_argument("--require-chain-valid", action="store_true")

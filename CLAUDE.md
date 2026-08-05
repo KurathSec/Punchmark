@@ -8,10 +8,10 @@ prose, and the code is authoritative over ARCHITECTURE.md.
 
 ```
 .venv/bin/pytest -q                 # tests (fast; all synthetic)
-.venv/bin/ruff check src/ tests/    # lint (line 100, TID253 layering bans)
+.venv/bin/ruff check src/ tests/ tools/ validation/   # lint (TID253 layering bans)
 .venv/bin/mypy                      # strict over src/punchmark, a hard gate
 .venv/bin/punchmark ...             # the CLI under development
-tools/update_calibration.py --check # drift gate (once calibration is committed)
+tools/update_calibration.py --check # drift gate: 0 current, 1 drifted, 2 unevaluable
 tools/render_rulings.py             # regenerate docs/spec/rulings.md
 ```
 

@@ -91,9 +91,9 @@ installing anything itself:
 - uses: actions/checkout@v7
 - uses: KurathSec/Punchmark@main   # or a released tag once one exists
   with:
-    model: calibration/spaghetti/goldens/default.pmk-model.json
-    baseline: calibration/spaghetti/goldens/operating_point.json
-    rulings: punchmark-rulings.jsonl   # optional: also verify the ruling chain
+    model: model.pmk-model.json       # the model file you committed
+    baseline: baseline.json           # written once by `gate --write-baseline`
+    rulings: punchmark-rulings.jsonl  # optional: also verify the ruling chain
 ```
 
 With `version:` set it installs that release from PyPI; left empty it installs

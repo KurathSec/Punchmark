@@ -97,7 +97,8 @@ INSIDE the Angle C window; none reuses a June-committed archive as a live compar
    flags a genuine precision substitution behind an unchanged slug. Include only if
    budget allows after the load-bearing pair.
 
-Open-weight routes only; closed commercial routes never enter any corpus (PMK-COR-002).
+Open-weight routes only. Closed commercial routes are excluded by design, because
+their producer labels cannot be pinned, so a by-construction label would not exist.
 
 ## Two-model evaluation protocol (the shipped goldens are never touched)
 
@@ -217,7 +218,7 @@ These are genuinely external or budgetary and cannot be settled from the repo:
    pair plus drift control plus one different-weights control is ~4-5 routes x 1,200 calls;
    at ~2k tokens/call that is ~2.4M tokens per route; at the ~$1.04/1M pinned above
    (DeepInfra similar), ~$2.50 per route, so 4-5 routes is order $10-13.
-4. **Whether to include the optional arms** (near-twin, the Novita precision
-   substitution), each ~1,200 calls / ~$2-3.
+4. **Whether to include the optional arms** (the near-twin, and the Novita precision
+   substitution). Each is a PAIR, so each costs two routes: ~2,400 calls and ~$5.
 5. **Go/no-go on spending.** Nothing is purchased until you authorize a ceiling and
    confirm the accounts.

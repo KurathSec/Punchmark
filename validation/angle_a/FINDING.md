@@ -100,8 +100,8 @@ people's archives survives its sharpest recorded objection.
 ## Power and the minimum resolvable separation (`derived/power_heldout.json`, model file)
 
 At the shipped thresholds (m=750, FAR 0.01), held-out seeded substitutions resolve at
-rho* between **0.1 and 0.75** depending on the ordered pair. Every pair resolves a
-full swap. The shipped power table now covers every calibrated far, so a ruling at
+rho* between **0.1 and 0.75** depending on the ordered pair: every one of the 24
+ordered pairs resolves, and none needs a full swap to do it. The shipped power table now covers every calibrated far, so a ruling at
 any declared operating point has a table to consult. The rho=0 self-check is enforced
 inside `power_analysis` itself. The dev calibration passes it. The three held-out
 transfer cells fail their held-out version and are flagged per entry in the artifact.
