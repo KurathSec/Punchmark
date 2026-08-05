@@ -49,19 +49,29 @@ to run it on this corpus. Recorded facts:
    completion tensor, and one global pad length so the two-sample path does not crash on
    a length mismatch).
 3. Measurement. With that glue, the two-sample MMD (Hamming kernel, permutation
-   p-values) produces invalid output on this off-label input: p-values outside [0, 1]
-   (negative for three of the four same-route null pairs, above 1 for one cross-route
-   pair), and an inverted
-   ordering where same-route null pairs score a large statistic while cross-route pairs
-   collapse to 0.0. No valid distributional verdict can be extracted. The package is
-   built for tokenized samples with a reference distribution, not raw archived text, and
-   forcing an archive through it yields nonsense rather than an answer.
+   p-values, b=200) runs to completion and behaves correctly. It fails to reject every
+   same-route null pair, at p far above any conventional level with MMD at or just
+   below zero, and rejects every cross-route pair at p = 0.0 with MMD well above zero
+   (see `derived/meq_attempt.json` for the run's exact values; the permutation p-values
+   are unseeded Monte Carlo, so they move between runs while the separation does not).
+   This is an off-label use:
+   the package is built for tokenized samples against a reference distribution, not raw
+   archived text, so the result is reported as an observation rather than as a
+   validated capability of the package.
 
-The package answers "same distribution?" for a pair of samples the user must construct;
-it never answers "which producer" and never attaches a verdict to a published number.
-Both halves of Angle B point the same way: the discovery literature exists, but nothing
-installable consumes an archive and returns a producer-identity verdict, which is the
-gap punchmark fills.
+   **Correction.** An earlier version of this study reported the opposite and described
+   the package's output as invalid. That was a bug in this repository's probe script,
+   which unpacked the package's `(pvalue, statistic)` return in the wrong order, so the
+   two fields were swapped in every recorded result. The package was not at fault, the
+   claim is withdrawn, and the numbers above come from the corrected script.
+
+The occupancy argument does not rest on the package working badly, and it does not need
+to. The package answers "are these two samples from the same distribution?" for a pair
+of samples the caller must construct. It never answers "which producer", it has no
+notion of a route label, it reads no archive, and it attaches no verdict to a published
+number. Both halves of Angle B point the same way: the discovery literature exists and
+some of it works, but nothing installable consumes an archive and returns a
+producer-identity verdict, which is the gap punchmark fills.
 
 ## Reproduce
 

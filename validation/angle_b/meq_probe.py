@@ -17,7 +17,8 @@ punchmark dependency. The script does three things and records all of them:
 3. Measurement: with that glue, its two-sample MMD (Hamming kernel,
    permutation p-values) is run on this corpus: same-route null pairs (draws
    0-3 vs 4-7 of the same items) and cross-route pairs (same items, different
-   routes), on comprehend_test first via the smallest completions.
+   routes), on comprehend_test. The outcome is recorded as measured, whatever
+   it is; it is an off-label use of the package and is reported as such.
 
 Writes derived/meq_attempt.json.
 """
@@ -88,19 +89,20 @@ def main() -> int:
         },
         "results": {},
         "interpretation": (
-            "Off-label result, recorded honestly. The package is built for tokenized "
-            "completion distributions over a shared prompt set with a reference "
-            "distribution (its one-sample test). Its two-sample MMD is run here on raw "
-            "archived text encoded to unicode code points, which is not its intended "
-            "input. The permutation p-value estimator returns values OUTSIDE [0, 1] "
-            "(negative for three of the four same-route null pairs, above 1 for one "
-            "cross-route pair), and "
-            "the statistic ordering is inverted: same-route null pairs score high while "
-            "cross-route pairs collapse to 0.0. No valid distributional verdict can be "
-            "extracted from this input. That is a second, independent reason nothing "
-            "installable today consumes an archive and returns a producer-identity "
-            "verdict: beyond the undeclared dependencies and the absent archive reader, "
-            "the package does not produce a usable answer when force-fed an archive."
+            "The two-sample test behaves correctly on this off-label input. It fails "
+            "to reject every same-route null pair (permutation p far above any "
+            "conventional level, MMD at or just below zero) and rejects every "
+            "cross-route pair (p = 0.0 at b=200, MMD well above zero). The permutation "
+            "p-values are Monte Carlo and unseeded, so their exact values move between "
+            "runs while this separation does not. An earlier version of this probe "
+            "reported the opposite and called the output invalid; that was a bug in "
+            "this script, which "
+            "unpacked the package's (pvalue, statistic) return in the wrong order. The "
+            "package is not at fault and the claim has been withdrawn. What the run "
+            "does show is unchanged and is about capability rather than correctness: "
+            "the package answers 'are these two samples from the same distribution?' "
+            "for samples the caller must build, and it never answers 'which producer' "
+            "and never attaches a verdict to a published number."
         ),
     }
     try:
@@ -152,11 +154,12 @@ def main() -> int:
         )
 
     def two_sample(a: CompletionSample, b: CompletionSample) -> dict:
-        stat, pvalue = run_two_sample_test(
+        # the package returns (pvalue, statistic) in that order
+        pvalue, stat = run_two_sample_test(
             a, b, pvalue_type="permutation_pvalue",
             stat_type="mmd_hamming", b=B_PERMUTATIONS,
         )
-        return {"stat": float(stat), "pvalue": float(pvalue)}
+        return {"pvalue": float(pvalue), "stat": float(stat)}
 
     for slug in ROUTES:
         report["results"][f"null|{slug}"] = two_sample(

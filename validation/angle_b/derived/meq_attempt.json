@@ -1,6 +1,6 @@
 {
   "glue_supplied_here": "gzip/JSONL reading, item matching across routes, first-4/last-4 draw splitting, unicode encoding via their tokenize_unicode, padding every sample to one global length, CompletionSample assembly; and a single global pad length L=70 across all samples, because the package's two-sample test concatenates two independently padded tensors and crashes on a length mismatch",
-  "interpretation": "Off-label result, recorded honestly. The package is built for tokenized completion distributions over a shared prompt set with a reference distribution (its one-sample test). Its two-sample MMD is run here on raw archived text encoded to unicode code points, which is not its intended input. The permutation p-value estimator returns values OUTSIDE [0, 1] (negative for three of the four same-route null pairs, above 1 for one cross-route pair), and the statistic ordering is inverted: same-route null pairs score high while cross-route pairs collapse to 0.0. No valid distributional verdict can be extracted from this input. That is a second, independent reason nothing installable today consumes an archive and returns a producer-identity verdict: beyond the undeclared dependencies and the absent archive reader, the package does not produce a usable answer when force-fed an archive.",
+  "interpretation": "The two-sample test behaves correctly on this off-label input. It fails to reject every same-route null pair (permutation p far above any conventional level, MMD at or just below zero) and rejects every cross-route pair (p = 0.0 at b=200, MMD well above zero). The permutation p-values are Monte Carlo and unseeded, so their exact values move between runs while this separation does not. An earlier version of this probe reported the opposite and called the output invalid; that was a bug in this script, which unpacked the package's (pvalue, statistic) return in the wrong order. The package is not at fault and the claim has been withdrawn. What the run does show is unchanged and is about capability rather than correctness: the package answers 'are these two samples from the same distribution?' for samples the caller must build, and it never answers 'which producer' and never attaches a verdict to a published number.",
   "package": "model-equality-testing 0.0.2 (PyPI, uploaded 2024-10-24)",
   "packaging_facts": [
     "pip install succeeds but `import model_equality_testing` fails on undeclared dependencies; observed chain: tqdm, then transformers (each found only by attempting the import and reading the traceback)",
@@ -9,32 +9,32 @@
   ],
   "results": {
     "cross|deepseek-ai-DeepSeek-V4-Flash|meta-llama-Llama-3.3-70B-Instruct-Turbo": {
-      "pvalue": 0.4411488095238092,
-      "stat": 0.0
+      "pvalue": 0.0,
+      "stat": 0.4411488095238092
     },
     "cross|deepseek-ai-DeepSeek-V4-Flash|mistralai-Mistral-Small-3.2-24B-Instruct-2506": {
-      "pvalue": 1.6022142857142858,
-      "stat": 0.0
+      "pvalue": 0.0,
+      "stat": 1.6022142857142858
     },
     "cross|meta-llama-Meta-Llama-3.1-8B-Instruct|mistralai-Mistral-Small-3.2-24B-Instruct-2506": {
-      "pvalue": 0.3370833333333332,
-      "stat": 0.0
+      "pvalue": 0.0,
+      "stat": 0.3370833333333332
     },
     "null|deepseek-ai-DeepSeek-V4-Flash": {
-      "pvalue": -0.0020178571428575154,
-      "stat": 0.475
+      "pvalue": 0.605,
+      "stat": -0.0020178571428575154
     },
     "null|meta-llama-Llama-3.3-70B-Instruct-Turbo": {
-      "pvalue": -0.0015416666666665524,
-      "stat": 0.66
+      "pvalue": 0.675,
+      "stat": -0.0015416666666665524
     },
     "null|meta-llama-Meta-Llama-3.1-8B-Instruct": {
-      "pvalue": -0.004434523809524027,
-      "stat": 0.795
+      "pvalue": 0.75,
+      "stat": -0.004434523809524027
     },
     "null|mistralai-Mistral-Small-3.2-24B-Instruct-2506": {
-      "pvalue": 0.0004166666666668428,
-      "stat": 0.445
+      "pvalue": 0.435,
+      "stat": 0.0004166666666668428
     }
   },
   "test": {
