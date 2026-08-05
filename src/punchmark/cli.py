@@ -35,6 +35,10 @@ from .synth import SynthSpec, default_routes, generate
 # themselves, so even an uncommitted calibration has a real, reproducible hash.
 _ADHOC_CHECKOUT = {"repo": "ad-hoc", "commit": "unpinned"}
 
+MODEL_HELP = (
+    "path to a .pmk-model.json, or the literal 'default' for the shipped reference model"
+)
+
 
 def _model_path(arg: str) -> Path:
     """Resolve --model: a path, or the literal 'default' for the shipped reference
@@ -81,6 +85,17 @@ def _cmd_fit(args: argparse.Namespace) -> int:
     except ValueError as exc:
         print(f"usage: --far-grid/--m-grid must be comma-separated numbers ({exc})",
               file=sys.stderr)
+        return 2
+    bad_far = [f for f in far_grid if not 0.0 < f < 1.0]
+    if bad_far:
+        print(
+            f"usage: --far-grid values must lie strictly between 0 and 1; got {bad_far}",
+            file=sys.stderr,
+        )
+        return 2
+    bad_m = [m for m in m_grid if m < 1]
+    if bad_m:
+        print(f"usage: --m-grid values must be >= 1; got {bad_m}", file=sys.stderr)
         return 2
     candidates = CandidateSet(routes=tuple(sorted(set(args.candidates.split(",")))))
     paths = [Path(p) for p in args.archives]
@@ -246,6 +261,16 @@ def _certify_inner(args: argparse.Namespace) -> int:
 
 
 def _cmd_gate(args: argparse.Namespace) -> int:
+    # Tri-state discipline (PMK-GTE-001): exit 1 means exactly one thing, a measured
+    # fail. Every typed refusal here is unevaluable and lands on exit 2.
+    try:
+        return _gate_inner(args)
+    except PunchmarkError as exc:
+        print(f"unevaluable: {exc}", file=sys.stderr)
+        return 2
+
+
+def _gate_inner(args: argparse.Namespace) -> int:
     doc = read_model(_model_path(args.model))
     if args.write_baseline:
         from .canonical import canonical_json, write_text_deterministic
@@ -356,8 +381,9 @@ def build_parser() -> argparse.ArgumentParser:
             "A retrospective producer identifier: point it at the response archive a "
             "benchmark number was computed on and get a SAME-PRODUCER / SUBSTITUTED / "
             "UNDETERMINED ruling at a declared false-alarm rate, with a certificate "
-            "attachable to the published score. Verdicts are about the route label as "
-            "served, never about weights."
+            "attachable to the published score. A verdict is about the route label as "
+            "served, relative to the declared candidate set, and says nothing about "
+            "model weights."
         ),
     )
     parser.add_argument("--version", action="version", version=f"punchmark {__version__}")
@@ -382,7 +408,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("score", help="rule one archive against a fitted model")
     p.add_argument("archive", metavar="ARCHIVE")
-    p.add_argument("--model", required=True)
+    p.add_argument("--model", required=True, help=MODEL_HELP)
     p.add_argument("--far", type=float, default=0.01)
     p.add_argument("--rho-target", type=float, default=1.0)
     p.add_argument("--m-floor", type=int, default=25)
@@ -397,10 +423,14 @@ def build_parser() -> argparse.ArgumentParser:
     )
     p.set_defaults(fn=_cmd_score)
 
-    p = sub.add_parser("certify", help="emit the certificate for a ruling")
+    p = sub.add_parser(
+        "certify",
+        help="emit the certificate for a ruling (with ARCHIVE --model it scores the "
+        "archive and records that ruling first)",
+    )
     p.add_argument("archive", nargs="?", metavar="ARCHIVE")
     p.add_argument("--ruling", help="certify an existing ruling id")
-    p.add_argument("--model")
+    p.add_argument("--model", help=MODEL_HELP)
     p.add_argument("--far", type=float, default=0.01)
     p.add_argument("--rho-target", type=float, default=1.0)
     p.add_argument("--rulings", default=str(DEFAULT_STORE))
@@ -425,7 +455,11 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("corpus", help="verify or rebuild the calibration corpus")
     p.add_argument("corpus_cmd", choices=["verify", "rebuild"])
     p.add_argument("--corpus", required=True, help="corpus directory holding MANIFEST.json")
-    p.add_argument("--source", help="local source checkout to verify pinned bytes against")
+    p.add_argument(
+        "--source",
+        help="local source checkout to verify pinned bytes against "
+        "(optional for verify, required for rebuild)",
+    )
     p.set_defaults(fn=_cmd_corpus)
 
     p = sub.add_parser("synth", help="generate planted-truth synthetic archives")

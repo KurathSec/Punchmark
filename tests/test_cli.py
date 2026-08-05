@@ -196,3 +196,31 @@ def test_rescore_is_idempotent(workdir: Path, tmp_path: Path, capsys) -> None:
     assert "already recorded" in second
     assert "appended to" not in second
     assert store.read_text() == after_first  # nothing new was written
+
+
+def test_gate_typed_refusals_are_unevaluable_not_measured_fail(
+    workdir: Path, tmp_path: Path, capsys
+) -> None:
+    """PMK-GTE-001: gate is tri-state, so exit 1 means exactly one thing, a measured
+    fail. An unreadable model or baseline is unevaluable and exits 2."""
+    baseline = str(workdir / "chainbase.json")
+    model = str(workdir / "model.pmk-model.json")
+    assert main(["gate", str(tmp_path / "absent.json"), "--baseline", baseline]) == 2
+    assert "unevaluable" in capsys.readouterr().err
+    bad_model = tmp_path / "bad.pmk-model.json"
+    bad_model.write_text('{"punchmark_schema": "model/v99"}\n')
+    assert main(["gate", str(bad_model), "--baseline", baseline]) == 2
+    assert main(["gate", model, "--baseline", str(tmp_path / "absent-baseline.json")]) == 2
+
+
+def test_fit_refuses_out_of_range_grids(workdir: Path, capsys) -> None:
+    """A far outside (0, 1) or a non-positive m is a usage error (exit 2), named as
+    such, rather than an unbounded value reaching calibration."""
+    archives = [str(p) for p in sorted((workdir / "arch").glob("synthtask__*.jsonl.gz"))]
+    common = ["fit", *archives, "--candidates",
+              "synth/route-a,synth/route-b,synth/route-c", "--out", "/tmp/unused.json"]
+    assert main([*common, "--far-grid", "1.5"]) == 2
+    assert "strictly between 0 and 1" in capsys.readouterr().err
+    assert main([*common, "--far-grid", "nan"]) == 2
+    assert main([*common, "--m-grid", "0"]) == 2
+    assert "must be >= 1" in capsys.readouterr().err

@@ -336,9 +336,11 @@ def operating_points(
             )
     if not points:
         raise CalibrationError(
-            f"no (cell, far) pair had enough null draws: the smallest far needs "
-            f"{MIN_TAIL_DRAWS} expected tail draws (n_null * far >= {MIN_TAIL_DRAWS}); "
-            "raise --n-null or drop the smallest far from --far-grid"
+            f"no (cell, far) pair had enough null draws: a far needs {MIN_TAIL_DRAWS} "
+            f"expected tail draws (n_null * far >= {MIN_TAIL_DRAWS}), and even the "
+            "largest far in the grid did not reach that; raise --n-null (more archives "
+            "will not help, since each cell is budgeted to about n_null draws) or "
+            "include a larger far in --far-grid"
         )
     return points
 

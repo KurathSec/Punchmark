@@ -47,6 +47,17 @@ jobs:
       - name: Generated docs are current
         run: python tools/render_rulings.py --check
 
+  action:
+    # The composite action at the repo root is exercised against the committed
+    # goldens, so a broken action.yml fails here rather than in a user's workflow.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./
+        with:
+          model: calibration/spaghetti/goldens/default.pmk-model.json
+          baseline: calibration/spaghetti/goldens/operating_point.json
+
   offline:
     # The whole roundtrip must work with no network: punchmark makes no calls at
     # runtime, and this job proves it by running inside a network namespace. If

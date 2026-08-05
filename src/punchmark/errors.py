@@ -1,11 +1,11 @@
 """Exception taxonomy.
 
 Every refusal punchmark issues is one of these, and every message names the fix.
-A refusal is exit code 1 at the CLI under fit, score and gate. Under certify every
+A refusal is exit code 1 at the CLI under fit and score. Under certify and gate every
 typed refusal is exit 2 instead, because exit 1 there means exactly one thing: a
-measured DOES NOT HOLD (PMK-CRT-001, PMK-GTE-001). Malformed usage and unevaluable
-input are always exit 2. None of these is ever allowed to look like a measured
-verdict.
+measured DOES NOT HOLD or a measured gate failure (PMK-CRT-001, PMK-GTE-001).
+Malformed usage and unevaluable input are always exit 2. None of these is ever
+allowed to look like a measured verdict.
 """
 
 from __future__ import annotations
@@ -66,6 +66,11 @@ class CorpusError(PunchmarkError):
 
 class SpecError(PunchmarkError):
     """A spec ruling was cited that does not exist or is superseded."""
+
+
+class SerializationError(PunchmarkError):
+    """A value reached serialization that cannot be represented canonically (a NaN
+    or infinity). Upstream must turn it into null-with-reason first."""
 
 
 class SynthError(PunchmarkError):

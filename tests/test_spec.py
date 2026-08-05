@@ -28,6 +28,8 @@ _CITATION_PATTERNS = ("src/punchmark/**/*.py", "tests/**/*.py", "docs/**/*.md",
 _RESOLUTION_PATTERNS = _CITATION_PATTERNS + (
     "validation/**/*.md", "calibration/**/*.md", "calibration/**/*.py",
     "src/punchmark/spec/rulings/*.toml", ".github/**/*.md", ".github/**/*.yml",
+    # data files carry ids too: manifest notes, derived study artifacts, readouts
+    "validation/**/*.json", "validation/**/*.txt", "calibration/**/*.json",
 )
 _GENERATED = ("docs/spec/rulings.md",)
 

@@ -76,7 +76,7 @@ def main() -> int:
         "glue_supplied_here": (
             "gzip/JSONL reading, item matching across routes, first-4/last-4 "
             "draw splitting, unicode encoding via their tokenize_unicode, "
-            "padding via their stack_with_padding, CompletionSample assembly"
+            "padding every sample to one global length, CompletionSample assembly"
         ),
         "test": {
             "stat_type": "mmd_hamming",

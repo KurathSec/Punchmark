@@ -58,6 +58,8 @@ def certificate_from_ruling(body: dict[str, Any]) -> Certificate:
         detector_id = detector["id"]
         detector_version = detector["version"]
         model_id = body["model_id"]
+        calibration_sha256 = body["calibration_sha256"]
+        ruling_spec_version = body["spec_version"]
     except (KeyError, ValueError, TypeError) as exc:
         raise CertificateError(f"ruling body is malformed ({exc!r})") from exc
 
@@ -95,8 +97,8 @@ def certificate_from_ruling(body: dict[str, Any]) -> Certificate:
         "candidates": body["candidates"],
         "model_id": body["model_id"],
         "detector": body["detector"],
-        "calibration_sha256": body["calibration_sha256"],
-        "spec_version": body["spec_version"],
+        "calibration_sha256": calibration_sha256,
+        "spec_version": ruling_spec_version,
         "rho_target": body.get("rho_target"),
         "rho_min": body.get("rho_min"),
         "scope": _SCOPE_SENTENCE,

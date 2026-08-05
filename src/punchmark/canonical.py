@@ -23,11 +23,16 @@ import math
 from pathlib import Path
 from typing import Any
 
+from .errors import SerializationError
+
 
 def fmt_float(x: float) -> float:
     """Normalize a float for serialization: round half-even to 6 places, kill -0.0."""
     if math.isnan(x) or math.isinf(x):
-        raise ValueError("non-finite float reached serialization; upstream must emit null")
+        raise SerializationError(
+            f"non-finite float {x!r} reached serialization; the caller must record it as "
+            "null with a reason instead of a number"
+        )
     return round(x, 6) + 0.0
 
 

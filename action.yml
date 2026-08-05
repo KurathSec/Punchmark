@@ -27,19 +27,30 @@ runs:
     - uses: actions/setup-python@v7
       with:
         python-version: "3.12"
+    # Inputs reach the shell through the environment, never by string
+    # interpolation into the script: a path containing a space or a shell
+    # metacharacter must stay one argument.
     - name: Install punchmark
       shell: bash
+      env:
+        PUNCHMARK_VERSION: ${{ inputs.version }}
+        ACTION_PATH: ${{ github.action_path }}
       run: |
-        if [ -n "${{ inputs.version }}" ]; then
-          pip install "punchmark==${{ inputs.version }}"
+        if [ -n "$PUNCHMARK_VERSION" ]; then
+          pip install "punchmark==$PUNCHMARK_VERSION"
         else
-          pip install "${{ github.action_path }}"
+          pip install "$ACTION_PATH"
         fi
     - name: Run punchmark gate
       shell: bash
+      env:
+        MODEL: ${{ inputs.model }}
+        BASELINE: ${{ inputs.baseline }}
+        RULINGS: ${{ inputs.rulings }}
       run: |
-        ARGS=""
-        if [ -n "${{ inputs.rulings }}" ]; then
-          ARGS="--require-chain-valid --rulings ${{ inputs.rulings }}"
+        if [ -n "$RULINGS" ]; then
+          punchmark gate "$MODEL" --baseline "$BASELINE" \
+            --require-chain-valid --rulings "$RULINGS"
+        else
+          punchmark gate "$MODEL" --baseline "$BASELINE"
         fi
-        punchmark gate "${{ inputs.model }}" --baseline "${{ inputs.baseline }}" $ARGS

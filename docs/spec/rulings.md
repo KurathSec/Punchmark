@@ -115,7 +115,8 @@ changes with it.
 The reference calibration corpus ships no completion text. Re-publishing the
 upstream benchmark's committed private-test completions in a second repository would be a
 second, separate disclosure decision, and punchmark declines to take it. Instead, the
-manifest pins the upstream commit and hashes, and 'corpus rebuild --source <checkout>'
+manifest pins the upstream commit and hashes, and
+'corpus rebuild --corpus <dir> --source <checkout>'
 verifies a local checkout byte-for-byte. raw and features modes exist in code and are
 exercised synthetically so the machinery is proven. Neither mode is used for the
 reference corpus.

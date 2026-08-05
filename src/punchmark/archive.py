@@ -60,7 +60,8 @@ def route_for_slug(slug: str, candidates: CandidateSet) -> str:
         known = ", ".join(sorted(by_slug))
         raise ArchiveError(
             f"route slug {slug!r} is not in the candidate set (known slugs: {known}); "
-            "declare the route in --candidates or leave it out of this fit"
+            "add this route to the candidate set the model was fitted with, or score "
+            "an archive whose slug is already in it"
         )
     return by_slug[slug]
 

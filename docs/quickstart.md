@@ -81,3 +81,21 @@ the filename, and its `archive_sha256` must match the bytes on disk. Window
 metadata therefore cannot be quietly re-pointed at different data. Running
 `fit`, `score` or `certify` without a sidecar refuses, and the refusal prints
 the exact JSON to write, pre-filled with the archive's real hash.
+
+## Running the gate in GitHub Actions
+
+The repository ships a composite action, so a workflow can run the gate without
+installing anything itself:
+
+```yaml
+- uses: actions/checkout@v7
+- uses: KurathSec/Punchmark@main   # or a released tag once one exists
+  with:
+    model: calibration/spaghetti/goldens/default.pmk-model.json
+    baseline: calibration/spaghetti/goldens/operating_point.json
+    rulings: punchmark-rulings.jsonl   # optional: also verify the ruling chain
+```
+
+With `version:` set it installs that release from PyPI; left empty it installs
+from the checked-out action itself. The action's own CI exercises it against the
+committed goldens on every push.

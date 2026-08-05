@@ -77,3 +77,19 @@ def test_exit_codes_are_tristate() -> None:
 def test_malformed_ruling_body_is_refused() -> None:
     with pytest.raises(CertificateError, match="malformed"):
         certificate_from_ruling({"verdict": "SAME-PRODUCER"})
+
+
+@pytest.mark.parametrize(
+    "missing",
+    ["verdict", "route", "task", "operating_point", "candidates", "ruling_id",
+     "n_items", "n_clusters", "statistic", "candidate_set_id", "detector",
+     "model_id", "calibration_sha256", "spec_version"],
+)
+def test_missing_required_key_is_a_typed_refusal(missing: str) -> None:
+    """Every required key is bound inside the malformed-body guard, so a bad body
+    raises CertificateError (exit 2 at the CLI) and never a bare KeyError, which
+    would escape as exit 1 -- the measured DOES-NOT-HOLD code (PMK-GTE-001)."""
+    body = ruling_body(make_ruling())
+    del body[missing]
+    with pytest.raises(CertificateError):
+        certificate_from_ruling(body)

@@ -8,9 +8,8 @@ from the sdist. The shipped wheel carries only the fitted default model.
   completion text lives here. `MANIFEST.json` pins the upstream commit and per-file
   sha256. The command
   `punchmark corpus rebuild --corpus calibration/spaghetti --source <checkout>`
-  verifies a local checkout byte-for-byte. The manifest's content hash is the corpus
-  identity every ruling pins
-  (PMK-COR-001).
+  verifies a local checkout byte-for-byte. The manifest's content hash is the
+  corpus identity every ruling pins (PMK-COR-001).
 - `spaghetti/goldens/`: the committed fitted model and its operating-point baseline,
   byte-compared by the drift gate (`tools/update_calibration.py --check`,
   `tests/test_operating_point_drift.py`).

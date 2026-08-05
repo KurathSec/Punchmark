@@ -2,7 +2,8 @@
 
 Fit and calibrate on the 8 committed dev-split archives. Validate on the 8 held-out
 test-split archives. Zero API calls, $0, one machine. Model `pmk-m-c52e6e6014883edb`,
-corpus `pmk-cor-32596a35e0452817`, spec 2.0.0. Every number below is read from a
+corpus `pmk-cor-32596a35e0452817`, spec 2.1.0 (the shipped model was fitted under
+spec 2.0.0; same MAJOR). Every number below is read from a
 committed artifact in `derived/`, regenerated deterministically by `run.py`. None is
 hand-edited.
 
