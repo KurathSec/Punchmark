@@ -1,0 +1,81 @@
+{
+  "note": "Binary contrasts through identical machinery. Chance is 0.5. The temporal contrast is the same route at the same provider in two windows, which is the control the original design lacked.",
+  "punchmark_schema": "angle_c_temporal_control/v1",
+  "results": {
+    "provider_w1_vs_w1": {
+      "by_task": {
+        "comprehend": {
+          "identification_by_side": {
+            "A": 0.757,
+            "B": 0.273
+          },
+          "mean_identification": 0.515,
+          "out_of_fold_margins": {
+            "A": 0.005715,
+            "B": -0.005709
+          },
+          "subsample_m": 25
+        },
+        "refactor_dev": {
+          "identification_by_side": {
+            "A": 1.0,
+            "B": 0.986
+          },
+          "mean_identification": 0.993,
+          "out_of_fold_margins": {
+            "A": 0.082923,
+            "B": 0.070402
+          },
+          "subsample_m": 25
+        }
+      },
+      "chance_rate": 0.5,
+      "contrast": "provider_w1_vs_w1"
+    },
+    "temporal_same_provider_w1_vs_w2": {
+      "by_task": {
+        "comprehend": {
+          "identification_by_side": {
+            "A": 0.995,
+            "B": 0.043
+          },
+          "mean_identification": 0.519,
+          "out_of_fold_margins": {
+            "A": 0.004602,
+            "B": -0.00374
+          },
+          "subsample_m": 25
+        },
+        "refactor_dev": {
+          "identification_by_side": {
+            "A": 0.775,
+            "B": 0.285
+          },
+          "mean_identification": 0.53,
+          "out_of_fold_margins": {
+            "A": 0.004133,
+            "B": -0.004731
+          },
+          "subsample_m": 25
+        }
+      },
+      "chance_rate": 0.5,
+      "contrast": "temporal_same_provider_w1_vs_w2"
+    }
+  },
+  "seed": 20260806,
+  "verdict_by_task": {
+    "comprehend": {
+      "gap": -0.004,
+      "provider_pair": 0.515,
+      "reading": "same-provider windows separate comparably, so the cross-provider number is not distinguishable from a collection-batch effect",
+      "same_provider_two_windows": 0.519
+    },
+    "refactor_dev": {
+      "gap": 0.463,
+      "provider_pair": 0.993,
+      "reading": "cross-provider separation exceeds same-provider-across-windows separation, so the provider contrast is not explained by collection batch alone",
+      "same_provider_two_windows": 0.53
+    }
+  }
+}

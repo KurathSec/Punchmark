@@ -82,6 +82,18 @@ RETRYABLE = frozenset({429, 500, 502, 503, 504})
 # sidecar next to June's, so the record shows whether they agreed.
 JUNE_CONCURRENCY = {"comprehend": 48, "refactor_dev": 128}
 
+# Response headers worth keeping as an orthogonal channel: which edge/PoP served the
+# request, which upstream, and any provider-side request id. These never reach the
+# detector, which reads completion text only. They exist so that a claim about two
+# endpoints being distinct infrastructure can rest on something other than the text
+# that is itself under test.
+TRANSPORT_HEADERS = frozenset({
+    "server", "via", "cf-ray", "cf-cache-status", "x-served-by", "x-cache",
+    "x-request-id", "x-inference-id", "x-amzn-requestid", "x-envoy-upstream-service-time",
+    "date", "content-type", "x-ratelimit-limit", "x-ratelimit-remaining",
+    "x-deepinfra-worker", "x-together-request-id", "alt-svc",
+})
+
 # Pinned prices, USD per million tokens, deliberately rounded UP so a projection
 # never under-states. A route without an entry here is refused (DESIGN.md).
 PRICES = {
@@ -276,8 +288,23 @@ def post(url: str, key: str, payload: dict, counter: dict) -> dict:
         try:
             with counter["lock"]:
                 counter["posts"] += 1
+            t0 = time.monotonic()
             with urllib.request.urlopen(req, timeout=TIMEOUT_S) as resp:
-                return json.loads(resp.read().decode("utf-8"))
+                body = json.loads(resp.read().decode("utf-8"))
+                # Transport-layer evidence, recorded OUTSIDE the detector. The
+                # instrument reads response text only, by design, and nothing here is
+                # ever fed to it. It exists as an orthogonal channel: an archive's own
+                # text cannot establish that two endpoints are distinct infrastructure,
+                # and a collection we control is the one chance to record something that
+                # can. Review of this study identified its absence as a forfeited
+                # validation channel, which it was.
+                body["_transport"] = {
+                    "latency_s": round(time.monotonic() - t0, 4),
+                    "headers": {k.lower(): v for k, v in resp.headers.items()
+                                if k.lower() in TRANSPORT_HEADERS},
+                    "status": resp.status,
+                }
+                return body
         except urllib.error.HTTPError as exc:
             # 429s are counted, not just retried: a run that only reached its width by
             # backing off did not really collect at that width, and the sidecar has to
@@ -327,6 +354,7 @@ def fetch_item(ctx: dict, key: str) -> None:
             "finish_reason": choice.get("finish_reason"),
             "from_reasoning_channel": bool(msg.get("reasoning_content")) and not text,
             "usage": body.get("usage", {}),
+            "transport": body.get("_transport", {}),
         })
         u = body.get("usage") or {}
         with ctx["usage_lock"]:
@@ -356,10 +384,13 @@ def fetch_item(ctx: dict, key: str) -> None:
 
 
 def collect_route(route: dict, prompts: dict, cred: dict, counter: dict,
-                  width_override: int | None = None) -> dict:
+                  width_override: int | None = None, window_tag: str = "") -> dict:
     prov = cred[route["provider"]]
     slug = route["model"].replace("/", "-")
-    outdir = ARCHIVES / route["provider"]
+    # A window tag gives a re-collection of the SAME route its own directory, so a
+    # temporal control sits beside the original rather than overwriting it. Without
+    # this, "same route, different day" and "the original" are the same filename.
+    outdir = ARCHIVES / (route["provider"] + (f"-{window_tag}" if window_tag else ""))
     outdir.mkdir(parents=True, exist_ok=True)
     usage_total = {"prompt_tokens": 0, "completion_tokens": 0}
     written = {}
@@ -472,6 +503,10 @@ def main() -> int:
     ap.add_argument("--max-usd", type=float, default=None,
                     help="hard spend ceiling in USD; no default, must be stated")
     ap.add_argument("--routes", default="", help="comma-separated route keys (default all)")
+    ap.add_argument("--window-tag", default="",
+                    help="write into archives/<provider>-<TAG>/ instead of "
+                         "archives/<provider>/. Used for a temporal control: the same "
+                         "route collected in a second window, kept beside the first.")
     ap.add_argument("--tasks", default="",
                     help="comma-separated task names (default all). Restricts both the "
                          "projection and the collection, so a re-collection of one task "
@@ -574,7 +609,7 @@ def main() -> int:
             print(f"  stopping before {r['key']}: would breach the ceiling")
             break
         print(f"  {r['key']} ({r['model']} via {r['provider']})")
-        result = collect_route(r, prompts, cred, counter, args.concurrency)
+        result = collect_route(r, prompts, cred, counter, args.concurrency, args.window_tag)
         u = result["usage"]
         actual = (u["prompt_tokens"] + u["completion_tokens"]) / 1e6 * proj["usd_per_mtok"]
         spent += actual if actual else proj["est_usd"]

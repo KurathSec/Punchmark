@@ -1,0 +1,56 @@
+{
+  "collected_transport_by_archive": {
+    "deepinfra-w2/comprehend__meta-llama-Llama-3.3-70B-Instruct-Turbo": {
+      "distinct_request_ids_seen": 600,
+      "draws_with_transport": 600,
+      "headers_present": {
+        "content-type": 600,
+        "date": 600,
+        "server": 600,
+        "x-request-id": 600
+      },
+      "latency_s": {
+        "max": 30.68,
+        "median": 2.781,
+        "min": 1.096
+      },
+      "server_values": {
+        "uvicorn": 600
+      }
+    },
+    "deepinfra-w2/refactor_dev__meta-llama-Llama-3.3-70B-Instruct-Turbo": {
+      "distinct_request_ids_seen": 600,
+      "draws_with_transport": 600,
+      "headers_present": {
+        "content-type": 600,
+        "date": 600,
+        "server": 600,
+        "x-request-id": 600
+      },
+      "latency_s": {
+        "max": 120.014,
+        "median": 23.544,
+        "min": 4.853
+      },
+      "server_values": {
+        "uvicorn": 600
+      }
+    }
+  },
+  "edge_header_sets_differ": true,
+  "edge_headers_from_free_models_endpoint": {
+    "deepinfra": {
+      "server": "uvicorn"
+    },
+    "together": {
+      "alt-svc": "h3=\":443\"; ma=86400",
+      "cf-cache-status": "DYNAMIC",
+      "cf-ray": "a270de8b396113dd-KUL",
+      "server": "cloudflare"
+    }
+  },
+  "punchmark_schema": "angle_c_transport/v1",
+  "what_this_does_not_establish": "Nothing about the inference backend. Two distinct edges can proxy to the same capacity, so this does not rule out a shared or resold upstream, and it is not evidence about weights, precision or serving configuration.",
+  "what_this_establishes": "The two providers' requests terminate at different edges: one behind a CDN that stamps its own ray id and PoP, the other on an application server directly. They are not the same front door.",
+  "why_it_is_here": "The detector reads completion text only. No transport field below is ever an input to it. This exists so that a claim about two endpoints being distinct can rest on something other than the text under test."
+}

@@ -153,6 +153,56 @@ here and the same-weights null is not vacuous. The load-bearing pair is harder t
 control on both tasks, which is the ordering one would expect if provider is a smaller
 perturbation than weights.
 
+### The same-provider control (`derived/temporal_control.json`)
+
+Adversarial review raised the competing explanation the original design could not answer:
+the two provider archives were also two separate collections, so anything varying between
+collection batches (queue state, batch composition, which replica answered) was
+confounded with the provider.
+
+The control is the same route at the same provider in two windows, run through identical
+machinery. Collected 2026-08-06, second window, same frozen probe, same declared width.
+Both contrasts are binary, so chance is 0.5:
+
+| task | two providers, one window | one provider, two windows |
+|---|---|---|
+| comprehend | 0.515 | 0.519 |
+| refactor_dev | **0.993** | **0.530** |
+
+On `refactor_dev` the cross-provider contrast reaches 0.993 while the same-provider
+contrast across windows reaches 0.530, a gap of 0.463. What the discriminator reads on the
+long task is therefore not a property of the collection batch. On `comprehend` both sit at
+chance, consistent with there being nothing to read at 59 to 75 characters either way.
+
+This could have gone the other way, and it is reported because it could have: had the
+same-provider windows separated comparably, the long-task result would have been a
+statement about collection conditions and Angle C's one positive finding would not have
+stood.
+
+Two limits. One replicate pair on one route on one day bounds a batch effect, not drift
+over weeks. And stability across windows at one provider does not establish that what
+distinguishes the two providers is the model rather than the serving stack.
+
+### Evidence from outside the text channel (`derived/transport.json`)
+
+The detector reads completion text only, which leaves one question unanswerable from
+inside it: are the two endpoints distinct infrastructure, or the same capacity sold twice?
+The archive's own text cannot settle that, because the text is what is under test. Review
+named the absence of any orthogonal channel as a forfeited check, which it was.
+
+`collect.py` now records transport metadata alongside every draw, and none of it is ever
+an input to the detector. The two providers terminate at different edges: Together
+responds from behind a CDN that stamps a ray id and a point-of-presence code, DeepInfra
+from an application server directly with no CDN headers. Their header sets are disjoint in
+the CDN fields, and this is readable for free from each provider's models endpoint, so it
+bills no tokens and can be re-checked at any time. Per-draw collection also recorded a
+distinct provider-side request id on all 600 draws of each re-collected archive.
+
+What this establishes is narrow: the requests did not arrive at the same front door. It
+says nothing about the inference backend, since two distinct edges can proxy to the same
+capacity, so it does not rule out a shared or resold upstream and is not evidence about
+weights or precision.
+
 ### A number that was wrong, and how it was caught
 
 The first version of this evaluation put the archive's full size, m = 75, in the
