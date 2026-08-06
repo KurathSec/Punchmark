@@ -33,13 +33,28 @@ PLANNED = {
     "together": ["meta-llama/Llama-3.3-70B-Instruct-Turbo"],
     "deepinfra": [
         "meta-llama/Llama-3.3-70B-Instruct-Turbo",
-        "meta-llama/Meta-Llama-3.1-8B-Instruct",
+        # The June corpus used meta-llama/Meta-Llama-3.1-8B-Instruct, which DeepInfra
+        # no longer serves (see ROUTE_AVAILABILITY.md). The in-window different-weights
+        # control therefore uses the Turbo variant, which is what is purchasable now.
+        "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
     ],
 }
+# Routes the committed June 2026 corpus was collected from, checked for continued
+# availability because their disappearance is the hazard this study is about.
+COMMITTED_JUNE = [
+    "deepseek-ai/DeepSeek-V4-Flash",
+    "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+    "meta-llama/Meta-Llama-3.1-8B-Instruct",
+    "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+]
 MODELS_URL = {
     "together": "https://api.together.xyz/v1/models",
     "deepinfra": "https://api.deepinfra.com/v1/openai/models",
 }
+# Together sits behind Cloudflare, which rejects urllib's default User-Agent with
+# error 1010 ("blocked based on your browser's signature") -- a 403 that looks like
+# an auth failure but is not. Every request this project makes names itself.
+USER_AGENT = "punchmark/0.1 (+https://github.com/KurathSec/Punchmark)"
 
 
 def resolve_key(name: str, spec: dict) -> tuple[str, str]:
@@ -55,7 +70,14 @@ def resolve_key(name: str, spec: dict) -> tuple[str, str]:
 
 
 def list_models(url: str, key: str) -> tuple[bool, list[str], str]:
-    req = urllib.request.Request(url, headers={"authorization": f"Bearer {key}"})
+    req = urllib.request.Request(
+        url,
+        headers={
+            "authorization": f"Bearer {key}",
+            "accept": "application/json",
+            "user-agent": USER_AGENT,
+        },
+    )
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
             body = json.loads(resp.read().decode("utf-8"))
@@ -119,6 +141,11 @@ def main() -> int:
             print()
             continue
         print(f"  status     : accepted, {len(ids)} models listed")
+        if name == "deepinfra":
+            print("  committed June 2026 routes, still purchasable?")
+            for slug in COMMITTED_JUNE:
+                state = "yes" if slug in ids else "NO LONGER SERVED"
+                print(f"    {state:17s} {slug}")
         for wanted in PLANNED[name]:
             exact = wanted in ids
             loose = [m for m in ids if m.lower() == wanted.lower()]

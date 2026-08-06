@@ -78,12 +78,19 @@ INSIDE the Angle C window; none reuses a June-committed archive as a live compar
    what five weeks of drift alone looks like, so the load-bearing pair's separation can be
    read against it.
 3. **Same family, two sizes (the different-weights control the power gate requires;
-   not optional).** One same-family size pair, both sides purchased in-window. The power
-   gate needs a control that RESOLVES, so this role goes to a size pair rather than to
-   the near-twin of item 5, which is chosen to be hard and would systematically force
-   the underpowered outcome. Pin the concrete pair at purchase; if none is purchasable,
-   the load-bearing contrast is reported as underpowered rather than run without a
-   control.
+   not optional). Pinned 2026-08-05:** `meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo`
+   against `meta-llama/Llama-3.3-70B-Instruct-Turbo`, both on DeepInfra, both FP8, both
+   collected in-window. The power gate needs a control that RESOLVES, so this role goes
+   to a size pair rather than to the near-twin of item 5, which is chosen to be hard and
+   would systematically force the underpowered outcome.
+
+   **Note on the slug.** The June corpus used `meta-llama/Meta-Llama-3.1-8B-Instruct`,
+   which DeepInfra no longer serves as of 2026-08-05 (see `ROUTE_AVAILABILITY.md`). The
+   control therefore uses the Turbo variant, which is what is purchasable. This is fine
+   for the control, which only needs different weights inside one window, but it means
+   the 8B route is not a re-collection of a committed route: comparing the new 8B-Turbo
+   archive against the June 8B archive would confound the window with a declared
+   precision change, so the study does not make that comparison.
 4. **Quantized vs full (precision yardstick).** The same slug at two quantization levels
    from one provider that exposes the choice. This is the measured effect size of a pure
    precision difference, used to condition the load-bearing verdict.
