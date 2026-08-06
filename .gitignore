@@ -24,5 +24,14 @@ __pycache__/
 # Angle C purchased archives are local-only; never committed (PMK-COR-002).
 /validation/angle_c/archives/
 
+# Superseded Angle C collections hold completion text too, so the same rule applies to
+# them. Their READMEs are the reason each batch was set aside and ARE committed, so the
+# contents are excluded rather than the directory: git cannot re-include a file whose
+# parent directory has been excluded.
+/validation/angle_c/discarded_width1/*
+!/validation/angle_c/discarded_width1/README.md
+/validation/angle_c/width75_throttled/*
+!/validation/angle_c/width75_throttled/README.md
+
 # Angle C credentials: real API keys, never committed.
 /validation/angle_c/credentials.json

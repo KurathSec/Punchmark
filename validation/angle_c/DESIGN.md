@@ -145,6 +145,61 @@ reported as distinct quantities and never conflated.
 - **Request shape**: one POST per draw, k=8 sequential identical requests per item,
   temperature 0, max_tokens 2048, two messages (system + user), no seed/n/stop/logprobs.
   Provider endpoint and key per route.
+- **Fan-out width (added 2026-08-06, after the first execute attempt)**: requests fan out
+  across items, one item per worker with its k draws sequential inside, at the width the
+  June collection used for that task. The June `run_meta` sidecars record it as
+  `net_concurrency`: 48 for every `comprehend` archive and 128 for every `refactor`
+  archive, on all four routes and both splits.
+
+  Width is treated as a fidelity parameter, not a throughput setting. Hosted servers
+  batch concurrent requests continuously, so width determines batch composition, which
+  determines floating-point reduction order inside batched kernels, which at temperature
+  0 can flip a near-tie token. The upstream harness documents this class of variation
+  directly ("model outputs are **not** byte-deterministic even at `temperature=0`
+  (serving-side variation)", `bench/models.py`), and it sits in the same layer of the
+  stack this instrument reads text about. Three rules follow, all enforced in the script:
+
+  1. Both providers use the same width for a given task, so provider is never confounded
+     with batching on the load-bearing pair. `--concurrency` overrides all routes at once
+     and cannot be set per provider.
+  2. The width is written into every window sidecar next to June's, so the record shows
+     whether they agreed rather than leaving it to be assumed.
+  3. Widths are never mixed inside one archive. The first execute attempt ran at width 1
+     before this was noticed; the 54 items it had bought were moved to
+     `discarded_width1/` and the task restarted from empty rather than completed at a
+     second width. See that directory's README for the spend it accounts for.
+
+  One limit is recorded rather than worked around: a pool cannot be wider than the work
+  in it, and the probe is 75 items per task, so `refactor_dev` realizes 75 against June's
+  128. The sidecar records the realized width, the requested width, and June's separately.
+  `comprehend` realizes 48 and matches exactly.
+
+- **Resolved width, after measuring the first collection (2026-08-06)**: the whole
+  collection is **width 48**, every route, both tasks.
+
+  The first pass ran `comprehend` at 48 and `refactor_dev` at 75. DeepInfra served 2,400
+  calls across three routes without shedding a single request. Together shed 185 of the
+  785 POSTs it needed to complete `refactor_dev`, 23.6%, and none at all on `comprehend`.
+
+  Requesting equal widths therefore equalized *offered* load but not *accepted* load, and
+  it failed on exactly the arm that matters: the load-bearing pair is one slug at two
+  providers, so a shed rate that differs by provider confounds provider with serving
+  conditions. `refactor_dev` was re-collected on all three routes at 48 — the width
+  Together had already demonstrated it sustains — and the width-75 archives were moved to
+  `width75_throttled/` rather than deleted. The 8B control was re-collected too, because
+  leaving it at 75 while the 70B moved to 48 would have mismatched the different-weights
+  control pair the power gate depends on.
+
+  The trade is stated rather than hidden: 48 matches the two sides of the pair to each
+  other, and no longer matches June's 128 for `refactor`. The pair is the comparison being
+  made; June's width bears only on the secondary DeepInfra drift arm, which could not have
+  reached 128 anyway on a 75-item probe.
+
+  What this does not fix, at any width: matching width controls only this study's own
+  offered load. Both providers serve other customers whose traffic shares the same server
+  batches and is invisible from outside, so server-side batch composition is not
+  controllable. This is declared, not solved, and no claim in Angle C may rest on batch
+  composition having been held equal.
 - **Response-side evidence (new; the strict archive row cannot hold it)**: a per-item
   collection log JSONL beside each archive records item_key, prompt_hash, the
   provider-returned model string, finish_reason per draw, usage tokens, and whether text

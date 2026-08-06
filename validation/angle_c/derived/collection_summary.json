@@ -1,0 +1,321 @@
+{
+  "archives": [
+    {
+      "archive": "deepinfra/comprehend__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+      "distinct_draws_per_row": {
+        "1": 57,
+        "2": 5,
+        "3": 9,
+        "4": 4
+      },
+      "draws": 600,
+      "empty_draws": 0,
+      "finish_reason": {
+        "stop": 600
+      },
+      "fully_degenerate_rows": 57,
+      "http_429": 0,
+      "june_net_concurrency": 48,
+      "k_distribution": {
+        "8": 75
+      },
+      "mean_chars_per_draw": 59.7,
+      "net_concurrency": 48,
+      "net_concurrency_requested": 48,
+      "provider": "deepinfra",
+      "punchmark_reader": {
+        "rows": 75,
+        "stub_rows": 0
+      },
+      "reasoning_channel_draws": 0,
+      "returned_model": {
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 600
+      },
+      "returned_model_matches_request": true,
+      "route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "rows": 75,
+      "sha256": "sha256:3c51634d8b005a14c12a69e4dac78838bd45b13b0ee57e33c3c5294d7763dba6",
+      "task": "comprehend",
+      "truncated_detail": [],
+      "truncated_draws": 0,
+      "usage": {
+        "cached_prompt_tokens": 0,
+        "completion_tokens": 15572,
+        "prompt_tokens": 619072
+      },
+      "window": {
+        "end_utc": "2026-08-06T15:46:40.835551+00:00",
+        "start_utc": "2026-08-06T15:44:43.805263+00:00"
+      }
+    },
+    {
+      "archive": "deepinfra/comprehend__meta-llama-Meta-Llama-3.1-8B-Instruct-Turbo.jsonl.gz",
+      "distinct_draws_per_row": {
+        "1": 3,
+        "2": 18,
+        "3": 23,
+        "4": 16,
+        "5": 8,
+        "6": 4,
+        "7": 3
+      },
+      "draws": 600,
+      "empty_draws": 0,
+      "finish_reason": {
+        "stop": 600
+      },
+      "fully_degenerate_rows": 3,
+      "http_429": 0,
+      "june_net_concurrency": 48,
+      "k_distribution": {
+        "8": 75
+      },
+      "mean_chars_per_draw": 74.8,
+      "net_concurrency": 48,
+      "net_concurrency_requested": 48,
+      "provider": "deepinfra",
+      "punchmark_reader": {
+        "rows": 75,
+        "stub_rows": 0
+      },
+      "reasoning_channel_draws": 0,
+      "returned_model": {
+        "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo": 600
+      },
+      "returned_model_matches_request": true,
+      "route": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+      "rows": 75,
+      "sha256": "sha256:4b506ed642c26d16801963bb36439bf76bc8cb7a1c4c80bd76c90d929290ca7c",
+      "task": "comprehend",
+      "truncated_detail": [],
+      "truncated_draws": 0,
+      "usage": {
+        "cached_prompt_tokens": 0,
+        "completion_tokens": 19554,
+        "prompt_tokens": 619072
+      },
+      "window": {
+        "end_utc": "2026-08-06T16:04:51.316126+00:00",
+        "start_utc": "2026-08-06T16:03:11.702337+00:00"
+      }
+    },
+    {
+      "archive": "deepinfra/refactor_dev__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+      "distinct_draws_per_row": {
+        "1": 22,
+        "2": 27,
+        "3": 11,
+        "4": 6,
+        "5": 2,
+        "6": 5,
+        "7": 2
+      },
+      "draws": 600,
+      "empty_draws": 0,
+      "finish_reason": {
+        "stop": 600
+      },
+      "fully_degenerate_rows": 22,
+      "http_429": 0,
+      "june_net_concurrency": 128,
+      "k_distribution": {
+        "8": 75
+      },
+      "mean_chars_per_draw": 860.6,
+      "net_concurrency": 48,
+      "net_concurrency_requested": 48,
+      "provider": "deepinfra",
+      "punchmark_reader": {
+        "rows": 75,
+        "stub_rows": 0
+      },
+      "reasoning_channel_draws": 0,
+      "returned_model": {
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 600
+      },
+      "returned_model_matches_request": true,
+      "route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "rows": 75,
+      "sha256": "sha256:b7180ccfb3318554d04df8e3327931f6dab876af0f3cbfa3d0a71e9c33f8232e",
+      "task": "refactor_dev",
+      "truncated_detail": [],
+      "truncated_draws": 0,
+      "usage": {
+        "cached_prompt_tokens": 0,
+        "completion_tokens": 209727,
+        "prompt_tokens": 614192
+      },
+      "window": {
+        "end_utc": "2026-08-06T16:37:44.180555+00:00",
+        "start_utc": "2026-08-06T16:23:46.610755+00:00"
+      }
+    },
+    {
+      "archive": "deepinfra/refactor_dev__meta-llama-Meta-Llama-3.1-8B-Instruct-Turbo.jsonl.gz",
+      "distinct_draws_per_row": {
+        "1": 1,
+        "2": 12,
+        "3": 13,
+        "4": 15,
+        "5": 18,
+        "6": 10,
+        "7": 6
+      },
+      "draws": 600,
+      "empty_draws": 0,
+      "finish_reason": {
+        "stop": 600
+      },
+      "fully_degenerate_rows": 1,
+      "http_429": 0,
+      "june_net_concurrency": 128,
+      "k_distribution": {
+        "8": 75
+      },
+      "mean_chars_per_draw": 889.9,
+      "net_concurrency": 48,
+      "net_concurrency_requested": 48,
+      "provider": "deepinfra",
+      "punchmark_reader": {
+        "rows": 75,
+        "stub_rows": 0
+      },
+      "reasoning_channel_draws": 0,
+      "returned_model": {
+        "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo": 600
+      },
+      "returned_model_matches_request": true,
+      "route": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+      "rows": 75,
+      "sha256": "sha256:b621dd7ba7ccd56fcbb688e9adfe8ab36c8dc98c3e09b20c215c39d66de42076",
+      "task": "refactor_dev",
+      "truncated_detail": [],
+      "truncated_draws": 0,
+      "usage": {
+        "cached_prompt_tokens": 0,
+        "completion_tokens": 215674,
+        "prompt_tokens": 614192
+      },
+      "window": {
+        "end_utc": "2026-08-06T16:51:45.914906+00:00",
+        "start_utc": "2026-08-06T16:39:56.994643+00:00"
+      }
+    },
+    {
+      "archive": "together/comprehend__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+      "distinct_draws_per_row": {
+        "1": 62,
+        "2": 7,
+        "3": 4,
+        "4": 1,
+        "7": 1
+      },
+      "draws": 600,
+      "empty_draws": 0,
+      "finish_reason": {
+        "stop": 600
+      },
+      "fully_degenerate_rows": 62,
+      "http_429": 0,
+      "june_net_concurrency": 48,
+      "k_distribution": {
+        "8": 75
+      },
+      "mean_chars_per_draw": 59.3,
+      "net_concurrency": 48,
+      "net_concurrency_requested": 48,
+      "provider": "together",
+      "punchmark_reader": {
+        "rows": 75,
+        "stub_rows": 0
+      },
+      "reasoning_channel_draws": 0,
+      "returned_model": {
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 600
+      },
+      "returned_model_matches_request": true,
+      "route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "rows": 75,
+      "sha256": "sha256:8607fd89e118dfade7cef68c6be43899a348f2100d439e6e7a519b987295c27e",
+      "task": "comprehend",
+      "truncated_detail": [],
+      "truncated_draws": 0,
+      "usage": {
+        "cached_prompt_tokens": 368627,
+        "completion_tokens": 15440,
+        "prompt_tokens": 631072
+      },
+      "window": {
+        "end_utc": "2026-08-06T15:59:42.574419+00:00",
+        "start_utc": "2026-08-06T15:58:49.861694+00:00"
+      }
+    },
+    {
+      "archive": "together/refactor_dev__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+      "distinct_draws_per_row": {
+        "1": 32,
+        "2": 26,
+        "3": 9,
+        "4": 5,
+        "5": 3
+      },
+      "draws": 600,
+      "empty_draws": 0,
+      "finish_reason": {
+        "length": 1,
+        "stop": 599
+      },
+      "fully_degenerate_rows": 32,
+      "http_429": 4,
+      "june_net_concurrency": 128,
+      "k_distribution": {
+        "8": 75
+      },
+      "mean_chars_per_draw": 892.7,
+      "net_concurrency": 48,
+      "net_concurrency_requested": 48,
+      "provider": "together",
+      "punchmark_reader": {
+        "rows": 75,
+        "stub_rows": 0
+      },
+      "reasoning_channel_draws": 0,
+      "returned_model": {
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 600
+      },
+      "returned_model_matches_request": true,
+      "route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "rows": 75,
+      "sha256": "sha256:5cd777d4017feb071bfb37477fcd29f3c9db6e074bd785b62f343f501a3b6c8b",
+      "task": "refactor_dev",
+      "truncated_detail": [
+        "discovery_pipeline|base|standard|go draw 3 (length)"
+      ],
+      "truncated_draws": 1,
+      "usage": {
+        "cached_prompt_tokens": 293625,
+        "completion_tokens": 216823,
+        "prompt_tokens": 626192
+      },
+      "window": {
+        "end_utc": "2026-08-06T16:39:56.994323+00:00",
+        "start_utc": "2026-08-06T16:37:44.180881+00:00"
+      }
+    }
+  ],
+  "note": "Collection quality only. Nothing here is a verdict, a detector score, or a comparison between routes; it describes how the archives were obtained.",
+  "punchmark_schema": "angle_c_collection_summary/v1",
+  "totals": {
+    "all_returned_models_match_request": true,
+    "archives": 6,
+    "completion_tokens": 692790,
+    "draws": 3600,
+    "empty_draws": 0,
+    "http_429": 4,
+    "prompt_tokens": 3723792,
+    "reasoning_channel_draws": 0,
+    "rows": 450,
+    "single_declared_width": 48,
+    "truncated_draws": 1
+  }
+}
