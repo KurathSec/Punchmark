@@ -178,8 +178,9 @@ reported as distinct quantities and never conflated.
   collection is **width 48**, every route, both tasks.
 
   The first pass ran `comprehend` at 48 and `refactor_dev` at 75. DeepInfra served 2,400
-  calls across three routes without shedding a single request. Together shed 185 of the
-  785 POSTs it needed to complete `refactor_dev`, 23.6%, and none at all on `comprehend`.
+  calls across its two routes, four archives, without shedding a single request. Together
+  shed 185 of the 785 POSTs it needed to complete `refactor_dev`, 23.6%, and none at all
+  on `comprehend`.
 
   Requesting equal widths therefore equalized *offered* load but not *accepted* load, and
   it failed on exactly the arm that matters: the load-bearing pair is one slug at two
