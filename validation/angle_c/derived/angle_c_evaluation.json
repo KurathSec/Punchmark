@@ -1,0 +1,525 @@
+{
+  "c1_verification_shipped_model": {
+    "candidate_set_id": "pmk-cs-2f6b636d317d3ffe",
+    "candidates": [
+      "deepseek-ai/DeepSeek-V4-Flash",
+      "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "mistralai/Mistral-Small-3.2-24B-Instruct-2506"
+    ],
+    "model_id": "pmk-m-c52e6e6014883edb",
+    "note": "The shipped model cannot distinguish the two providers: both archives declare the same committed slug and the candidate set holds one entry for it. That is the question, not a defect. A SUBSTITUTED verdict on the Together archive would mean the detector reads a provider change as a producer change; SAME-PRODUCER means it does not, at the stated rho_target.",
+    "rulings": [
+      {
+        "n_clusters": 41,
+        "n_items": 75,
+        "per_candidate": {
+          "deepseek-ai/DeepSeek-V4-Flash": -7.16521,
+          "meta-llama/Llama-3.3-70B-Instruct-Turbo": -6.928177,
+          "meta-llama/Meta-Llama-3.1-8B-Instruct": -8.184008,
+          "mistralai/Mistral-Small-3.2-24B-Instruct-2506": -7.60494
+        },
+        "provider": "deepinfra",
+        "reasons": [],
+        "rho_min": 1.0,
+        "rho_target": 1.0,
+        "ruling_id": "pmk-r-e21493bc1a8c8477",
+        "statistic": 0.237033,
+        "task": "comprehend",
+        "threshold": -0.015172,
+        "verdict": "SAME-PRODUCER"
+      },
+      {
+        "n_clusters": 41,
+        "n_items": 75,
+        "per_candidate": {
+          "deepseek-ai/DeepSeek-V4-Flash": -7.16521,
+          "meta-llama/Llama-3.3-70B-Instruct-Turbo": -6.928177,
+          "meta-llama/Meta-Llama-3.1-8B-Instruct": -8.184008,
+          "mistralai/Mistral-Small-3.2-24B-Instruct-2506": -7.60494
+        },
+        "provider": "deepinfra",
+        "reasons": [
+          "power_limit: substitution by deepseek-ai/DeepSeek-V4-Flash at fraction 0.5 would not have been resolved at this k and item count; absence of an alarm is not evidence here"
+        ],
+        "rho_min": null,
+        "rho_target": 0.5,
+        "ruling_id": "pmk-r-c914dcc901402afe",
+        "statistic": 0.237033,
+        "task": "comprehend",
+        "threshold": -0.015172,
+        "verdict": "UNDETERMINED"
+      },
+      {
+        "n_clusters": 41,
+        "n_items": 75,
+        "per_candidate": {
+          "deepseek-ai/DeepSeek-V4-Flash": -7.16521,
+          "meta-llama/Llama-3.3-70B-Instruct-Turbo": -6.928177,
+          "meta-llama/Meta-Llama-3.1-8B-Instruct": -8.184008,
+          "mistralai/Mistral-Small-3.2-24B-Instruct-2506": -7.60494
+        },
+        "provider": "deepinfra",
+        "reasons": [
+          "power_limit: substitution by deepseek-ai/DeepSeek-V4-Flash, mistralai/Mistral-Small-3.2-24B-Instruct-2506 at fraction 0.2 would not have been resolved at this k and item count; absence of an alarm is not evidence here"
+        ],
+        "rho_min": null,
+        "rho_target": 0.2,
+        "ruling_id": "pmk-r-a1bf24080586bc9d",
+        "statistic": 0.237033,
+        "task": "comprehend",
+        "threshold": -0.015172,
+        "verdict": "UNDETERMINED"
+      },
+      {
+        "n_clusters": 40,
+        "n_items": 75,
+        "per_candidate": {
+          "deepseek-ai/DeepSeek-V4-Flash": -9.57443,
+          "meta-llama/Llama-3.3-70B-Instruct-Turbo": -9.031814,
+          "meta-llama/Meta-Llama-3.1-8B-Instruct": -9.302875,
+          "mistralai/Mistral-Small-3.2-24B-Instruct-2506": -9.40266
+        },
+        "provider": "deepinfra",
+        "reasons": [],
+        "rho_min": 1.0,
+        "rho_target": 1.0,
+        "ruling_id": "pmk-r-c48666450079cc23",
+        "statistic": 0.271061,
+        "task": "refactor_dev",
+        "threshold": -0.056476,
+        "verdict": "SAME-PRODUCER"
+      },
+      {
+        "n_clusters": 40,
+        "n_items": 75,
+        "per_candidate": {
+          "deepseek-ai/DeepSeek-V4-Flash": -9.57443,
+          "meta-llama/Llama-3.3-70B-Instruct-Turbo": -9.031814,
+          "meta-llama/Meta-Llama-3.1-8B-Instruct": -9.302875,
+          "mistralai/Mistral-Small-3.2-24B-Instruct-2506": -9.40266
+        },
+        "provider": "deepinfra",
+        "reasons": [
+          "power_limit: substitution by deepseek-ai/DeepSeek-V4-Flash, meta-llama/Meta-Llama-3.1-8B-Instruct, mistralai/Mistral-Small-3.2-24B-Instruct-2506 at fraction 0.5 would not have been resolved at this k and item count; absence of an alarm is not evidence here"
+        ],
+        "rho_min": null,
+        "rho_target": 0.5,
+        "ruling_id": "pmk-r-2c89e01f5eb58dbf",
+        "statistic": 0.271061,
+        "task": "refactor_dev",
+        "threshold": -0.056476,
+        "verdict": "UNDETERMINED"
+      },
+      {
+        "n_clusters": 40,
+        "n_items": 75,
+        "per_candidate": {
+          "deepseek-ai/DeepSeek-V4-Flash": -9.57443,
+          "meta-llama/Llama-3.3-70B-Instruct-Turbo": -9.031814,
+          "meta-llama/Meta-Llama-3.1-8B-Instruct": -9.302875,
+          "mistralai/Mistral-Small-3.2-24B-Instruct-2506": -9.40266
+        },
+        "provider": "deepinfra",
+        "reasons": [
+          "power_limit: substitution by deepseek-ai/DeepSeek-V4-Flash, meta-llama/Meta-Llama-3.1-8B-Instruct, mistralai/Mistral-Small-3.2-24B-Instruct-2506 at fraction 0.2 would not have been resolved at this k and item count; absence of an alarm is not evidence here"
+        ],
+        "rho_min": null,
+        "rho_target": 0.2,
+        "ruling_id": "pmk-r-2adf663e58792a58",
+        "statistic": 0.271061,
+        "task": "refactor_dev",
+        "threshold": -0.056476,
+        "verdict": "UNDETERMINED"
+      },
+      {
+        "n_clusters": 41,
+        "n_items": 75,
+        "per_candidate": {
+          "deepseek-ai/DeepSeek-V4-Flash": -7.104676,
+          "meta-llama/Llama-3.3-70B-Instruct-Turbo": -6.888796,
+          "meta-llama/Meta-Llama-3.1-8B-Instruct": -8.142057,
+          "mistralai/Mistral-Small-3.2-24B-Instruct-2506": -7.560111
+        },
+        "provider": "together",
+        "reasons": [],
+        "rho_min": 1.0,
+        "rho_target": 1.0,
+        "ruling_id": "pmk-r-d94687326f97f073",
+        "statistic": 0.21588,
+        "task": "comprehend",
+        "threshold": -0.015172,
+        "verdict": "SAME-PRODUCER"
+      },
+      {
+        "n_clusters": 41,
+        "n_items": 75,
+        "per_candidate": {
+          "deepseek-ai/DeepSeek-V4-Flash": -7.104676,
+          "meta-llama/Llama-3.3-70B-Instruct-Turbo": -6.888796,
+          "meta-llama/Meta-Llama-3.1-8B-Instruct": -8.142057,
+          "mistralai/Mistral-Small-3.2-24B-Instruct-2506": -7.560111
+        },
+        "provider": "together",
+        "reasons": [
+          "power_limit: substitution by deepseek-ai/DeepSeek-V4-Flash at fraction 0.5 would not have been resolved at this k and item count; absence of an alarm is not evidence here"
+        ],
+        "rho_min": null,
+        "rho_target": 0.5,
+        "ruling_id": "pmk-r-3d056d1906f7d9c5",
+        "statistic": 0.21588,
+        "task": "comprehend",
+        "threshold": -0.015172,
+        "verdict": "UNDETERMINED"
+      },
+      {
+        "n_clusters": 41,
+        "n_items": 75,
+        "per_candidate": {
+          "deepseek-ai/DeepSeek-V4-Flash": -7.104676,
+          "meta-llama/Llama-3.3-70B-Instruct-Turbo": -6.888796,
+          "meta-llama/Meta-Llama-3.1-8B-Instruct": -8.142057,
+          "mistralai/Mistral-Small-3.2-24B-Instruct-2506": -7.560111
+        },
+        "provider": "together",
+        "reasons": [
+          "power_limit: substitution by deepseek-ai/DeepSeek-V4-Flash, mistralai/Mistral-Small-3.2-24B-Instruct-2506 at fraction 0.2 would not have been resolved at this k and item count; absence of an alarm is not evidence here"
+        ],
+        "rho_min": null,
+        "rho_target": 0.2,
+        "ruling_id": "pmk-r-33eb9756eafde567",
+        "statistic": 0.21588,
+        "task": "comprehend",
+        "threshold": -0.015172,
+        "verdict": "UNDETERMINED"
+      },
+      {
+        "n_clusters": 40,
+        "n_items": 75,
+        "per_candidate": {
+          "deepseek-ai/DeepSeek-V4-Flash": -9.519426,
+          "meta-llama/Llama-3.3-70B-Instruct-Turbo": -9.119349,
+          "meta-llama/Meta-Llama-3.1-8B-Instruct": -9.32865,
+          "mistralai/Mistral-Small-3.2-24B-Instruct-2506": -9.328121
+        },
+        "provider": "together",
+        "reasons": [],
+        "rho_min": 1.0,
+        "rho_target": 1.0,
+        "ruling_id": "pmk-r-666a8ae05ac4914e",
+        "statistic": 0.208773,
+        "task": "refactor_dev",
+        "threshold": -0.056476,
+        "verdict": "SAME-PRODUCER"
+      },
+      {
+        "n_clusters": 40,
+        "n_items": 75,
+        "per_candidate": {
+          "deepseek-ai/DeepSeek-V4-Flash": -9.519426,
+          "meta-llama/Llama-3.3-70B-Instruct-Turbo": -9.119349,
+          "meta-llama/Meta-Llama-3.1-8B-Instruct": -9.32865,
+          "mistralai/Mistral-Small-3.2-24B-Instruct-2506": -9.328121
+        },
+        "provider": "together",
+        "reasons": [
+          "power_limit: substitution by deepseek-ai/DeepSeek-V4-Flash, meta-llama/Meta-Llama-3.1-8B-Instruct, mistralai/Mistral-Small-3.2-24B-Instruct-2506 at fraction 0.5 would not have been resolved at this k and item count; absence of an alarm is not evidence here"
+        ],
+        "rho_min": null,
+        "rho_target": 0.5,
+        "ruling_id": "pmk-r-3cb7f0ab62bd0e60",
+        "statistic": 0.208773,
+        "task": "refactor_dev",
+        "threshold": -0.056476,
+        "verdict": "UNDETERMINED"
+      },
+      {
+        "n_clusters": 40,
+        "n_items": 75,
+        "per_candidate": {
+          "deepseek-ai/DeepSeek-V4-Flash": -9.519426,
+          "meta-llama/Llama-3.3-70B-Instruct-Turbo": -9.119349,
+          "meta-llama/Meta-Llama-3.1-8B-Instruct": -9.32865,
+          "mistralai/Mistral-Small-3.2-24B-Instruct-2506": -9.328121
+        },
+        "provider": "together",
+        "reasons": [
+          "power_limit: substitution by deepseek-ai/DeepSeek-V4-Flash, meta-llama/Meta-Llama-3.1-8B-Instruct, mistralai/Mistral-Small-3.2-24B-Instruct-2506 at fraction 0.2 would not have been resolved at this k and item count; absence of an alarm is not evidence here"
+        ],
+        "rho_min": null,
+        "rho_target": 0.2,
+        "ruling_id": "pmk-r-aa9669ce7ccd8334",
+        "statistic": 0.208773,
+        "task": "refactor_dev",
+        "threshold": -0.056476,
+        "verdict": "UNDETERMINED"
+      }
+    ]
+  },
+  "c2_identification_side_model": {
+    "above_chance": true,
+    "candidate_set_id": "pmk-cs-a17c60d807098d0b",
+    "candidates": [
+      "deepinfra/Llama-3.3-70B-Instruct-Turbo",
+      "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo",
+      "together/Llama-3.3-70B-Instruct-Turbo"
+    ],
+    "chance_rate": 0.3333,
+    "cluster_bootstrap_ci_lower_5pct": 0.7833,
+    "per_archive": {
+      "deepinfra/Llama-3.3-70B-Instruct-Turbo|comprehend": {
+        "declared": "deepinfra/Llama-3.3-70B-Instruct-Turbo",
+        "identified_whole_set": "deepinfra/Llama-3.3-70B-Instruct-Turbo",
+        "n_clusters": 41,
+        "n_items": 75,
+        "subsample_identification_rate": 0.88,
+        "subsample_m": 25
+      },
+      "deepinfra/Llama-3.3-70B-Instruct-Turbo|refactor_dev": {
+        "declared": "deepinfra/Llama-3.3-70B-Instruct-Turbo",
+        "identified_whole_set": "deepinfra/Llama-3.3-70B-Instruct-Turbo",
+        "n_clusters": 40,
+        "n_items": 75,
+        "subsample_identification_rate": 1.0,
+        "subsample_m": 25
+      },
+      "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|comprehend": {
+        "declared": "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo",
+        "identified_whole_set": "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo",
+        "n_clusters": 41,
+        "n_items": 75,
+        "subsample_identification_rate": 1.0,
+        "subsample_m": 25
+      },
+      "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|refactor_dev": {
+        "declared": "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo",
+        "identified_whole_set": "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo",
+        "n_clusters": 40,
+        "n_items": 75,
+        "subsample_identification_rate": 1.0,
+        "subsample_m": 25
+      },
+      "together/Llama-3.3-70B-Instruct-Turbo|comprehend": {
+        "declared": "together/Llama-3.3-70B-Instruct-Turbo",
+        "identified_whole_set": "deepinfra/Llama-3.3-70B-Instruct-Turbo",
+        "n_clusters": 41,
+        "n_items": 75,
+        "subsample_identification_rate": 0.109,
+        "subsample_m": 25
+      },
+      "together/Llama-3.3-70B-Instruct-Turbo|refactor_dev": {
+        "declared": "together/Llama-3.3-70B-Instruct-Turbo",
+        "identified_whole_set": "together/Llama-3.3-70B-Instruct-Turbo",
+        "n_clusters": 40,
+        "n_items": 75,
+        "subsample_identification_rate": 0.984,
+        "subsample_m": 25
+      }
+    },
+    "pooled_subsample_rate": 0.8288,
+    "whole_set_correct": "5/6"
+  },
+  "c2_pairwise_margins": {
+    "comprehend|deepinfra/Llama-3.3-70B-Instruct-Turbo vs deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 0.147455,
+    "comprehend|deepinfra/Llama-3.3-70B-Instruct-Turbo vs together/Llama-3.3-70B-Instruct-Turbo": 0.012758,
+    "comprehend|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo vs deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.813651,
+    "comprehend|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo vs together/Llama-3.3-70B-Instruct-Turbo": 0.816448,
+    "comprehend|together/Llama-3.3-70B-Instruct-Turbo vs deepinfra/Llama-3.3-70B-Instruct-Turbo": -0.014281,
+    "comprehend|together/Llama-3.3-70B-Instruct-Turbo vs deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 0.133356,
+    "refactor_dev|deepinfra/Llama-3.3-70B-Instruct-Turbo vs deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 0.230932,
+    "refactor_dev|deepinfra/Llama-3.3-70B-Instruct-Turbo vs together/Llama-3.3-70B-Instruct-Turbo": 0.081727,
+    "refactor_dev|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo vs deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.323491,
+    "refactor_dev|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo vs together/Llama-3.3-70B-Instruct-Turbo": 0.204701,
+    "refactor_dev|together/Llama-3.3-70B-Instruct-Turbo vs deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.060789,
+    "refactor_dev|together/Llama-3.3-70B-Instruct-Turbo vs deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 0.132576
+  },
+  "c3_null_diagnostics": {
+    "comprehend|deepinfra/Llama-3.3-70B-Instruct-Turbo|m=25": {
+      "degenerate": false,
+      "max": 0.043651,
+      "mean": 0.011972,
+      "min": -0.078071,
+      "n_clusters_min": 41,
+      "n_distinct": 4999,
+      "n_draws": 5000,
+      "q01": -0.019918,
+      "stdev": 0.01096
+    },
+    "comprehend|deepinfra/Llama-3.3-70B-Instruct-Turbo|m=50": {
+      "degenerate": false,
+      "max": 0.022863,
+      "mean": 0.012762,
+      "min": -0.002811,
+      "n_clusters_min": 41,
+      "n_distinct": 5000,
+      "n_draws": 5000,
+      "q01": 0.0016,
+      "stdev": 0.004661
+    },
+    "comprehend|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|m=25": {
+      "degenerate": false,
+      "max": 1.062708,
+      "mean": 0.81224,
+      "min": 0.559966,
+      "n_clusters_min": 41,
+      "n_distinct": 5000,
+      "n_draws": 5000,
+      "q01": 0.648133,
+      "stdev": 0.07208
+    },
+    "comprehend|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|m=50": {
+      "degenerate": false,
+      "max": 0.926741,
+      "mean": 0.813883,
+      "min": 0.69497,
+      "n_clusters_min": 41,
+      "n_distinct": 5000,
+      "n_draws": 5000,
+      "q01": 0.73046,
+      "stdev": 0.035864
+    },
+    "comprehend|together/Llama-3.3-70B-Instruct-Turbo|m=25": {
+      "degenerate": false,
+      "max": 0.010238,
+      "mean": -0.014823,
+      "min": -0.091093,
+      "n_clusters_min": 41,
+      "n_distinct": 5000,
+      "n_draws": 5000,
+      "q01": -0.043782,
+      "stdev": 0.01178
+    },
+    "comprehend|together/Llama-3.3-70B-Instruct-Turbo|m=50": {
+      "degenerate": false,
+      "max": 0.004182,
+      "mean": -0.014268,
+      "min": -0.026543,
+      "n_clusters_min": 41,
+      "n_distinct": 5000,
+      "n_draws": 5000,
+      "q01": -0.025191,
+      "stdev": 0.005663
+    },
+    "refactor_dev|deepinfra/Llama-3.3-70B-Instruct-Turbo|m=25": {
+      "degenerate": false,
+      "max": 0.167399,
+      "mean": 0.081299,
+      "min": 0.012527,
+      "n_clusters_min": 40,
+      "n_distinct": 5000,
+      "n_draws": 5000,
+      "q01": 0.030168,
+      "stdev": 0.022927
+    },
+    "refactor_dev|deepinfra/Llama-3.3-70B-Instruct-Turbo|m=50": {
+      "degenerate": false,
+      "max": 0.11538,
+      "mean": 0.081808,
+      "min": 0.039704,
+      "n_clusters_min": 40,
+      "n_distinct": 5000,
+      "n_draws": 5000,
+      "q01": 0.054067,
+      "stdev": 0.011613
+    },
+    "refactor_dev|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|m=25": {
+      "degenerate": false,
+      "max": 0.29513,
+      "mean": 0.203946,
+      "min": 0.091978,
+      "n_clusters_min": 40,
+      "n_distinct": 5000,
+      "n_draws": 5000,
+      "q01": 0.134996,
+      "stdev": 0.029784
+    },
+    "refactor_dev|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|m=50": {
+      "degenerate": false,
+      "max": 0.250716,
+      "mean": 0.204826,
+      "min": 0.154501,
+      "n_clusters_min": 40,
+      "n_distinct": 5000,
+      "n_draws": 5000,
+      "q01": 0.169402,
+      "stdev": 0.014981
+    },
+    "refactor_dev|together/Llama-3.3-70B-Instruct-Turbo|m=25": {
+      "degenerate": false,
+      "max": 0.152793,
+      "mean": 0.059478,
+      "min": -0.019586,
+      "n_clusters_min": 40,
+      "n_distinct": 5000,
+      "n_draws": 5000,
+      "q01": -0.004892,
+      "stdev": 0.02952
+    },
+    "refactor_dev|together/Llama-3.3-70B-Instruct-Turbo|m=50": {
+      "degenerate": false,
+      "max": 0.098728,
+      "mean": 0.061068,
+      "min": -0.003303,
+      "n_clusters_min": 40,
+      "n_distinct": 5000,
+      "n_draws": 5000,
+      "q01": 0.023181,
+      "stdev": 0.015372
+    }
+  },
+  "c3_power": {
+    "control_pair_rho_all_m": {
+      "comprehend|m=25": 0.3,
+      "comprehend|m=50": 0.2,
+      "refactor_dev|m=25": 0.5,
+      "refactor_dev|m=50": 0.3
+    },
+    "control_pair_rho_at_m": {
+      "comprehend": 0.2,
+      "refactor_dev": 0.3
+    },
+    "far": 0.01,
+    "load_bearing_pair_rho_all_m": {
+      "comprehend|m=25": null,
+      "comprehend|m=50": null,
+      "refactor_dev|m=25": 0.75,
+      "refactor_dev|m=50": 0.5
+    },
+    "load_bearing_pair_rho_at_m": {
+      "comprehend": null,
+      "refactor_dev": 0.5
+    },
+    "m": 50,
+    "m_note": "archives hold 75 items; m is capped at 50 because a null drawn at m=75 is every draw the whole archive and collapses to a single value",
+    "power_target": 0.8,
+    "rho_min_by_pair": {
+      "comprehend|deepinfra/Llama-3.3-70B-Instruct-Turbo substituted_by deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|m=25": 0.3,
+      "comprehend|deepinfra/Llama-3.3-70B-Instruct-Turbo substituted_by deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|m=50": 0.2,
+      "comprehend|deepinfra/Llama-3.3-70B-Instruct-Turbo substituted_by together/Llama-3.3-70B-Instruct-Turbo|m=25": null,
+      "comprehend|deepinfra/Llama-3.3-70B-Instruct-Turbo substituted_by together/Llama-3.3-70B-Instruct-Turbo|m=50": null,
+      "comprehend|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo substituted_by deepinfra/Llama-3.3-70B-Instruct-Turbo|m=25": 0.3,
+      "comprehend|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo substituted_by deepinfra/Llama-3.3-70B-Instruct-Turbo|m=50": 0.2,
+      "comprehend|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo substituted_by together/Llama-3.3-70B-Instruct-Turbo|m=25": 0.3,
+      "comprehend|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo substituted_by together/Llama-3.3-70B-Instruct-Turbo|m=50": 0.2,
+      "comprehend|together/Llama-3.3-70B-Instruct-Turbo substituted_by deepinfra/Llama-3.3-70B-Instruct-Turbo|m=25": null,
+      "comprehend|together/Llama-3.3-70B-Instruct-Turbo substituted_by deepinfra/Llama-3.3-70B-Instruct-Turbo|m=50": null,
+      "comprehend|together/Llama-3.3-70B-Instruct-Turbo substituted_by deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|m=25": 0.3,
+      "comprehend|together/Llama-3.3-70B-Instruct-Turbo substituted_by deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|m=50": 0.2,
+      "refactor_dev|deepinfra/Llama-3.3-70B-Instruct-Turbo substituted_by deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|m=25": 0.5,
+      "refactor_dev|deepinfra/Llama-3.3-70B-Instruct-Turbo substituted_by deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|m=50": 0.3,
+      "refactor_dev|deepinfra/Llama-3.3-70B-Instruct-Turbo substituted_by together/Llama-3.3-70B-Instruct-Turbo|m=25": 0.5,
+      "refactor_dev|deepinfra/Llama-3.3-70B-Instruct-Turbo substituted_by together/Llama-3.3-70B-Instruct-Turbo|m=50": 0.3,
+      "refactor_dev|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo substituted_by deepinfra/Llama-3.3-70B-Instruct-Turbo|m=25": 0.3,
+      "refactor_dev|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo substituted_by deepinfra/Llama-3.3-70B-Instruct-Turbo|m=50": 0.2,
+      "refactor_dev|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo substituted_by together/Llama-3.3-70B-Instruct-Turbo|m=25": 0.3,
+      "refactor_dev|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo substituted_by together/Llama-3.3-70B-Instruct-Turbo|m=50": 0.2,
+      "refactor_dev|together/Llama-3.3-70B-Instruct-Turbo substituted_by deepinfra/Llama-3.3-70B-Instruct-Turbo|m=25": 0.75,
+      "refactor_dev|together/Llama-3.3-70B-Instruct-Turbo substituted_by deepinfra/Llama-3.3-70B-Instruct-Turbo|m=50": 0.5,
+      "refactor_dev|together/Llama-3.3-70B-Instruct-Turbo substituted_by deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|m=25": 0.5,
+      "refactor_dev|together/Llama-3.3-70B-Instruct-Turbo substituted_by deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|m=50": 0.5
+    },
+    "rho_none_means": "the pair did not reach the power target at any spliced fraction on the rho grid, so no substituted fraction is resolvable for it at this m"
+  },
+  "punchmark_schema": "angle_c_evaluation/v1",
+  "seed": 20260806
+}
