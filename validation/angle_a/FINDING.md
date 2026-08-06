@@ -100,15 +100,36 @@ people's archives survives its sharpest recorded objection.
 ## Power and the minimum resolvable separation (`derived/power_heldout.json`, model file)
 
 At the shipped thresholds (m=750, FAR 0.01), held-out seeded substitutions resolve at
-rho* between **0.1 and 0.75** depending on the ordered pair: every one of the 24
-ordered pairs resolves, and none needs a full swap to do it. The shipped power table now covers every calibrated far, so a ruling at
-any declared operating point has a table to consult. The rho=0 self-check is enforced
-inside `power_analysis` itself. The dev calibration passes it. The three held-out
-transfer cells fail their held-out version and are flagged per entry in the artifact.
-At the 150-row probe size the hardest pairs are marginal by design, and output (d)
-reports it: a 150-row probe inherits that limit and says so. Seeded-substitution
-fidelity to real vendor changes cannot be validated and stands as a bound
-(PMK-POW-004).
+rho* between **0.2 and 0.75** over the 15 of 24 ordered-pair cells that pass the rho=0
+self-check. Every one of those 15 resolves, and none needs a full swap to do it.
+
+**The range is quoted over the passing cells only, and an earlier version of this file
+quoted 0.1 to 0.75 over all 24.** That was wrong in a specific direction. Nine cells
+fail the rho=0 self-check, and they are exactly the three (route, task) transfer cells
+of KT2 appearing once per substituting candidate. A cell whose realised flag rate is
+0.1208 flags twelve times too readily under the null, so it also reaches power 0.8 at a
+smaller spliced fraction than a correctly calibrated cell would: the inflated alarm rate
+mechanically depresses rho*, which puts the invalid cells at the flattering end. Both
+cells reporting the minimum of 0.1 are among them. Quoting a headline range across cells
+the analysis had already rejected is the same error this project warns about elsewhere,
+and the corrected ratio between hardest and easiest is 3.75 rather than 7.5.
+
+The full 24 remain in `derived/power_heldout.json` with `rho_zero_selfcheck_leq_far`
+per entry, because the pattern that links them to KT2 is worth seeing.
+
+A related wording correction: the agreement between KT2's flag rate and the rho=0
+self-check is **not** two independent signals. The rho=0 slice of a seeded-splice power
+grid IS the false-alarm rate at that operating point, so these are two estimators of one
+quantity computed by different resampling schemes over the same archives. Their
+agreement is evidence that the transfer failure is not an artefact of one
+implementation, which is less than independence and still worth having.
+
+The shipped power table covers every calibrated far, so a ruling at any declared
+operating point has a table to consult. The rho=0 self-check is enforced inside
+`power_analysis` itself. The dev calibration passes it. At the 150-row probe size the
+hardest pairs are marginal by design, and output (d) reports it: a 150-row probe
+inherits that limit and says so. Seeded-substitution fidelity to real vendor changes
+cannot be validated and stands as a bound (PMK-POW-004).
 
 ## Transfer probe: the ablation arm (`derived/ablation_probe.json`)
 

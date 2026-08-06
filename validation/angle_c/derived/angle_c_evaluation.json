@@ -1,4 +1,5 @@
 {
+  "alternative_space_note": "The shipped model's candidate set holds one entry for the committed slug, so the alternatives its statistic is tested against are the three OTHER model families. A same-model provider swap is not among them. The C1 rho_min of 1.0 is therefore the resolvable fraction against those three alternatives and is not a power statement about a provider swap; the side model, whose candidate set separates the providers, is the only part of this study that measures provider separability.",
   "c1_verification_shipped_model": {
     "candidate_set_id": "pmk-cs-2f6b636d317d3ffe",
     "candidates": [
@@ -256,6 +257,68 @@
       }
     ]
   },
+  "c2_confusion": {
+    "deepinfra/Llama-3.3-70B-Instruct-Turbo|comprehend": {
+      "declared": "deepinfra/Llama-3.3-70B-Instruct-Turbo",
+      "diagonal_matches_reported_rate": true,
+      "identified_as": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.88,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 0.033,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.087
+      },
+      "n_draws": 1000
+    },
+    "deepinfra/Llama-3.3-70B-Instruct-Turbo|refactor_dev": {
+      "declared": "deepinfra/Llama-3.3-70B-Instruct-Turbo",
+      "diagonal_matches_reported_rate": true,
+      "identified_as": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 1.0,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 0.0,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.0
+      },
+      "n_draws": 1000
+    },
+    "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|comprehend": {
+      "declared": "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo",
+      "diagonal_matches_reported_rate": true,
+      "identified_as": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.0,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 1.0,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.0
+      },
+      "n_draws": 1000
+    },
+    "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|refactor_dev": {
+      "declared": "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo",
+      "diagonal_matches_reported_rate": true,
+      "identified_as": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.0,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 1.0,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.0
+      },
+      "n_draws": 1000
+    },
+    "together/Llama-3.3-70B-Instruct-Turbo|comprehend": {
+      "declared": "together/Llama-3.3-70B-Instruct-Turbo",
+      "diagonal_matches_reported_rate": true,
+      "identified_as": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.858,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 0.033,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.109
+      },
+      "n_draws": 1000
+    },
+    "together/Llama-3.3-70B-Instruct-Turbo|refactor_dev": {
+      "declared": "together/Llama-3.3-70B-Instruct-Turbo",
+      "diagonal_matches_reported_rate": true,
+      "identified_as": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.015,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 0.001,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.984
+      },
+      "n_draws": 1000
+    }
+  },
   "c2_identification_side_model": {
     "above_chance": true,
     "candidate_set_id": "pmk-cs-a17c60d807098d0b",
@@ -332,6 +395,32 @@
     "refactor_dev|deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo vs together/Llama-3.3-70B-Instruct-Turbo": 0.204701,
     "refactor_dev|together/Llama-3.3-70B-Instruct-Turbo vs deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.060789,
     "refactor_dev|together/Llama-3.3-70B-Instruct-Turbo vs deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 0.132576
+  },
+  "c2_permutation_control": {
+    "chance_rate": 0.3333,
+    "comprehend": {
+      "archives": 3,
+      "chance_rate": 0.3333,
+      "per_archive_rate": [
+        0.083,
+        0.286,
+        0.334
+      ],
+      "pooled_subsample_rate": 0.2343,
+      "whole_set_correct": "0/3"
+    },
+    "pooled_over_tasks": 0.3362,
+    "refactor_dev": {
+      "archives": 3,
+      "chance_rate": 0.3333,
+      "per_archive_rate": [
+        0.578,
+        0.192,
+        0.544
+      ],
+      "pooled_subsample_rate": 0.438,
+      "whole_set_correct": "2/3"
+    }
   },
   "c3_null_diagnostics": {
     "comprehend|deepinfra/Llama-3.3-70B-Instruct-Turbo|m=25": {

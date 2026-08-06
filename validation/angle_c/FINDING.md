@@ -57,6 +57,31 @@ refuses rather than reassures, and names the candidates it lacks power against. 
 the designed behaviour rather than a surprise, and it is the reason the headline is not
 "punchmark confirms the route was unchanged".
 
+### Correction: the non-detection is first of all about the candidate set
+
+An earlier version of this finding gave `rho_min = 1.0` as **the** reason the provider
+change went unflagged. That mis-attributes to a shortage of power what is first of all a
+property of the alternative space, and the correction matters more than the original
+claim did.
+
+The shipped candidate set holds one entry for the committed slug. Both provider archives
+declare that slug, so T compares each archive against the **other three model families**
+and against nothing else. A same-model swap between providers is not among the
+alternatives the statistic is tested against. The test can report that an archive is
+better explained by DeepSeek, the 8B or Mistral; it has no term for "the same model,
+served by someone else".
+
+So `rho_min = 1.0` is a real and separate fact, and it means the resolvable fraction
+*against those three model-family alternatives*, measured by splicing their rows in. No
+provider swap was ever spliced, so it is not a power statement about the swap that
+actually occurred.
+
+The same limit appears from the other direction in Angle A's leave-one-route-out
+diagnostic, where every excluded route maps cleanly onto some remaining candidate. An
+auditor cannot flag an alternative it does not enumerate, and an operating point says
+nothing about producers outside the set it was calibrated over. That belongs beside
+`rho_min` in any honest report, and the instrument does not yet print it.
+
 ## C2: identification under a separate side model
 
 Verification asks whether an archive clears a calibrated threshold. Identification asks
@@ -80,9 +105,27 @@ not be read as the provider result.
 
 The provider result is the last two rows, and they disagree with each other. On
 `refactor_dev` the Together archive is identified correctly 98.4% of the time. On
-`comprehend` it is identified correctly 10.9% of the time, which is below chance: the
-Together comprehend archive fits the DeepInfra profile slightly better than its own. The
-out-of-fold pairwise margins say the same thing in the units the detector works in:
+`comprehend` it is identified correctly 10.9% of the time, which is below chance.
+
+**Why below chance, and why that is not a defect.** Guessing between indistinguishable
+candidates lands at chance rather than under it, so a below-chance rate needs an account.
+The full confusion matrix (`c2_confusion` in the artifact, computed from the same draws
+as the rate above, so its diagonal is that rate) gives one. The misidentifications are
+not spread over the two wrong labels: 0.858 of the draws go to the archive's **same-slug
+twin** at DeepInfra and 0.033 to the different-weights control. The discriminator
+separates the easy class almost perfectly and collapses the two near-identical ones,
+which places one twin below chance by construction in a three-way problem. It is signal
+with a predictable structure rather than an inverted label.
+
+**A negative control.** Permuting the row-to-route assignment within a task and refitting
+drops pooled subsample identification from 0.8288 to 0.3362 against a chance rate of
+0.3333 (`c2_permutation_control`). Labels are permuted per row rather than per archive:
+relabelling whole archives would leave each archive's text intact under its new name and
+the detector would learn that instead. Per task the permuted rates are 0.2343 and 0.438,
+which bracket chance and show that three archives per task is too few to read either one
+on its own.
+
+The out-of-fold pairwise margins say the same thing in the units the detector works in:
 
 | task | same slug, DeepInfra vs Together | different weights, 70B vs 8B |
 |---|---|---|
@@ -135,7 +178,10 @@ DESIGN.md fixed the rule before collection. Applying it:
 - **Serving-stack identifier** requires the same-weights pair to separate, defined as an
   identification CI lower bound above chance **and** a SUBSTITUTED-direction T. The second
   condition fails outright: every T in C1 is positive, and no archive is ruled
-  SUBSTITUTED at any rho_target. Not met.
+  SUBSTITUTED at any rho_target. Not met. Note what the correction above implies here:
+  under the shipped candidate set that condition could not have been met by a provider
+  swap at any sample size, because the swap is not in the alternative space. The
+  pre-registered rule did not notice this, and neither did we until it was pointed out.
 - **Weights identifier** requires the same-weights pair not to separate while the control
   does. This holds on `comprehend`, where the load-bearing pair never resolves and is
   identified below chance while the control resolves at 0.2. It does not hold on

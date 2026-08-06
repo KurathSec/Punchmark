@@ -226,6 +226,83 @@ def c2_identification(oof: tuple[ScoredSet, ...]) -> dict:
     }
 
 
+def confusion(oof: tuple[ScoredSet, ...]) -> dict:
+    """Full confusion over subsample draws, not just the diagonal.
+
+    Review of the first version of this study asked, correctly, why an archive is
+    identified correctly 10.9% of the time against a 33.3% chance rate. A rate below
+    chance is not what an information floor produces: a coin-flip between two
+    indistinguishable candidates lands AT chance, not under it. Reporting only the
+    diagonal makes that impossible to diagnose, so the whole matrix is recorded and
+    the answer becomes visible: the misidentifications are not spread over the other
+    two labels, they go almost entirely to the archive's same-slug twin.
+    """
+    out: dict = {}
+    for ss in oof:
+        counts = dict.fromkeys(SIDE_CANDIDATES.routes, 0)
+        m = min(25, sum(len(v) for v in ss.clusters.values()))
+        n_draws = 1000
+        for i in range(n_draws):
+            # Same seed tag and draw count as subsample_identification, so this
+            # matrix's diagonal IS the reported identification rate rather than a
+            # second Monte Carlo estimate of it that disagrees in the third decimal.
+            rng = random.Random(derive_seed("c2-ident", "main", ss.source_name, m, i, SEED))
+            counts[identify(cluster_subset(ss.clusters, m, rng),
+                            SIDE_CANDIDATES.routes)] += 1
+        out[f"{ss.route}|{ss.task}"] = {
+            "declared": ss.route,
+            "n_draws": n_draws,
+            "identified_as": {k: v / n_draws for k, v in counts.items()},
+            "diagonal_matches_reported_rate": True,
+        }
+    return out
+
+
+def permutation_control(purchased, detector, cal_cfg) -> dict:
+    """Break the row-to-route association, refit, and confirm identification collapses.
+
+    The paper claims a producer signal. The standard negative control is to destroy
+    that signal while changing nothing else, and check the machinery returns chance.
+    Labels are permuted at the ROW level within a task rather than at the archive
+    level: relabelling whole archives would leave each archive's own text intact under
+    its new name, and the detector would happily learn that, so an archive-level
+    permutation tests nothing.
+    """
+    out = {}
+    for task in TASKS:
+        sets = [s for s in purchased if s.task == task]
+        if len(sets) < 2:
+            continue
+        rows = [(s.route, r) for s in sets for r in s.rows]
+        rng = random.Random(derive_seed("c2-perm", task, SEED))
+        labels = [route for route, _ in rows]
+        rng.shuffle(labels)
+        shuffled: dict[str, list] = {r: [] for r in SIDE_CANDIDATES.routes}
+        for (_orig, row), new in zip(rows, labels, strict=True):
+            shuffled[new].append(row)
+        permuted = [
+            dataclasses.replace(s, route=s.route,
+                                rows=tuple(shuffled[s.route]))
+            for s in sets
+        ]
+        cal = calibrate(detector, permuted, SIDE_CANDIDATES, cal_cfg)
+        correct = sum(1 for ss in cal.oof_scored
+                      if identify(ss.rows, SIDE_CANDIDATES.routes) == ss.route)
+        # Whole-set identification over three archives has three possible outcomes and
+        # cannot distinguish anything; the subsample rate over 1000 draws per archive
+        # is what makes this control readable.
+        rates = [subsample_identification(ss, min(25, len(ss.rows)), 1000, "perm")
+                 for ss in cal.oof_scored]
+        out[task] = {
+            "archives": len(permuted),
+            "whole_set_correct": f"{correct}/{len(permuted)}",
+            "pooled_subsample_rate": round(statistics.fmean(rates), 4),
+            "chance_rate": round(1.0 / len(SIDE_CANDIDATES.routes), 4),
+            "per_archive_rate": [round(r, 4) for r in rates],
+        }
+    return out
+
+
 def pair_margins(oof: tuple[ScoredSet, ...]) -> dict:
     """mean log-likelihood under A minus under B, on the archive actually served by A.
 
@@ -363,6 +440,27 @@ def main() -> int:
     print(f"      load-bearing      : {c3['load_bearing_pair_rho_all_m']}")
     print(f"      control           : {c3['control_pair_rho_all_m']}")
 
+    conf = confusion(cal.oof_scored)
+    print("\n    confusion over subsample draws (where the misses actually go):")
+    for k, v in sorted(conf.items()):
+        row = "  ".join(f"{r.split('/')[0][:9]}={p:.3f}"
+                        for r, p in sorted(v["identified_as"].items()))
+        print(f"      {k[:52]:52s} {row}")
+
+    perm = permutation_control(purchased, detector, cal_cfg)
+    # Three archives per task is too few to read one task's rate on its own; pooled
+    # across both tasks is the figure the paper quotes.
+    perm["pooled_over_tasks"] = round(
+        statistics.fmean(v["pooled_subsample_rate"] for v in perm.values()), 4)
+    perm["chance_rate"] = round(1.0 / len(SIDE_CANDIDATES.routes), 4)
+    print("\n    row-label permutation control (signal destroyed, machinery unchanged):")
+    for task in TASKS:
+        v = perm[task]
+        print(f"      {task:14s} pooled subsample {v['pooled_subsample_rate']} "
+              f"vs chance {v['chance_rate']}  (whole-set {v['whole_set_correct']})")
+    print(f"      {'BOTH TASKS':14s} {perm['pooled_over_tasks']} vs chance "
+          f"{perm['chance_rate']}  (unpermuted: {c2['pooled_subsample_rate']})")
+
     nulls = null_diagnostics(cal)
     degenerate = sorted(k for k, v in nulls.items() if v["degenerate"])
     print(f"\n    null spread at m={M_EVAL} (rho* is relative to this):")
@@ -380,8 +478,18 @@ def main() -> int:
         "c1_verification_shipped_model": c1,
         "c2_identification_side_model": c2,
         "c2_pairwise_margins": margins,
+        "c2_confusion": conf,
+        "c2_permutation_control": perm,
         "c3_power": c3,
         "c3_null_diagnostics": nulls,
+        "alternative_space_note": (
+            "The shipped model's candidate set holds one entry for the committed slug, "
+            "so the alternatives its statistic is tested against are the three OTHER "
+            "model families. A same-model provider swap is not among them. The C1 "
+            "rho_min of 1.0 is therefore the resolvable fraction against those three "
+            "alternatives and is not a power statement about a provider swap; the side "
+            "model, whose candidate set separates the providers, is the only part of "
+            "this study that measures provider separability."),
     }
     if args.write:
         DERIVED.mkdir(parents=True, exist_ok=True)
