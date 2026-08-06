@@ -211,9 +211,13 @@ These are genuinely external or budgetary and cannot be settled from the repo:
 
 1. ~~Provider B~~ **RESOLVED: Together AI** (see route 1 above). No longer open.
 2. **Credentials and billing.** A Together AI account and API key are needed (the study
-   has none yet). The DeepInfra key in `bench/config.json` is plaintext and the upstream
-   project records it as already exposed, so rotating it is unconditional and must happen
-   before any Angle C spend. Which accounts bill?
+   has none yet). Keys go in `validation/angle_c/credentials.json`, which is gitignored
+   and mode 0600; `check_credentials.py` verifies them and the route catalogue without
+   spending anything. The DeepInfra key in `bench/config.json` is plaintext and the
+   upstream project records it as already exposed. **Decision taken 2026-08-05: the
+   maintainer has declined to rotate it before Angle C, so collection proceeds on the
+   existing key.** The exposure is recorded here so the choice is visible rather than
+   forgotten. Which accounts bill is still to be stated, and is printed at pre-flight.
 3. **The spend ceiling** (`--max-usd`, no default) and the call ceiling. The load-bearing
    pair plus drift control plus one different-weights control is ~4-5 routes x 1,200 calls;
    at ~2k tokens/call that is ~2.4M tokens per route; at the ~$1.04/1M pinned above

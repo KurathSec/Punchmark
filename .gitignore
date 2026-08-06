@@ -23,3 +23,6 @@ __pycache__/
 
 # Angle C purchased archives are local-only; never committed (PMK-COR-002).
 /validation/angle_c/archives/
+
+# Angle C credentials: real API keys, never committed.
+/validation/angle_c/credentials.json
