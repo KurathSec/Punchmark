@@ -67,14 +67,20 @@ force-include = { "NOTICE" = "punchmark/NOTICE" }
 
 [tool.hatch.build.targets.sdist]
 # Policy, asserted by .github/workflows/release.yml: these never ship.
+#
+# Each directory is listed twice, bare and with `/**`. The bare form alone is not
+# enough: a path that .gitignore re-includes with a `!` negation (validation/angle_c
+# keeps two READMEs that way while ignoring the archives beside them) survives the
+# directory exclude and lands in the sdist. The release workflow greps the tarball for
+# exactly these paths, so the leak fails the release rather than shipping quietly.
 exclude = [
-    "/paper",
-    "/.github",
+    "/paper", "/paper/**",
+    "/.github", "/.github/**",
     "/CLAUDE.md",
-    "/site",
-    "/scratch",
-    "/calibration",
-    "/validation",
+    "/site", "/site/**",
+    "/scratch", "/scratch/**",
+    "/calibration", "/calibration/**",
+    "/validation", "/validation/**",
 ]
 
 [tool.pytest.ini_options]
