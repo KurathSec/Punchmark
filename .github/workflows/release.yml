@@ -72,3 +72,35 @@ jobs:
         with:
           name: dist
           path: dist/
+
+  # Separate job on purpose: a PyPI upload for a given version is irreversible, so
+  # nothing reaches the index until the version gates, the sdist policy and the offline
+  # wheel roundtrip have all passed in `build`. Trusted publishing, so there is no API
+  # token in this repository to leak or rotate.
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    # The PyPI trusted publisher leaves its environment field blank, so PyPI does not
+    # check this claim and the upload works with or without it. It is declared anyway
+    # because it routes the job through the repository's `pypi` environment, so whatever
+    # protection rules are set there (required reviewers, wait timers) gate the upload.
+    # Forward-compatible: tightening the PyPI side to require `pypi` later still matches.
+    environment:
+      name: pypi
+      url: https://pypi.org/p/punchmark
+    permissions:
+      # Mints the short-lived OIDC token PyPI exchanges for an upload credential.
+      # Without it the upload fails with an authentication error that reads as a
+      # misconfigured secret rather than a missing permission.
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          name: dist
+          path: dist/
+      - name: Refuse to publish anything the build job did not produce
+        run: |
+          ls -l dist/
+          test -n "$(ls dist/*.whl 2>/dev/null)" || { echo "no wheel"; exit 1; }
+          test -n "$(ls dist/*.tar.gz 2>/dev/null)" || { echo "no sdist"; exit 1; }
+      - uses: pypa/gh-action-pypi-publish@release/v1

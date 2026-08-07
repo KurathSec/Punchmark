@@ -12,7 +12,15 @@
      `calibration/`, `validation/`
    - the built wheel passes the offline smoke roundtrip
      (`synth -> fit -> score -> certify -> gate`)
-4. Publish to PyPI from the workflow's artifacts.
+4. PyPI publishing is automatic and needs no local step. A second job in the same
+   workflow uploads the built artifacts via PyPI trusted publishing, so there is no API
+   token in this repository. It runs only after `build` passes, because a version number
+   on PyPI can never be reused. It routes through the `pypi` GitHub environment, so any
+   protection rule set there (required reviewers, wait timer) gates the upload.
+5. Zenodo archives from a **published GitHub Release**, not from the tag. Pushing the tag
+   alone does not fire the webhook. Create the release from the tag once the workflow is
+   green. `CITATION.cff` deliberately omits `version` and `date-released`; Zenodo takes
+   both from the release.
 
 ## Name contingency
 
