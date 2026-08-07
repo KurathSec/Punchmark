@@ -24,6 +24,14 @@ abstract: >-
 type: software
 license: "MIT"
 repository-code: "https://github.com/KurathSec/Punchmark"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21833314
+    description: >-
+      Concept DOI, which always resolves to the newest archived release. Each
+      release also carries its own version DOI on the Zenodo record; cite that
+      one when the rulings-spec version matters, since it pins the exact
+      artifact a measurement was produced under.
 authors:
   - given-names: "Yuxiang"
     family-names: "Ji"

@@ -1,5 +1,13 @@
 # punchmark
 
+<!-- Release links. Remove this block, marker to marker, when this repository is
+     submitted as anonymous supplementary material. The Data provenance section
+     below carries a second identifying link and needs the same treatment. -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21833314.svg)](https://doi.org/10.5281/zenodo.21833314)
+[![PyPI](https://img.shields.io/pypi/v/punchmark)](https://pypi.org/project/punchmark/)
+[![docs](https://img.shields.io/badge/docs-online-blue)](https://kurathsec.github.io/Punchmark/)
+<!-- End release links. -->
+
 **No practitioner can currently re-certify an already-published benchmark number backwards
 from the responses it was computed on.** A hosted route name persists while whatever serves
 it moves. Every runnable producer-identity tool needs fresh probes issued live to an
@@ -54,7 +62,7 @@ for the full list of things a ruling does not show.
 
 ## Status
 
-Pre-release (0.1.0 in preparation). The calibrated chargram detector, the reference
+0.1.0, the first release. The calibrated chargram detector, the reference
 corpus manifest, the shipped default model and the held-out validation study
 (`validation/angle_a/FINDING.md`) are all committed; the numbers in `docs/validation.md`
 trace to committed derived artifacts. Nothing in this repository states or implies a
