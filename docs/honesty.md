@@ -40,15 +40,40 @@ one whose minimum resolvable substituted fraction exceeds what you asked about,
 gets UNDETERMINED. Absence of an alarm is never evidence by itself
 (PMK-RUL-001, PMK-POW-003).
 
+A verdict is silent about any producer the candidate set does not name. This is the
+sharpest limit here and it is structural rather than statistical. Holding one route out
+of the four-route set, that route's own archives are absorbed onto some remaining
+candidate 8 times out of 8, with no signal that the true producer is missing
+(`validation/angle_a/derived/kt2.json`). Buying the same route string from a second
+provider reproduces it on live data: the shipped instrument does not flag the swap,
+because the set holds one entry for the shared slug
+(`validation/angle_c/derived/angle_c_evaluation.json`).
+
+Naming the alternative fixes it, and the same detector and calibration then return
+SUBSTITUTED (`frame_swap.json`). Naming it also means calibrating it, from material
+contemporaneous with an archive whose producer you did not suspect, which is the
+retrospective problem returning one level up. This is not an artefact of the statistic
+being a margin: a competitor-free one-sample fit also misses the swap while flagging a
+different-weights control (`one_sample.json`). Read every verdict as relative to its
+enumerated set, and treat a set that omits a plausible producer as an unevaluated
+question rather than a passed one.
+
 The false-alarm rate is a property of the calibration content, and its behavior
 elsewhere was measured instead of assumed. The validation study applied the
 shipped, dev-calibrated per-route thresholds to re-minted content under a
-declared task alias (`--task-as`). Same-route per-ruling flag rates ran at
-6-12x the declared 1% in three of eight held-out (route, task) cells (see
-`validation/angle_a/derived/kt2.json`). A certificate's declared false-alarm
-rate is therefore trustworthy over the calibration content family. On other
-content it weakens to the transfer rates actually measured, and a `scored as`
-clause in a certificate is the marker that this caveat applies.
+declared task alias (`--task-as`). Same-route per-ruling flag rates reached 0.0598,
+0.1144 and 0.1208 against the declared 0.01 in three of eight held-out (route, task)
+cells (`validation/angle_a/derived/kt2.json`).
+
+That failure is real and it is localised rather than uniform. A cluster bootstrap over
+each archive's 74 base samples leaves no cell whose 95% interval excludes the declared
+rate (`kt2_bootstrap.json`), which means the flagging concentrates in a minority of items:
+exclude them and the cell flags nothing. So the operative warning is not that a stated
+rate becomes some larger stated rate. It is that particular content can blow an operating
+point out by an order of magnitude while every aggregate looks clean. A certificate's
+declared false-alarm rate is trustworthy over the calibration content family, a `scored
+as` clause marks where that is not validated, and neither a pooled figure nor a clean fit
+stratum is evidence that a blow-out is absent.
 
 A ruling makes no capability claims. Nothing here states or implies a benchmark
 result or a comparison between models. See NOTICE for the claim boundary with
