@@ -1,0 +1,69 @@
+{
+  "cross_provider_swap_flagged_by_one_sample_test": {
+    "comprehend": false,
+    "refactor_dev": false
+  },
+  "far": 0.01,
+  "punchmark_schema": "angle_c_one_sample/v1",
+  "question": "Does a competitor-free formulation flag the cross-provider swap that the margin statistic structurally cannot?",
+  "results": {
+    "comprehend": {
+      "archives": {
+        "deepinfra/Llama-3.1-8B": {
+          "below_threshold": true,
+          "one_sample_stat_under_declared_route": -9.189433,
+          "verdict": "SUBSTITUTED"
+        },
+        "deepinfra/Llama-3.3-70B": {
+          "below_threshold": false,
+          "one_sample_stat_under_declared_route": -8.466329,
+          "verdict": "not flagged"
+        },
+        "together/Llama-3.3-70B": {
+          "below_threshold": false,
+          "one_sample_stat_under_declared_route": -8.438985,
+          "verdict": "not flagged"
+        },
+        "w2/Llama-3.3-70B": {
+          "below_threshold": false,
+          "one_sample_stat_under_declared_route": -8.489742,
+          "verdict": "not flagged"
+        }
+      },
+      "n_null": 10000,
+      "null_mean": -8.465878,
+      "null_sd": 0.228283,
+      "threshold_at_far": -8.989496
+    },
+    "refactor_dev": {
+      "archives": {
+        "deepinfra/Llama-3.1-8B": {
+          "below_threshold": true,
+          "one_sample_stat_under_declared_route": -9.683789,
+          "verdict": "SUBSTITUTED"
+        },
+        "deepinfra/Llama-3.3-70B": {
+          "below_threshold": false,
+          "one_sample_stat_under_declared_route": -9.309378,
+          "verdict": "not flagged"
+        },
+        "together/Llama-3.3-70B": {
+          "below_threshold": false,
+          "one_sample_stat_under_declared_route": -9.431099,
+          "verdict": "not flagged"
+        },
+        "w2/Llama-3.3-70B": {
+          "below_threshold": false,
+          "one_sample_stat_under_declared_route": -9.308562,
+          "verdict": "not flagged"
+        }
+      },
+      "n_null": 10000,
+      "null_mean": -9.309541,
+      "null_sd": 0.166455,
+      "threshold_at_far": -9.68312
+    }
+  },
+  "seed": 20260806,
+  "statistic": "mean length-normalised log-likelihood under the DECLARED route only; no competitor set enters the statistic"
+}

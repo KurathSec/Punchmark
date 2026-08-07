@@ -332,3 +332,34 @@ limiting; the per-item record cannot identify which, since the counter is per ar
 0.965. The direction is robust, the magnitude is not: which four items go is worth up to a
 quarter of the headline figure. On comprehend the same procedure gives 0.0 to 0.23, the
 instability expected of a rate already below chance.
+
+### Is the closed-set limit the regime, or the statistic? (`derived/one_sample.json`)
+
+Review objected that the closed-set claim is definitional rather than measured: the set
+statistic is a margin, l(r0) minus the best competitor in C, and a margin cannot respond
+to an alternative outside C. No experiment is needed to know that.
+
+The objection names the test that settles it. Drop the competitor set and use a one-sample
+fit statistic, the mean length-normalised log-likelihood under the declared route alone,
+calibrated against that route's own split-half null. Such a test responds to any departure
+from r0 whether or not the substitute is enumerated.
+
+It does not flag the swap, on either task.
+
+| task | threshold | 8B control | honest DeepInfra | **Together (the swap)** | DeepInfra window 2 |
+|---|---|---|---|---|---|
+| comprehend | -8.9895 | -9.1894 **SUBSTITUTED** | -8.4663 pass | **-8.4390 not flagged** | -8.4897 pass |
+| refactor_dev | -9.6831 | -9.6838 **SUBSTITUTED** | -9.3094 pass | **-9.4311 not flagged** | -9.3086 pass |
+
+The test is not simply insensitive: it flags the different-weights control on both tasks,
+clears the honestly declared archive on both, and clears a second collection of the same
+route at the same provider in a later window. It has power against a real substitution and
+misses this one. So the limit is not an artefact of choosing a margin.
+
+The two tasks fail for different reasons and the distinction matters. On comprehend there
+is nothing to detect: the swapped archive fits the declared route *better* than that
+route's own archive does out of fold, -8.4390 against -8.4663, which is the byte-identity
+floor reappearing. On refactor_dev the direction is right and the power is not there, a
+0.12 shortfall against a threshold 0.37 away at 75 items. Enumerating the alternative
+recovers what the one-sample test cannot, because a margin against a correctly named
+competitor is sharper than a fit against a null.
