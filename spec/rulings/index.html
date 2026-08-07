@@ -1,0 +1,1773 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A retrospective producer identifier for hosted LLM routes: point it at the response archive a benchmark number was computed on and get a SAME-PRODUCER / SUBSTITUTED / UNDETERMINED ruling at a declared false-alarm rate, with a one-line certificate attachable to the published score.">
+      
+      
+      
+      
+        <link rel="prev" href="../../validation/">
+      
+      
+        <link rel="next" href="../../contributing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Spec rulings - punchmark</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spec-rulings" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="punchmark" class="md-header__button md-logo" aria-label="punchmark" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            punchmark
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Spec rulings
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/KurathSec/Punchmark" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    KurathSec/Punchmark
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="punchmark" class="md-nav__button md-logo" aria-label="punchmark" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    punchmark
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/KurathSec/Punchmark" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    KurathSec/Punchmark
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../archives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../certificates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Certificates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../honesty/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Honesty
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spec rulings
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spec rulings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-arc-001-the-filename-is-the-producer-label" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-ARC-001: The filename is the producer label
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-arc-002-error-stubs-are-counted-surfaced-never-featurized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-ARC-002: Error stubs are counted, surfaced, never featurized
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-arc-003-two-row-schemas-tier-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-ARC-003: Two row schemas, tier optional
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-arc-004-text-only-by-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-ARC-004: Text only, by construction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cal-001-the-resampling-cluster-is-the-base-sample" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CAL-001: The resampling cluster is the base sample
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cal-002-the-null-is-cross-fitted-superseded-by-pmk-cal-005-superseded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CAL-002: The null is cross-fitted (superseded by PMK-CAL-005) (superseded)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cal-003-null-material-is-same-route-same-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CAL-003: Null material is same-route, same-window
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cal-004-thresholds-are-conservative-empirical-quantiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CAL-004: Thresholds are conservative empirical quantiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cal-005-the-null-is-cross-fitted-with-one-shared-fold-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CAL-005: The null is cross-fitted with one shared fold map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cal-006-thresholds-are-per-declared-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CAL-006: Thresholds are per declared route
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cal-007-a-quantile-needs-draws-draws-are-budgeted-over-usable-archives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CAL-007: A quantile needs draws; draws are budgeted over usable archives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cor-001-the-manifest-is-the-corpus-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-COR-001: The manifest is the corpus identity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cor-002-the-shipped-corpus-mode-is-manifest-local-rebuild" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-COR-002: The shipped corpus mode is manifest + local rebuild
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-crt-001-a-certificate-derives-from-exactly-one-ruling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CRT-001: A certificate derives from exactly one ruling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-crt-002-no-weights-claim-ever" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CRT-002: No weights claim, ever
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-crt-003-verdicts-are-closed-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CRT-003: Verdicts are closed-set
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-det-001-the-detector-seam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-DET-001: The detector seam
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-det-002-the-trivial-reference-detector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-DET-002: The trivial reference detector
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-det-003-the-chargram-multinomial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-DET-003: The chargram multinomial
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-det-004-the-primary-view-is-canon1-frozen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-DET-004: The primary view is CANON@1, frozen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-emit-001-committed-artifacts-are-byte-stable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-EMIT-001: Committed artifacts are byte-stable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-emit-002-documents-carry-their-own-content-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-EMIT-002: Documents carry their own content address
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-emit-003-every-seed-is-derived-never-sampled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-EMIT-003: Every seed is derived, never sampled
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-fea-001-features-consume-raw_outputs-strings-and-nothing-else" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-FEA-001: Features consume raw_outputs strings and nothing else
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-fea-002-one-row-is-one-evidence-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-FEA-002: One row is one evidence unit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-fea-003-text-views-are-versioned-ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-FEA-003: Text views are versioned ids
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-gte-001-tri-state-exit-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-GTE-001: Tri-state exit codes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-gte-002-an-empty-comparison-never-passes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-GTE-002: An empty comparison never passes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-gte-003-operating-points-move-only-with-a-declared-bump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-GTE-003: Operating points move only with a declared bump
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-pow-001-substitutions-are-seeded-on-the-score-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-POW-001: Substitutions are seeded on the score table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-pow-002-rho-0-must-reproduce-the-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-POW-002: rho = 0 must reproduce the null
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-pow-003-the-minimum-resolvable-separation-is-a-first-class-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-POW-003: The minimum resolvable separation is a first-class output
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-pow-004-seeded-fidelity-is-a-standing-bound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-POW-004: Seeded fidelity is a standing bound
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-rul-001-three-zone-verdicts-undetermined-is-first-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-RUL-001: Three-zone verdicts; UNDETERMINED is first-class
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-rul-002-refusal-conditions-are-enumerated-and-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-RUL-002: Refusal conditions are enumerated and mandatory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-rul-003-the-store-is-append-only-rulings-are-superseded-never-edited" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-RUL-003: The store is append-only; rulings are superseded, never edited
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-rul-004-a-ruling-id-pins-the-contractual-four" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-RUL-004: A ruling id pins the contractual four
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-rul-005-cross-split-scoring-is-declared-never-inferred" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-RUL-005: Cross-split scoring is declared, never inferred
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-sdc-001-the-window-is-declared-never-inferred" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-SDC-001: The window is declared, never inferred
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-sdc-002-the-sidecar-must-agree-with-the-filename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-SDC-002: The sidecar must agree with the filename
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-sdc-003-the-sidecar-binds-to-the-bytes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-SDC-003: The sidecar binds to the bytes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-arc-001-the-filename-is-the-producer-label" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-ARC-001: The filename is the producer label
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-arc-002-error-stubs-are-counted-surfaced-never-featurized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-ARC-002: Error stubs are counted, surfaced, never featurized
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-arc-003-two-row-schemas-tier-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-ARC-003: Two row schemas, tier optional
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-arc-004-text-only-by-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-ARC-004: Text only, by construction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cal-001-the-resampling-cluster-is-the-base-sample" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CAL-001: The resampling cluster is the base sample
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cal-002-the-null-is-cross-fitted-superseded-by-pmk-cal-005-superseded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CAL-002: The null is cross-fitted (superseded by PMK-CAL-005) (superseded)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cal-003-null-material-is-same-route-same-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CAL-003: Null material is same-route, same-window
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cal-004-thresholds-are-conservative-empirical-quantiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CAL-004: Thresholds are conservative empirical quantiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cal-005-the-null-is-cross-fitted-with-one-shared-fold-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CAL-005: The null is cross-fitted with one shared fold map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cal-006-thresholds-are-per-declared-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CAL-006: Thresholds are per declared route
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cal-007-a-quantile-needs-draws-draws-are-budgeted-over-usable-archives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CAL-007: A quantile needs draws; draws are budgeted over usable archives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cor-001-the-manifest-is-the-corpus-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-COR-001: The manifest is the corpus identity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-cor-002-the-shipped-corpus-mode-is-manifest-local-rebuild" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-COR-002: The shipped corpus mode is manifest + local rebuild
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-crt-001-a-certificate-derives-from-exactly-one-ruling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CRT-001: A certificate derives from exactly one ruling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-crt-002-no-weights-claim-ever" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CRT-002: No weights claim, ever
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-crt-003-verdicts-are-closed-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-CRT-003: Verdicts are closed-set
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-det-001-the-detector-seam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-DET-001: The detector seam
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-det-002-the-trivial-reference-detector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-DET-002: The trivial reference detector
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-det-003-the-chargram-multinomial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-DET-003: The chargram multinomial
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-det-004-the-primary-view-is-canon1-frozen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-DET-004: The primary view is CANON@1, frozen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-emit-001-committed-artifacts-are-byte-stable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-EMIT-001: Committed artifacts are byte-stable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-emit-002-documents-carry-their-own-content-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-EMIT-002: Documents carry their own content address
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-emit-003-every-seed-is-derived-never-sampled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-EMIT-003: Every seed is derived, never sampled
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-fea-001-features-consume-raw_outputs-strings-and-nothing-else" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-FEA-001: Features consume raw_outputs strings and nothing else
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-fea-002-one-row-is-one-evidence-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-FEA-002: One row is one evidence unit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-fea-003-text-views-are-versioned-ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-FEA-003: Text views are versioned ids
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-gte-001-tri-state-exit-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-GTE-001: Tri-state exit codes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-gte-002-an-empty-comparison-never-passes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-GTE-002: An empty comparison never passes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-gte-003-operating-points-move-only-with-a-declared-bump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-GTE-003: Operating points move only with a declared bump
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-pow-001-substitutions-are-seeded-on-the-score-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-POW-001: Substitutions are seeded on the score table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-pow-002-rho-0-must-reproduce-the-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-POW-002: rho = 0 must reproduce the null
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-pow-003-the-minimum-resolvable-separation-is-a-first-class-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-POW-003: The minimum resolvable separation is a first-class output
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-pow-004-seeded-fidelity-is-a-standing-bound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-POW-004: Seeded fidelity is a standing bound
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-rul-001-three-zone-verdicts-undetermined-is-first-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-RUL-001: Three-zone verdicts; UNDETERMINED is first-class
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-rul-002-refusal-conditions-are-enumerated-and-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-RUL-002: Refusal conditions are enumerated and mandatory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-rul-003-the-store-is-append-only-rulings-are-superseded-never-edited" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-RUL-003: The store is append-only; rulings are superseded, never edited
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-rul-004-a-ruling-id-pins-the-contractual-four" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-RUL-004: A ruling id pins the contractual four
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-rul-005-cross-split-scoring-is-declared-never-inferred" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-RUL-005: Cross-split scoring is declared, never inferred
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-sdc-001-the-window-is-declared-never-inferred" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-SDC-001: The window is declared, never inferred
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-sdc-002-the-sidecar-must-agree-with-the-filename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-SDC-002: The sidecar must agree with the filename
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmk-sdc-003-the-sidecar-binds-to-the-bytes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMK-SDC-003: The sidecar binds to the bytes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="spec-rulings">Spec rulings</h1>
+<p>Rulings-spec version <code>2.1.0</code>. Generated by <code>tools/render_rulings.py</code> -- do not edit by hand.</p>
+<h2 id="pmk-arc-001-the-filename-is-the-producer-label">PMK-ARC-001: The filename is the producer label</h2>
+<p>An archive's route identity comes from its filename slug, which the
+experimenter fixes at collection time. Row content plays no part in that identity. A slug
+resolves to a route only through the candidate set's own declared slugs (a slug alone
+cannot say which dash was a '/'). Nothing anywhere in punchmark derives identity from
+completion text except the detector under test, whose output is scored against this
+label.</p>
+<h2 id="pmk-arc-002-error-stubs-are-counted-surfaced-never-featurized">PMK-ARC-002: Error stubs are counted, surfaced, never featurized</h2>
+<p>A row carrying exactly {sample, profile, language} and no raw_outputs is an API
+error stub: the collection failed for that item and the stub occupies its slot with zero
+draws. Stubs are counted per archive and reported in every ruling (n_stub_rows). Policy
+caps them, and a stub share above the cap forces UNDETERMINED. Stubs never reach feature
+extraction. There are no partial rows: any other unknown shape is a typed refusal.</p>
+<h2 id="pmk-arc-003-two-row-schemas-tier-optional">PMK-ARC-003: Two row schemas, tier optional</h2>
+<p>The native corpus ships rows with and without the tier key (the ladder archives
+carry none). Readers accept both schemas. Tier is metadata for stratified reporting only,
+and it is never a feature. Ragged draw counts are tolerated and counted. They are never
+padded.</p>
+<h2 id="pmk-arc-004-text-only-by-construction">PMK-ARC-004: Text only, by construction</h2>
+<p>The row type carries completion strings and identity fields. There is no place
+to put logprobs, headers, timing or finish reasons, so a detector that degrades when a
+provider withdraws a side channel cannot be built here by accident. The instrument is
+defined on the intersection of what archives reliably carry: response text.</p>
+<h2 id="pmk-cal-001-the-resampling-cluster-is-the-base-sample">PMK-CAL-001: The resampling cluster is the base sample</h2>
+<p>Items are not independent: a sample's variants, profiles and languages share
+program content. The cluster unit for every subsample, split and splice is the base
+sample name, and clusters move whole. Certificates report cluster counts beside item
+counts, because the effective sample size is bounded by the number of clusters and a row
+count would overstate it.</p>
+<h2 id="pmk-cal-002-the-null-is-cross-fitted-superseded-by-pmk-cal-005-superseded">PMK-CAL-002: The null is cross-fitted (superseded by PMK-CAL-005) <em>(superseded)</em></h2>
+<p>Superseded: this ruling drew the 2-fold cluster split independently PER ARCHIVE.
+The corpus shares item content across routes by design, so per-archive folds let route
+A's held-out cluster leak into the training half through route B's near-identical
+responses to the same items. That leak inflated the null's left tail until true
+substitutions fell inside it. PMK-CAL-005 keeps the cross-fitting principle with one fold
+map shared across archives.</p>
+<h2 id="pmk-cal-003-null-material-is-same-route-same-window">PMK-CAL-003: Null material is same-route, same-window</h2>
+<p>The false-alarm rate is calibrated exclusively on subsets and split-halves of
+single archives: one route, one collection window. Same-route comparisons across windows
+(e.g. a dev archive against a test archive of the same route) are a labeled cross-window
+diagnostic with no verdict semantics. They are never used as null material. One residual
+exposure remains: a substitution DURING the calibration window would be baked into the
+null. That exposure cannot be closed retrospectively and is carried verbatim into every
+write-up.</p>
+<h2 id="pmk-cal-004-thresholds-are-conservative-empirical-quantiles">PMK-CAL-004: Thresholds are conservative empirical quantiles</h2>
+<p>The threshold at declared false-alarm rate far is the conservative empirical
+far-quantile of the null draws (flagging at T &lt; t keeps the empirical flag rate &lt;= far).
+At scoring time the operating point for an archive of n items is the calibrated point
+with the largest m not exceeding n. A smaller m has a wider null, which can only widen
+the flag region's distance from the null. An archive below the smallest calibrated m gets
+UNDETERMINED. No threshold is ever extrapolated for it.</p>
+<h2 id="pmk-cal-005-the-null-is-cross-fitted-with-one-shared-fold-map">PMK-CAL-005: The null is cross-fitted with one shared fold map</h2>
+<p>The null distribution of the set statistic T is built only from out-of-fold
+scores: cluster names are split into two folds by ONE global assignment shared across
+every training archive. The corpus shares item content across routes by design, so
+cluster X must sit in the same fold for every route. Per-archive folds leak held-out
+content through the other routes' responses to the same items and corrupt the null. That
+failure was observed in practice, and it is why this ruling supersedes PMK-CAL-002. Each
+fold is scored by the model fitted on the other. An in-sample null is optimistic and
+silently overshoots the declared false-alarm rate on held-out data. The shipped model is
+fitted on everything. Its thresholds come from the cross-fitted null and are therefore
+slightly conservative. That bias is declared, and no correction is applied.</p>
+<h2 id="pmk-cal-006-thresholds-are-per-declared-route">PMK-CAL-006: Thresholds are per declared route</h2>
+<p>The null that fixes a threshold is built from the DECLARED route's own
+same-window archives only. Nulls are never pooled across routes. Pooling would let noise
+from one near-inseparable candidate pair (observed: two routes whose task answers are
+byte-identical on most items) widen every route's threshold, silently spending power the
+separated pairs actually have. An operating point is therefore a (task, route, far, m)
+cell, and a ruling's threshold always came from the null of the route it rules on.</p>
+<h2 id="pmk-cal-007-a-quantile-needs-draws-draws-are-budgeted-over-usable-archives">PMK-CAL-007: A quantile needs draws; draws are budgeted over usable archives</h2>
+<p>An operating point at false-alarm rate far exists only when the cell's null has at
+least 5 expected tail draws (n_draws * far &gt;= 5). Below that the empirical quantile
+degenerates to the sample minimum, whose true exceedance probability EXCEEDS the declared
+far while showing zero empirical flags. Unresolvable (cell, far) pairs are dropped: the
+later lookup returns None and the ruling comes out UNDETERMINED (refusal-first,
+PMK-RUL-002). A fit whose whole grid is unresolvable is refused, with the arithmetic in
+the message. Null draws are budgeted over the cell's USABLE archives, so an archive
+skipped for the m or min-clusters floors cannot silently shrink the cell below n_null.</p>
+<h2 id="pmk-cor-001-the-manifest-is-the-corpus-identity">PMK-COR-001: The manifest is the corpus identity</h2>
+<p>The calibration corpus a ruling cites is identified by the content hash of its
+MANIFEST, meaning the pinned checkout commit plus per-source sha256. Shipped bytes play
+no part in that identity. A manifest hash is exactly as binding over pins as over copies:
+if any pinned source changes, the manifest changes, and every ruling id downstream
+changes with it.</p>
+<h2 id="pmk-cor-002-the-shipped-corpus-mode-is-manifest-local-rebuild">PMK-COR-002: The shipped corpus mode is manifest + local rebuild</h2>
+<p>The reference calibration corpus ships no completion text. Re-publishing the
+upstream benchmark's committed private-test completions in a second repository would be a
+second, separate disclosure decision, and punchmark declines to take it. Instead, the
+manifest pins the upstream commit and hashes, and
+'corpus rebuild --corpus <dir> --source <checkout>'
+verifies a local checkout byte-for-byte. raw and features modes exist in code and are
+exercised synthetically so the machinery is proven. Neither mode is used for the
+reference corpus.</p>
+<h2 id="pmk-crt-001-a-certificate-derives-from-exactly-one-ruling">PMK-CRT-001: A certificate derives from exactly one ruling</h2>
+<p>The certificate is a one-line text plus a certificate/v1 JSON document, both
+generated from one verified ruling body. It never aggregates rulings and never carries a
+number that is not in its ruling or model file. HOLDS maps to exit 0, DOES NOT HOLD to
+exit 1, UNDETERMINED to exit 2, so an undetermined certificate can never read as
+success.</p>
+<h2 id="pmk-crt-002-no-weights-claim-ever">PMK-CRT-002: No weights claim, ever</h2>
+<p>Every certificate carries the sentence: 'This certifies the route label as
+served within the named candidate set; it is not a statement about model weights.' The
+sentence is part of the golden-pinned line format. Dropping or weakening it is a spec
+MAJOR change. A public route name does not denote a fixed configuration, and this
+instrument does not repair that.</p>
+<h2 id="pmk-crt-003-verdicts-are-closed-set">PMK-CRT-003: Verdicts are closed-set</h2>
+<p>Identification and substitution verdicts are relative to the declared candidate
+set. A producer outside the set will be mapped to its nearest member. SAME-PRODUCER means
+'best match within candidate set C', and it is not an identity proof. The certificate
+names the candidate set id and count in the same sentence as the verdict.</p>
+<h2 id="pmk-det-001-the-detector-seam">PMK-DET-001: The detector seam</h2>
+<p>A detector implements DetectorModel/FittedModel over ResponseSets. It never
+opens a file and never imports a reader. It emits per-row per-candidate scores with a
+shared orientation (higher = closer to that candidate) and serializes to plain data that
+round-trips exactly. Every tunable choice inside a detector is itself a numbered ruling.</p>
+<h2 id="pmk-det-002-the-trivial-reference-detector">PMK-DET-002: The trivial reference detector</h2>
+<p>The scaffold ships 'trivial': per-(route, task) character-unigram centroids
+scored by negative L1 distance. It is tuning-free by design, so calibration, power,
+rulings, certificates and the gate are exercised end-to-end against planted truth before
+any real detector exists. It is a reference implementation. It is not a recommendation.</p>
+<h2 id="pmk-det-003-the-chargram-multinomial">PMK-DET-003: The chargram multinomial</h2>
+<p>The calibrated detector is a per-(route, task) Jeffreys-smoothed multinomial over
+hashed character n-gram buckets: theta_{r,b} = (c_{r,b} + 0.5) / (C_r + 0.5 * D) with the
+chargram/v1 spec (orders 3-5, D = 2^18, crc32 hashing). Per-row evidence is the per-gram-
+normalized log-likelihood, so a row is one evidence unit at any draw count. The fit is
+closed form with no optimizer. Posteriors are never used: thresholds are empirical null
+quantiles. Log-probs are rounded to 6 places at fit time so params are compact,
+byte-stable and round-trip exactly.</p>
+<h2 id="pmk-det-004-the-primary-view-is-canon1-frozen">PMK-DET-004: The primary view is CANON@1, frozen</h2>
+<p>Shipped calibrations fit and score on the CANON@1 text view, chosen and frozen
+before any held-out scoring. A detector may not be fitted on one view and scored on
+another (the model file records the view and reconstruction refuses a mismatch). RAW@1 and
+ABL@1 exist so the recorded formatting-ablation study can ask whether the fingerprint is a
+prompt-template artefact. Results on those views never ship as a calibration.</p>
+<h2 id="pmk-emit-001-committed-artifacts-are-byte-stable">PMK-EMIT-001: Committed artifacts are byte-stable</h2>
+<p>Every committed artifact (fitted-model file, ruling line, certificate, manifest,
+golden) is serialized through canonical.py: floats rounded half-even to 6 places with -0.0
+normalized, non-finite floats refused, sorted keys, 2-space indent, ASCII, trailing newline,
+gzip with mtime=0 and no embedded filename. Regeneration from identical inputs must be
+byte-identical. The drift gate compares the bytes themselves, so output that means the
+same thing but differs in bytes still counts as drift.</p>
+<h2 id="pmk-emit-002-documents-carry-their-own-content-address">PMK-EMIT-002: Documents carry their own content address</h2>
+<p>Ids of model files, rulings, certificates and manifests are content addresses:
+<prefix>-<first 16 hex of sha256> over the canonical single-line bytes with the id field
+removed. A document that fails its own hash was edited after it was written and is refused.</p>
+<h2 id="pmk-emit-003-every-seed-is-derived-never-sampled">PMK-EMIT-003: Every seed is derived, never sampled</h2>
+<p>No stochastic procedure seeds itself from the clock or from process state. Every
+seed derives from labelled parts (procedure name, scope, index, the caller's seed) through
+sha256, so identical invocations replay identical resamples on any machine.</p>
+<h2 id="pmk-fea-001-features-consume-raw_outputs-strings-and-nothing-else">PMK-FEA-001: Features consume raw_outputs strings and nothing else</h2>
+<p>Feature extraction receives the completion strings of one row and no identity or
+bookkeeping fields. Stubs, tier presence and schema shape correlate with split and archive
+in the native corpus, so a feature that could see them would learn the split instead of
+the producer. Enforced by signature: the featurizer takes a sequence of strings.</p>
+<h2 id="pmk-fea-002-one-row-is-one-evidence-unit">PMK-FEA-002: One row is one evidence unit</h2>
+<p>At temperature 0 most draw sets collapse to one or two distinct strings, so
+draws are pooled per row (counts per distinct string, scaled by multiplicity) and
+likelihoods are normalized per gram. A row contributes the same evidence weight whether
+its k draws are identical or not. k is never treated as k independent observations. Power
+statements are made in items, qualified by measured effective draws.</p>
+<h2 id="pmk-fea-003-text-views-are-versioned-ids">PMK-FEA-003: Text views are versioned ids</h2>
+<p>A text normalization is a versioned view (RAW@1, CANON@1, ABL@1) named in every
+fitted model and ruling id. Changing a normalization means creating a new view version.
+An existing view is never edited. The primary view is frozen before any held-out scoring,
+and fitting on one view while scoring on another is refused.</p>
+<h2 id="pmk-gte-001-tri-state-exit-codes">PMK-GTE-001: Tri-state exit codes</h2>
+<p>Gate and certify preserve the three-way distinction: 0 pass/holds, 1 measured
+fail, 2 unevaluable-or-undetermined. Both non-zero: UNAVAILABLE is never PASS, and a
+measured failure outranks a missing input. argparse usage errors land on exit 2, the
+'not a measured outcome' side.</p>
+<h2 id="pmk-gte-002-an-empty-comparison-never-passes">PMK-GTE-002: An empty comparison never passes</h2>
+<p>A gate that checked nothing has not gated anything. A baseline with no
+operating points, a model file with none, or a selection that matches nothing is
+unevaluable (exit 2), and it is never a pass. A typo in a filter must not turn CI
+green.</p>
+<h2 id="pmk-gte-003-operating-points-move-only-with-a-declared-bump">PMK-GTE-003: Operating points move only with a declared bump</h2>
+<p>The gate fails (exit 1) when any calibrated operating point, the calibration
+corpus hash, or the candidate set differs from the committed baseline while the detector
+version and the spec MAJOR are unchanged. A silently moved threshold is the failure mode
+this instrument exists to make visible in others. Punchmark holds itself to the same
+rule, in-repo (the drift test) and downstream (this gate).</p>
+<h2 id="pmk-pow-001-substitutions-are-seeded-on-the-score-table">PMK-POW-001: Substitutions are seeded on the score table</h2>
+<p>The power population is built by splicing: for declared route r0 and substitute
+r', a fraction rho of a subset's rows (whole clusters, matched by item key) are replaced
+with the same items' scored rows from r''s archive. The splice happens on cached scores
+and never touches text, so the evaluation set is guaranteed to contain a substitution of
+known size and identity.</p>
+<h2 id="pmk-pow-002-rho-0-must-reproduce-the-null">PMK-POW-002: rho = 0 must reproduce the null</h2>
+<p>An unspliced (rho = 0) power draw is a null draw. The self-check asserts the
+flag rate of rho = 0 subsets at the calibrated threshold comes out &lt;= the declared
+false-alarm rate up to resampling noise. A violation means the splice machinery or the
+calibration is broken, and the run refuses to report power.</p>
+<h2 id="pmk-pow-003-the-minimum-resolvable-separation-is-a-first-class-output">PMK-POW-003: The minimum resolvable separation is a first-class output</h2>
+<p>For every ordered candidate pair, task and set size, punchmark reports rho<em>:
+the smallest substituted fraction on the grid detected with the calibrated power at the
+declared false-alarm rate, or None when even a full swap is unresolvable. rho</em> makes a
+null result legible as a power limit rather than as reassurance. A
+SAME-PRODUCER verdict is refused (UNDETERMINED) when the caller's rho_target is below
+what the archive could have resolved.</p>
+<h2 id="pmk-pow-004-seeded-fidelity-is-a-standing-bound">PMK-POW-004: Seeded fidelity is a standing bound</h2>
+<p>Spliced substitutions are a best case: real substitutions arrive with a date
+offset, hit time-contiguous traffic, and may involve a producer outside the candidate
+set. The fidelity of the seeded population to real vendor changes cannot be validated
+from committed data and is printed as a standing bound wherever power numbers appear.</p>
+<h2 id="pmk-rul-001-three-zone-verdicts-undetermined-is-first-class">PMK-RUL-001: Three-zone verdicts; UNDETERMINED is first-class</h2>
+<p>A ruling is SAME-PRODUCER, SUBSTITUTED or UNDETERMINED. SAME-PRODUCER means
+exactly: a substitution of fraction &gt;= rho_target by any candidate in the set would have
+been flagged with the calibrated power, and none was. It never means 'the model did not
+change'. UNDETERMINED is a verdict in its own right: the archive was too small, too
+clustered, too stubbed, below the calibrated floor, or below the power needed for the
+caller's rho_target. It is never rounded into either other verdict.</p>
+<h2 id="pmk-rul-002-refusal-conditions-are-enumerated-and-mandatory">PMK-RUL-002: Refusal conditions are enumerated and mandatory</h2>
+<p>A ruling must come out UNDETERMINED when: usable items are below the m floor;
+clusters are below the c floor; the stub share exceeds its cap; no operating point is
+calibrated at the requested false-alarm rate for the archive's size; the power table
+cannot support the caller's rho_target. A ruling must be refused outright (no verdict)
+when: the archive has no window sidecar; the declared route is outside the candidate set;
+the task was not calibrated. Absence of an alarm is never reported without the power that
+an alarm would have required.</p>
+<h2 id="pmk-rul-003-the-store-is-append-only-rulings-are-superseded-never-edited">PMK-RUL-003: The store is append-only; rulings are superseded, never edited</h2>
+<p>Ruling lines are appended to a JSONL store and never modified. Every line's id
+is a content hash re-verified on every read, and a supersedes field names an earlier
+ruling in the same store. An edited line is tamper, detected and refused. Changing one's
+mind is a new ruling that supersedes the old one, with both remaining readable.</p>
+<h2 id="pmk-rul-004-a-ruling-id-pins-the-contractual-four">PMK-RUL-004: A ruling id pins the contractual four</h2>
+<p>The ruling id hashes a body that includes the detector id and version, the
+candidate set id, the operating point (far and threshold), and the calibration corpus
+hash. The body also carries the archive hash, window, spec version and verdict. Identical
+inputs reproduce identical ids, and any change to what a verdict rests on changes the
+id.</p>
+<h2 id="pmk-rul-005-cross-split-scoring-is-declared-never-inferred">PMK-RUL-005: Cross-split scoring is declared, never inferred</h2>
+<p>An archive whose filename task is a different split of a calibrated task family
+(e.g. comprehend_test against the model task comprehend) may be scored under that model
+task only through an explicit caller declaration (--task-as). The ruling records both
+names: task stays the filename truth, scored_as records the model task the thresholds and
+power table came from. Punchmark never infers the mapping from names or content, and a
+certificate for an aliased ruling says 'scored as' in the same clause as the task.</p>
+<h2 id="pmk-sdc-001-the-window-is-declared-never-inferred">PMK-SDC-001: The window is declared, never inferred</h2>
+<p>The collection window is by-construction metadata the caller declares in a
+window/v1 sidecar. Punchmark never infers time from content, filenames or mtimes. Without
+a sidecar there is no (route, window) unit, so fit, score and certify refuse. The refusal
+message prints the exact JSON the caller must write.</p>
+<h2 id="pmk-sdc-002-the-sidecar-must-agree-with-the-filename">PMK-SDC-002: The sidecar must agree with the filename</h2>
+<p>The sidecar's declared route must slug-match the archive filename and its task
+must equal the filename task. The filename is the oracle (PMK-ARC-001), so a sidecar may
+resolve a slug to a route name but never contradict it. Disagreement is a refusal. It is
+not reported as a warning.</p>
+<h2 id="pmk-sdc-003-the-sidecar-binds-to-the-bytes">PMK-SDC-003: The sidecar binds to the bytes</h2>
+<p>A sidecar pins the sha256 of the archive it describes and is refused against any
+other bytes, so window metadata cannot be quietly re-pointed at different data.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
