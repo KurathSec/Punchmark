@@ -292,3 +292,43 @@ recorded as a defect in the pre-registration.
   UNDETERMINED rather than SAME-PRODUCER as soon as a meaningful rho_target is asked for.
 - One slug, one pair of providers, one hour, one 75-item probe. Nothing here supports a
   general rate at which hosted routes differ between providers.
+
+## Additions after adversarial review
+
+### The frame with the alternative enumerated (`derived/frame_swap.json`)
+
+The correction above diagnoses the non-detection as a property of the candidate set. That
+diagnosis is testable, and leaving it untested left the project's central architectural
+claim (the detector is a replaceable slot, the frame supplies the guarantee) asserted
+rather than demonstrated.
+
+Re-running the frame with a candidate set that *can* express the alternative, then posing
+the substitution question in the frame's own terms: take the Together archive, declare it
+to be the DeepInfra route, judge against DeepInfra's own calibrated null at FAR 0.01.
+
+| task | Together declared as DeepInfra | DeepInfra declared honestly |
+|---|---|---|
+| comprehend | T=+0.0057, not flagged | T=+0.0057, not flagged |
+| refactor_dev | **T=-0.0704, SUBSTITUTED** (500/500 subsamples below threshold) | T=+0.0829, not flagged (0.008 below) |
+
+So the frame is not the limitation, and the earlier null was not evidence that a
+cross-provider swap is undetectable from archived text. Same detector, same statistic,
+same calibration, one more candidate. This does not rescue the shipped instrument for the
+practitioner's case: enumerating the second provider needed reference material from that
+provider in the same window, which a retrospective auditor does not have.
+
+### Robustness (`derived/robustness.json`)
+
+**Permutation distribution, 200 draws.** The observed pooled identification rate exceeds
+every draw of the permutation null on both tasks, so the one-sided p-value is at its floor
+of 1/201. The null is wide: mean 0.3148 with a 95th percentile of 0.4733 on comprehend,
+mean 0.3263 with 0.5167 on refactor_dev. That width matters for reading the single draw
+reported earlier: a permuted rate of 0.438 looks high against a chance rate of 0.3333, and
+is an ordinary draw from a null reaching 0.5767.
+
+**Leave-4-out for the shed requests.** Four Together refactor POSTs were shed to rate
+limiting; the per-item record cannot identify which, since the counter is per archive. Over
+200 random four-item removals the long-task identification rate ranges 0.75 to 1.0, median
+0.965. The direction is robust, the magnitude is not: which four items go is worth up to a
+quarter of the headline figure. On comprehend the same procedure gives 0.0 to 0.23, the
+instability expected of a rate already below chance.

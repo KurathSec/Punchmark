@@ -1,0 +1,163 @@
+{
+  "cells_whose_ci_excludes_the_declared_far": [],
+  "declared_far": 0.01,
+  "n_boot": 400,
+  "n_cells_failing": 0,
+  "note": "Replaces the inverted binomial band with a direct cluster bootstrap. A cell is called failing when the 2.5th percentile of its bootstrap distribution lies above the declared false-alarm rate, which needs no effective-sample-size assumption and no choice between inversions.",
+  "per_cell": {
+    "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": {
+      "bootstrap_ci95": [
+        0.0,
+        0.02
+      ],
+      "ci_lower_exceeds_declared_far": false,
+      "n_boot": 400,
+      "n_clusters": 74,
+      "point_flag_rate": 0.0,
+      "subsample_ci95": [
+        0.0,
+        0.0
+      ],
+      "subsample_ci_lower_exceeds_declared_far": false,
+      "subsample_k_of_n": [
+        51,
+        74
+      ]
+    },
+    "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": {
+      "bootstrap_ci95": [
+        0.0,
+        0.04
+      ],
+      "ci_lower_exceeds_declared_far": false,
+      "n_boot": 400,
+      "n_clusters": 74,
+      "point_flag_rate": 0.0,
+      "subsample_ci95": [
+        0.0,
+        0.02
+      ],
+      "subsample_ci_lower_exceeds_declared_far": false,
+      "subsample_k_of_n": [
+        51,
+        74
+      ]
+    },
+    "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": {
+      "bootstrap_ci95": [
+        0.0,
+        0.76
+      ],
+      "ci_lower_exceeds_declared_far": false,
+      "n_boot": 400,
+      "n_clusters": 74,
+      "point_flag_rate": 0.122,
+      "subsample_ci95": [
+        0.0,
+        0.22
+      ],
+      "subsample_ci_lower_exceeds_declared_far": false,
+      "subsample_k_of_n": [
+        51,
+        74
+      ]
+    },
+    "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": {
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "ci_lower_exceeds_declared_far": false,
+      "n_boot": 400,
+      "n_clusters": 74,
+      "point_flag_rate": 0.0,
+      "subsample_ci95": [
+        0.0,
+        0.0
+      ],
+      "subsample_ci_lower_exceeds_declared_far": false,
+      "subsample_k_of_n": [
+        51,
+        74
+      ]
+    },
+    "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": {
+      "bootstrap_ci95": [
+        0.0,
+        0.02
+      ],
+      "ci_lower_exceeds_declared_far": false,
+      "n_boot": 400,
+      "n_clusters": 74,
+      "point_flag_rate": 0.0,
+      "subsample_ci95": [
+        0.0,
+        0.0
+      ],
+      "subsample_ci_lower_exceeds_declared_far": false,
+      "subsample_k_of_n": [
+        51,
+        74
+      ]
+    },
+    "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": {
+      "bootstrap_ci95": [
+        0.0,
+        0.54
+      ],
+      "ci_lower_exceeds_declared_far": false,
+      "n_boot": 400,
+      "n_clusters": 74,
+      "point_flag_rate": 0.072,
+      "subsample_ci95": [
+        0.0,
+        0.08
+      ],
+      "subsample_ci_lower_exceeds_declared_far": false,
+      "subsample_k_of_n": [
+        51,
+        74
+      ]
+    },
+    "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": {
+      "bootstrap_ci95": [
+        0.0,
+        0.76
+      ],
+      "ci_lower_exceeds_declared_far": false,
+      "n_boot": 400,
+      "n_clusters": 74,
+      "point_flag_rate": 0.11,
+      "subsample_ci95": [
+        0.0,
+        0.06
+      ],
+      "subsample_ci_lower_exceeds_declared_far": false,
+      "subsample_k_of_n": [
+        51,
+        74
+      ]
+    },
+    "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": {
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "ci_lower_exceeds_declared_far": false,
+      "n_boot": 400,
+      "n_clusters": 74,
+      "point_flag_rate": 0.0,
+      "subsample_ci95": [
+        0.0,
+        0.0
+      ],
+      "subsample_ci_lower_exceeds_declared_far": false,
+      "subsample_k_of_n": [
+        51,
+        74
+      ]
+    }
+  },
+  "punchmark_schema": "angle_a_kt2_bootstrap/v1",
+  "resampling_unit": "cluster (base sample), resampled with replacement"
+}

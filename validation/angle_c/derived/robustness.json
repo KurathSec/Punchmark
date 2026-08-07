@@ -1,0 +1,42 @@
+{
+  "chance_rate": 0.3333,
+  "leave_k_out": {
+    "comprehend": {
+      "k_dropped": 4,
+      "n_trials": 200,
+      "together_identification_max": 0.23,
+      "together_identification_median": 0.005,
+      "together_identification_min": 0.0
+    },
+    "refactor_dev": {
+      "k_dropped": 4,
+      "n_trials": 200,
+      "together_identification_max": 1.0,
+      "together_identification_median": 0.965,
+      "together_identification_min": 0.75
+    }
+  },
+  "n_permutations": 200,
+  "permutation": {
+    "comprehend": {
+      "n_null_ge_observed": 0,
+      "observed_pooled_rate": 0.6756,
+      "p_value": 0.00498,
+      "permutation_null_max": 0.5533,
+      "permutation_null_mean": 0.3148,
+      "permutation_null_p05": 0.1933,
+      "permutation_null_p95": 0.4733
+    },
+    "refactor_dev": {
+      "n_null_ge_observed": 0,
+      "observed_pooled_rate": 0.9956,
+      "p_value": 0.00498,
+      "permutation_null_max": 0.5767,
+      "permutation_null_mean": 0.3263,
+      "permutation_null_p05": 0.1733,
+      "permutation_null_p95": 0.5167
+    }
+  },
+  "punchmark_schema": "angle_c_robustness/v1",
+  "seed": 20260806
+}

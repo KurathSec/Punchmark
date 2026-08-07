@@ -1,0 +1,150 @@
+{
+  "ablation_truncation_chars": 200,
+  "by_task_family": {
+    "comprehend": {
+      "mean_chars_max": 98.8,
+      "mean_chars_min": 54.1,
+      "share_longer_than_ablation_cut_max": 0.1188,
+      "share_longer_than_ablation_cut_min": 0.0202
+    },
+    "refactor": {
+      "mean_chars_max": 1122.1,
+      "mean_chars_min": 789.8,
+      "share_longer_than_ablation_cut_max": 0.9906,
+      "share_longer_than_ablation_cut_min": 0.9679
+    }
+  },
+  "per_archive": {
+    "comprehend__deepseek-ai-DeepSeek-V4-Flash": {
+      "draws": 12000,
+      "mean_chars": 56.0,
+      "median_chars": 25.0,
+      "route_slug": "deepseek-ai-DeepSeek-V4-Flash",
+      "share_longer_than_ablation_cut": 0.0273,
+      "task": "comprehend"
+    },
+    "comprehend__meta-llama-Llama-3.3-70B-Instruct-Turbo": {
+      "draws": 12000,
+      "mean_chars": 54.1,
+      "median_chars": 25.0,
+      "route_slug": "meta-llama-Llama-3.3-70B-Instruct-Turbo",
+      "share_longer_than_ablation_cut": 0.0202,
+      "task": "comprehend"
+    },
+    "comprehend__meta-llama-Meta-Llama-3.1-8B-Instruct": {
+      "draws": 12000,
+      "mean_chars": 75.4,
+      "median_chars": 60.0,
+      "route_slug": "meta-llama-Meta-Llama-3.1-8B-Instruct",
+      "share_longer_than_ablation_cut": 0.0346,
+      "task": "comprehend"
+    },
+    "comprehend__mistralai-Mistral-Small-3.2-24B-Instruct-2506": {
+      "draws": 12000,
+      "mean_chars": 71.5,
+      "median_chars": 39.0,
+      "route_slug": "mistralai-Mistral-Small-3.2-24B-Instruct-2506",
+      "share_longer_than_ablation_cut": 0.0313,
+      "task": "comprehend"
+    },
+    "comprehend_test__deepseek-ai-DeepSeek-V4-Flash": {
+      "draws": 14880,
+      "mean_chars": 81.9,
+      "median_chars": 40.5,
+      "route_slug": "deepseek-ai-DeepSeek-V4-Flash",
+      "share_longer_than_ablation_cut": 0.0857,
+      "task": "comprehend_test"
+    },
+    "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo": {
+      "draws": 14872,
+      "mean_chars": 79.1,
+      "median_chars": 40.0,
+      "route_slug": "meta-llama-Llama-3.3-70B-Instruct-Turbo",
+      "share_longer_than_ablation_cut": 0.0701,
+      "task": "comprehend_test"
+    },
+    "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct": {
+      "draws": 14880,
+      "mean_chars": 98.8,
+      "median_chars": 61.0,
+      "route_slug": "meta-llama-Meta-Llama-3.1-8B-Instruct",
+      "share_longer_than_ablation_cut": 0.1188,
+      "task": "comprehend_test"
+    },
+    "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506": {
+      "draws": 14776,
+      "mean_chars": 96.5,
+      "median_chars": 60.0,
+      "route_slug": "mistralai-Mistral-Small-3.2-24B-Instruct-2506",
+      "share_longer_than_ablation_cut": 0.1175,
+      "task": "comprehend_test"
+    },
+    "refactor_dev__deepseek-ai-DeepSeek-V4-Flash": {
+      "draws": 12000,
+      "mean_chars": 800.0,
+      "median_chars": 631.0,
+      "route_slug": "deepseek-ai-DeepSeek-V4-Flash",
+      "share_longer_than_ablation_cut": 0.9679,
+      "task": "refactor_dev"
+    },
+    "refactor_dev__meta-llama-Llama-3.3-70B-Instruct-Turbo": {
+      "draws": 12000,
+      "mean_chars": 789.8,
+      "median_chars": 625.0,
+      "route_slug": "meta-llama-Llama-3.3-70B-Instruct-Turbo",
+      "share_longer_than_ablation_cut": 0.9851,
+      "task": "refactor_dev"
+    },
+    "refactor_dev__meta-llama-Meta-Llama-3.1-8B-Instruct": {
+      "draws": 12000,
+      "mean_chars": 829.2,
+      "median_chars": 663.0,
+      "route_slug": "meta-llama-Meta-Llama-3.1-8B-Instruct",
+      "share_longer_than_ablation_cut": 0.9812,
+      "task": "refactor_dev"
+    },
+    "refactor_dev__mistralai-Mistral-Small-3.2-24B-Instruct-2506": {
+      "draws": 12000,
+      "mean_chars": 808.3,
+      "median_chars": 657.0,
+      "route_slug": "mistralai-Mistral-Small-3.2-24B-Instruct-2506",
+      "share_longer_than_ablation_cut": 0.9681,
+      "task": "refactor_dev"
+    },
+    "refactor_test__deepseek-ai-DeepSeek-V4-Flash": {
+      "draws": 14872,
+      "mean_chars": 1095.5,
+      "median_chars": 809.0,
+      "route_slug": "deepseek-ai-DeepSeek-V4-Flash",
+      "share_longer_than_ablation_cut": 0.9742,
+      "task": "refactor_test"
+    },
+    "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo": {
+      "draws": 14856,
+      "mean_chars": 1067.4,
+      "median_chars": 768.0,
+      "route_slug": "meta-llama-Llama-3.3-70B-Instruct-Turbo",
+      "share_longer_than_ablation_cut": 0.9906,
+      "task": "refactor_test"
+    },
+    "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct": {
+      "draws": 14864,
+      "mean_chars": 1122.1,
+      "median_chars": 834.0,
+      "route_slug": "meta-llama-Meta-Llama-3.1-8B-Instruct",
+      "share_longer_than_ablation_cut": 0.9869,
+      "task": "refactor_test"
+    },
+    "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506": {
+      "draws": 14856,
+      "mean_chars": 1024.7,
+      "median_chars": 813.0,
+      "route_slug": "mistralai-Mistral-Small-3.2-24B-Instruct-2506",
+      "share_longer_than_ablation_cut": 0.9718,
+      "task": "refactor_test"
+    }
+  },
+  "punchmark_schema": "angle_a_lengths/v1",
+  "what_this_does_not_settle": "Length does not explain per-row separability ACROSS ROUTES: the comprehend archives span the widest separability range in the corpus at nearly identical lengths. Length is associated with the PROVIDER contrast in Study C, where the compared producers are near-identical, and not with the route contrast, where they are not. The two contrasts should not be pooled.",
+  "what_this_settles": "The 200-character ablation removes almost nothing on comprehend and most of the text on refactor, so the pooled ablated figure is roughly half canonical view and half a genuine truncation. A pooled ablation number cannot support a claim about formatting."
+}

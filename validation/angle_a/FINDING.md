@@ -87,6 +87,57 @@ concentrated failure must not hide under a pooled mean.
   inside the window. The window restriction narrows this exposure and does not close
   it.
 
+### Correction: the transfer finding does not survive a cluster bootstrap as stated
+
+The per-cell criterion above judges each rate against a binomial band at n=5000. Those
+5000 rulings are 2500 complementary split-halves of one archive, so they are nowhere near
+5000 independent trials, and the band is correspondingly too tight. An earlier version of
+the write-up answered this by inverting the band to ask at what effective sample size each
+exceedance stops clearing, and comparing that to the 74 clusters an archive holds.
+
+The direct analysis was available throughout and it does not support that defence
+(`derived/kt2_bootstrap.json`). Resampling each archive's 74 clusters with replacement and
+recomputing the flag rate gives **no cell whose 95% interval excludes the declared 0.01**,
+zero of eight. The three exceeding cells reproduce as point estimates and carry intervals
+of [0, 0.76], [0, 0.76] and [0, 0.54].
+
+That could have been an artefact of bootstrapping a split-half statistic, since a cluster
+drawn twice can land in opposite halves and depress the flag rate. A duplicate-free
+subsample of 51 of 74 clusters tightens the intervals to [0, 0.22], [0, 0.06] and
+[0, 0.08], and every lower bound is still zero. Monte Carlo noise does not explain it
+either: at a rate of 0.12 over 50 rulings per resample, binomial noise alone would floor
+near 0.03.
+
+**What survives.** The exceedance is real and it is *localised*: flagging concentrates in
+a minority of base samples, so excluding them makes the cell flag nothing. On held-out
+content, particular base samples drive per-ruling rates an order of magnitude above the
+declared rate, and neither the pooled figure nor the fitting stratum warns that they are
+there. An operating point carried to new content of the same task can be blown out by a
+subset of that content without the aggregate showing it.
+
+**What does not survive.** Reading 0.1208 as a stable cell-level property, or "3 of 8
+cells fail" as a rate. The number of cells failing *significantly* at this sample size is
+none of eight.
+
+## Completion length per task (`derived/lengths.json`)
+
+Measured because two open questions turned on it. Comprehend completions average 54.1 to
+98.8 characters across the four routes and only 0.020 to 0.119 of draws exceed the ABL
+view's 200-character cut. Refactor completions average 789.8 to 1122.1 characters and
+0.968 to 0.991 exceed it.
+
+Consequence for KT3 below: the ablation is close to a no-op on one task and removes
+almost everything on the other, so a pooled ablated figure is roughly half the canonical
+view and half a genuine truncation, and cannot support a claim about formatting in either
+direction.
+
+Consequence for Angle C: its two tasks show the same length asymmetry, so the corpora
+agree on the substrate. But length does **not** track separability across routes here,
+since the comprehend archives span the widest per-row range in the corpus (0.2065 to
+0.9559) at nearly identical lengths. Length is associated with separating producers that
+are near-identical, which is Angle C's provider contrast, and not with separating
+producers that are not.
+
 ## KT3: formatting ablation (`derived/kt3.json`)
 
 Pooled 150-row subsample identification on held-out archives, detector refitted per

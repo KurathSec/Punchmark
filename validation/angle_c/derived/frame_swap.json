@@ -1,0 +1,44 @@
+{
+  "candidate_set": [
+    "deepinfra/Llama-3.1-8B",
+    "deepinfra/Llama-3.3-70B",
+    "together/Llama-3.3-70B"
+  ],
+  "far": 0.01,
+  "m": 50,
+  "punchmark_schema": "angle_c_frame_swap/v1",
+  "question": "Does the verdict frame issue SUBSTITUTED on the real cross-provider swap when the detector's candidate set can express that alternative? The shipped candidate set cannot, which is why the shipped instrument did not flag it.",
+  "results": {
+    "comprehend": {
+      "honest_archive_declared_as_A": {
+        "T_subsample_mean": 0.005483,
+        "T_whole_set": 0.005715,
+        "share_of_subsamples_below_threshold": 0.012,
+        "verdict": "not flagged"
+      },
+      "swapped_archive_declared_as_A": {
+        "T_subsample_mean": 0.005527,
+        "T_whole_set": 0.005709,
+        "share_of_subsamples_below_threshold": 0.03,
+        "verdict": "not flagged"
+      },
+      "threshold_for_declared_route": -0.003780792891291185
+    },
+    "refactor_dev": {
+      "honest_archive_declared_as_A": {
+        "T_subsample_mean": 0.08314,
+        "T_whole_set": 0.082923,
+        "share_of_subsamples_below_threshold": 0.008,
+        "verdict": "not flagged"
+      },
+      "swapped_archive_declared_as_A": {
+        "T_subsample_mean": -0.071569,
+        "T_whole_set": -0.070402,
+        "share_of_subsamples_below_threshold": 1.0,
+        "verdict": "SUBSTITUTED"
+      },
+      "threshold_for_declared_route": 0.055473285498479186
+    }
+  },
+  "seed": 20260806
+}
