@@ -745,7 +745,7 @@ def e9_certificates(doc, archives: dict[str, list]) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source", default="/home/kureist/Spaghetti-Architect")
+    parser.add_argument("--source", default=str(ROOT.parent / "Spaghetti-Architect"))
     args = parser.parse_args()
     source = Path(args.source)
     DERIVED.mkdir(parents=True, exist_ok=True)

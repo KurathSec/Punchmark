@@ -29,7 +29,8 @@ import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "src"))
 
 from punchmark.canonical import canonical_json, sha256_file, write_text_deterministic  # noqa: E402
 
@@ -61,7 +62,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--source",
-        default="/home/kureist/Spaghetti-Architect",
+        default=str(ROOT.parent / "Spaghetti-Architect"),
         help="local checkout holding bench/out/{g3,ladder} and bench/out/subagent",
     )
     args = parser.parse_args()

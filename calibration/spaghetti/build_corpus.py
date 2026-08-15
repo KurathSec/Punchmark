@@ -70,7 +70,10 @@ POW_CONFIG = PowerConfig(n_splice=400, power_target=0.8, seed=SEED)
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source", default="/home/kureist/Spaghetti-Architect")
+    # The upstream checkout sits BESIDE this repository, which is why relocating one
+    # relocates both. Deriving the default from ROOT rather than naming an absolute path
+    # keeps it correct across a move; pass --source when the checkout lives elsewhere.
+    parser.add_argument("--source", default=str(ROOT.parent / "Spaghetti-Architect"))
     parser.add_argument(
         "--confirm-recalibration",
         action="store_true",

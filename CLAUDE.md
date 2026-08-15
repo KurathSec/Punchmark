@@ -45,11 +45,17 @@ meanings: supersede with a new id.
 
 ## Sibling repositories (READ-ONLY)
 
-`/home/kureist/Spaghetti-Architect` (upstream benchmark corpus), `/home/kureist/nonius`,
-`/home/kureist/limen` are read-only reference material. Before and after any session
-that touches the Spaghetti-Architect checkout, run
-`git -C /home/kureist/Spaghetti-Architect status --porcelain` and confirm the output is
-unchanged. Never import their code. Punchmark reads archive FILES only.
+`Spaghetti-Architect` (upstream benchmark corpus), `nonius` and `limen` are read-only
+reference material. They sit BESIDE this repository, so `../Spaghetti-Architect` names
+the checkout from here. Scripts derive that default from their own `ROOT.parent` rather
+than hard-coding an absolute path: relocating the tree then moves the whole set together,
+and no committed file records where this checkout lives or who owns it. When the checkout
+is somewhere else, pass `--source`.
+
+Before and after any session that touches the Spaghetti-Architect checkout, run
+`git -C ../Spaghetti-Architect status --porcelain` from this repository's root and
+confirm the output is unchanged. Never import their code. Punchmark reads archive FILES
+only.
 
 ## Local-only areas
 

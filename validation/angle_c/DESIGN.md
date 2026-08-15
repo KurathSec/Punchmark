@@ -256,8 +256,8 @@ reported as distinct quantities and never conflated.
   This is a scoped, documented exception to the "never import the upstream checkout"
   rule, which remains enforced in `src/punchmark` by TID253. The script runs with
   bytecode writing disabled so it never writes `.pyc` into the read-only checkout, and the
-  read-only invariant is checked with `git -C /home/kureist/Spaghetti-Architect status
-  --porcelain` before and after.
+  read-only invariant is checked with `git -C ../Spaghetti-Architect status --porcelain`,
+  run from this repository's root, before and after.
 
 ## What Angle C does NOT do
 

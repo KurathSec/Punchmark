@@ -74,7 +74,7 @@ def flag_rate(clusters: dict, task: str, route: str, doc, tag: str,
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--source", default="/home/kureist/Spaghetti-Architect")
+    ap.add_argument("--source", default=str(ROOT.parent / "Spaghetti-Architect"))
     ap.add_argument("--write", action="store_true")
     args = ap.parse_args()
 

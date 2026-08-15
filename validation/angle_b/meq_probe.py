@@ -31,6 +31,7 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[1]
 DERIVED = HERE / "derived"
 
 ROUTES = [
@@ -60,7 +61,7 @@ def read_rows(source: Path, slug: str) -> dict[str, list[str]]:
 
 
 def main() -> int:
-    source = Path(sys.argv[1] if len(sys.argv) > 1 else "/home/kureist/Spaghetti-Architect")
+    source = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT.parent / "Spaghetti-Architect"
     DERIVED.mkdir(parents=True, exist_ok=True)
     report: dict = {
         "package": "model-equality-testing 0.0.2 (PyPI, uploaded 2024-10-24)",

@@ -497,7 +497,7 @@ def collect_route(route: dict, prompts: dict, cred: dict, counter: dict,
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--source", default="/home/kureist/Spaghetti-Architect")
+    ap.add_argument("--source", default=str(ROOT.parent / "Spaghetti-Architect"))
     ap.add_argument("--execute", action="store_true",
                     help="actually issue paid calls; requires --max-usd")
     ap.add_argument("--max-usd", type=float, default=None,
