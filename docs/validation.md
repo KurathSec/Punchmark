@@ -65,6 +65,14 @@ pair on comprehend, 841 of 1500 shared items produce a byte-identical first draw
 (`census.json`). Whole-set aggregation is doing real work, and the per-row rate measures
 how much.
 
+The below-chance cell has the collapse structure the floor predicts, not uniform error
+(`per_row_confusion.json`): 0.708 of the DeepSeek cell's first-draw misses land on
+Llama-3.3-70B, its byte-identity twin, and the classifier assigns more of that
+archive's rows to the twin (0.562) than to the true label (0.206). The collapse is
+one-directional — the twin's own archive identifies at 0.956 — so on shared bytes the
+tie always resolves the same way, which is the same structure as the side model's
+below-chance cell in Angle C.
+
 `meq_attempt.json` records a run of a released model-equality-testing package on this
 corpus. It behaves correctly. An earlier version of that record said otherwise and was
 withdrawn; the defect was in this repository's probe script.

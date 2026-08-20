@@ -1,0 +1,159 @@
+{
+  "chance_level": 0.25,
+  "model_id": "pmk-m-c52e6e6014883edb",
+  "per_archive": {
+    "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": {
+      "identified_as_first_draw": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.2065,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.5618,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.0554,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.1763
+      },
+      "identified_as_pooled": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.3032,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.5161,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.0452,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.1355
+      },
+      "n_rows": 1860,
+      "route": "deepseek-ai/DeepSeek-V4-Flash",
+      "task": "comprehend_test"
+    },
+    "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": {
+      "identified_as_first_draw": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.0328,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.9559,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.0022,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.0091
+      },
+      "identified_as_pooled": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.0339,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.957,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.0022,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.007
+      },
+      "n_rows": 1859,
+      "route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "task": "comprehend_test"
+    },
+    "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": {
+      "identified_as_first_draw": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.0242,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.0,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.7,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.2758
+      },
+      "identified_as_pooled": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.0237,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.0,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.7016,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.2747
+      },
+      "n_rows": 1860,
+      "route": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "task": "comprehend_test"
+    },
+    "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": {
+      "identified_as_first_draw": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.0325,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.3173,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.2366,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.4136
+      },
+      "identified_as_pooled": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.0341,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.2685,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.1998,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.4976
+      },
+      "n_rows": 1847,
+      "route": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+      "task": "comprehend_test"
+    },
+    "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz": {
+      "identified_as_first_draw": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.6213,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.078,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.0624,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.2383
+      },
+      "identified_as_pooled": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.638,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.0807,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.0538,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.2275
+      },
+      "n_rows": 1859,
+      "route": "deepseek-ai/DeepSeek-V4-Flash",
+      "task": "refactor_test"
+    },
+    "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz": {
+      "identified_as_first_draw": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.0657,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.538,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.2472,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.1492
+      },
+      "identified_as_pooled": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.0582,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.5487,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.2477,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.1454
+      },
+      "n_rows": 1857,
+      "route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "task": "refactor_test"
+    },
+    "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz": {
+      "identified_as_first_draw": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.0269,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.1808,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.6636,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.1286
+      },
+      "identified_as_pooled": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.0269,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.1749,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.6749,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.1233
+      },
+      "n_rows": 1858,
+      "route": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "task": "refactor_test"
+    },
+    "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz": {
+      "identified_as_first_draw": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.1556,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.1002,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.1497,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.5945
+      },
+      "identified_as_pooled": {
+        "deepseek-ai/DeepSeek-V4-Flash": 0.1432,
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.0975,
+        "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.1443,
+        "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.615
+      },
+      "n_rows": 1857,
+      "route": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+      "task": "refactor_test"
+    }
+  },
+  "punchmark_schema": "angle_b_per_row_confusion/v1",
+  "question": "does the below-chance cell (DeepSeek on comprehend_test, 0.2065 first-draw) collapse onto one near-identical class, as Angle C's below-chance cell does, or spread its error uniformly?",
+  "reconciliation": {
+    "diagonals_match_per_row_identification": true
+  },
+  "reviewed_cell": {
+    "archive": "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+    "context": "on the comprehend dev split 841 of 1500 shared items produce a byte-identical first draw across DeepSeek and Llama-3.3-70B (census.json), so collapse onto the 70B label is the predicted structure",
+    "first_draw_row": {
+      "deepseek-ai/DeepSeek-V4-Flash": 0.2065,
+      "meta-llama/Llama-3.3-70B-Instruct-Turbo": 0.5618,
+      "meta-llama/Meta-Llama-3.1-8B-Instruct": 0.0554,
+      "mistralai/Mistral-Small-3.2-24B-Instruct-2506": 0.1763
+    },
+    "miss_mass": 0.7935,
+    "share_of_misses_onto_llama70b": 0.708
+  }
+}
