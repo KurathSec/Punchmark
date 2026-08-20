@@ -117,10 +117,18 @@ def load_purchased() -> list:
     sets = []
     for path in sorted(ARCHIVES.glob("*/*.jsonl.gz")):
         provider = path.parent.name
+        key = (provider, path.name.split("__", 1)[1].replace(".jsonl.gz", ""))
+        if key not in ROUTE_LABEL:
+            # Second-window archives (deepinfra-w2/, together-w2/) sit beside the
+            # evaluation set for temporal_control.py and are NOT part of this
+            # evaluation: adding a window to c2/c3 would change the committed
+            # numbers' meaning. The skip is keyed, not silent -- an unexpected
+            # provider dir for one of the three evaluated (provider, slug) pairs
+            # would still raise above through ROUTE_LABEL's construction.
+            continue
         # attach() validates the sidecar against the archive bytes and sets route from
         # the sidecar, so the relabel has to come after it, not before.
         rs = load_and_attach(read_archive(path), path)
-        key = (provider, path.name.split("__", 1)[1].replace(".jsonl.gz", ""))
         sets.append(dataclasses.replace(rs, route=ROUTE_LABEL[key]))
     return sets
 
@@ -143,6 +151,12 @@ def c1_verification(spec_version: str) -> dict:
     }
     for path in sorted(ARCHIVES.glob("*/*Llama-3.3-70B-Instruct-Turbo.jsonl.gz")):
         provider = path.parent.name
+        if provider not in {p for p, _ in ROUTE_LABEL}:
+            # Second-window archives (deepinfra-w2/, together-w2/) belong to
+            # temporal_control.py, not to this evaluation: C1's committed rulings
+            # are the w1 purchase, and widening the glob's catch as new windows
+            # appear on disk would grow a committed artifact as a side effect.
+            continue
         # No relabel here: C1 is deliberately the archive as it declares itself, scored
         # under the model that was calibrated on that declared route.
         rs = load_and_attach(read_archive(path), path)
