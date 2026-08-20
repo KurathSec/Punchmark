@@ -31,13 +31,16 @@ Resampling each archive's 74 clusters directly (`kt2_bootstrap.json`) gives **no
 whose 95% interval excludes the declared 0.01**, zero of eight. The exceedances reproduce
 as point estimates and carry intervals reaching zero.
 
-What survives is narrower and more useful than the original claim. The failure is
-**localised**: flagging concentrates in a minority of base samples, so excluding them
-makes the cell flag nothing. On held-out content, particular base samples drive
-per-ruling rates an order of magnitude above the declared rate, and neither the pooled
-figure nor the fit stratum warns that they are there. An operating point carried to new
-content of the same task can be blown out by a subset of that content without any
-aggregate showing it.
+What survives is narrower and more useful than the original claim, and it is now
+measured directly rather than inferred (`kt2_influence.json`). The failure is
+**localised**: removing the 1 to 4 highest-influence base samples brings each exceeding
+cell to at or below the declared 0.01, removing 4 to 7 drives it to exactly zero, and
+removing the same number of random samples changes nothing. The influential samples are
+named program shapes that repeat across cells, so on held-out content a handful of
+content shapes drives per-ruling rates an order of magnitude above the declared rate,
+and neither the pooled figure nor the fit stratum warns that they are there. An
+operating point carried to new content of the same task can be blown out by a subset of
+that content without any aggregate showing it.
 
 What does not survive is reading 0.1208 as a stable cell-level property, or "3 of 8 cells
 fail" as a rate. The count failing *significantly* at this sample size is none of eight.

@@ -65,15 +65,19 @@ declared task alias (`--task-as`). Same-route per-ruling flag rates reached 0.05
 0.1144 and 0.1208 against the declared 0.01 in three of eight held-out (route, task)
 cells (`validation/angle_a/derived/kt2.json`).
 
-That failure is real and it is localised rather than uniform. A cluster bootstrap over
-each archive's 74 base samples leaves no cell whose 95% interval excludes the declared
-rate (`kt2_bootstrap.json`), which means the flagging concentrates in a minority of items:
-exclude them and the cell flags nothing. So the operative warning is not that a stated
-rate becomes some larger stated rate. It is that particular content can blow an operating
-point out by an order of magnitude while every aggregate looks clean. A certificate's
-declared false-alarm rate is trustworthy over the calibration content family, a `scored
-as` clause marks where that is not validated, and neither a pooled figure nor a clean fit
-stratum is evidence that a blow-out is absent.
+That failure is real and it is localised rather than uniform, and the localisation is
+measured rather than inferred. A cluster bootstrap over each archive's 74 base samples
+leaves no cell whose 95% interval excludes the declared rate (`kt2_bootstrap.json`), and
+a direct influence diagnostic (`kt2_influence.json`) shows why: removing the 1 to 4
+highest-influence base samples brings each exceeding cell to at or below the declared
+rate, removing 4 to 7 drives it to exactly zero, and removing the same number of random
+samples changes nothing. The influential samples are specific program shapes, and one of
+them blows out the operating point for two different routes at once. So the operative
+warning is not that a stated rate becomes some larger stated rate. It is that a handful
+of content shapes can blow an operating point out by an order of magnitude while every
+aggregate looks clean. A certificate's declared false-alarm rate is trustworthy over the
+calibration content family, a `scored as` clause marks where that is not validated, and
+neither a pooled figure nor a clean fit stratum is evidence that a blow-out is absent.
 
 A ruling makes no capability claims. Nothing here states or implies a benchmark
 result or a comparison between models. See NOTICE for the claim boundary with

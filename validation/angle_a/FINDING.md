@@ -119,6 +119,26 @@ subset of that content without the aggregate showing it.
 cells fail" as a rate. The number of cells failing *significantly* at this sample size is
 none of eight.
 
+### The localisation, measured (`derived/kt2_influence.json`)
+
+The paragraph above inferred localisation from wide bootstrap intervals. Review asked for
+the measurement, and it is sharper than the inference. Over the exact committed 2,500
+split stream (reconciled per cell before any new number), each cluster's membership
+contrast — the flag rate of halves containing it minus the rate of the complements —
+ranks the 74 base samples by influence. Removing the top **3, 4 and 1** clusters brings
+the three exceeding cells from 0.1208, 0.1144 and 0.0598 to at or below the declared
+0.01, and removing **6, 7 and 4** drives them to exactly zero, on fresh seed streams
+(ranking and evaluating on the same stream would overstate concentration). Removing the
+same number of *random* clusters leaves the rates at 0.1224, 0.0928 and 0.0598.
+
+The influential samples are named, and they repeat across cells: `config_resolver_N16`
+tops both refactor cells with its N8/N12/N24 size variants close behind, and the
+comprehend cell is carried by `threshold_select_T4` and `discovery_pipeline`. So the
+blow-out is not merely "a minority of base samples": it is a handful of specific program
+shapes, one of which blows out the operating point for two different routes at once. The
+practical warning tightens accordingly: content families, not volumes, are what carry an
+operating point out of its declared range.
+
 ## Completion length per task (`derived/lengths.json`)
 
 Measured because two open questions turned on it. Comprehend completions average 54.1 to
