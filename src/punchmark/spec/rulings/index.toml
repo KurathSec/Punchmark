@@ -4,4 +4,4 @@
 #   MINOR when rulings are added, or when an artifact gains a backward-compatible
 #         field that leaves its assertion unchanged;
 #   PATCH for wording fixes that do not change meaning.
-version = "2.1.0"
+version = "2.2.0"

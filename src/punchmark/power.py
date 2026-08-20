@@ -17,6 +17,11 @@ reported PER CALIBRATED FAR so a ruling at any declared operating point has a
 power table to consult (PMK-POW-003) -- is what makes a null legible as a power
 limit. The fidelity of spliced substitutions to real vendor changes cannot be
 validated and is printed as a standing bound (PMK-POW-004).
+
+The donor loop enumerates substitutes ONE AT A TIME, so every power point is a
+single-donor population and rho* bounds single-candidate substitution only: a
+mixture of candidates each serving some share of the archive is outside what
+rho* bounds, and the score output says so beside the verdict (PMK-POW-005).
 """
 
 from __future__ import annotations

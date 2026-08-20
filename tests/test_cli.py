@@ -50,6 +50,11 @@ def test_score_true_and_substituted(workdir: Path, capsys) -> None:
                  "--far", "0.05"]) == 0
     out = capsys.readouterr().out
     assert "SAME-PRODUCER" in out
+    # The record's scope reaches the terminal, not only the JSONL: the does_not_show
+    # tokens, and the single-donor rho* scope (PMK-POW-005) -- a mixture of candidates
+    # is outside what rho* bounds, and the one place a user meets a verdict says so.
+    assert "NO_WEIGHTS_CLAIM" in out
+    assert "mixture of candidates is outside what rho* bounds (PMK-POW-005)" in out
 
     # planted substitution: route-b bytes under a route-a label
     subst = workdir / "subst"

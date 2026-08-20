@@ -218,6 +218,15 @@ def _cmd_score(args: argparse.Namespace) -> int:
         for reason in ruling.reasons:
             print(f"  reason: {reason}")
     print(f"  items={ruling.n_items} clusters={ruling.n_clusters} stubs={ruling.n_stub_rows}")
+    # The record's scope tokens exist since ruling/v1 but were never shown to the one
+    # person who needs them at decision time. The rho* scope line is PMK-POW-005: the
+    # power population is single-donor by construction, so a mixture of candidates is
+    # outside what any rho bound here claims.
+    print(f"  does-not-show: {', '.join(ruling.does_not_show)}")
+    print(
+        "  scope: rho bounds cover substitution by a SINGLE candidate; a mixture of "
+        "candidates is outside what rho* bounds (PMK-POW-005)"
+    )
     if appended:
         print(f"  ruling {ruling.ruling_id} appended to {store}")
     return 0

@@ -32,3 +32,14 @@ text = """Spliced substitutions are a best case: real substitutions arrive with 
 offset, hit time-contiguous traffic, and may involve a producer outside the candidate
 set. The fidelity of the seeded population to real vendor changes cannot be validated
 from committed data and is printed as a standing bound wherever power numbers appear."""
+
+[[ruling]]
+id = "PMK-POW-005"
+title = "rho* quantifies single-donor substitution only"
+text = """The splice draws its swapped rows from ONE substitute per power point: the
+donor loop enumerates candidates one at a time and _swap replaces whole clusters from
+that single donor. rho* therefore bounds substitution by a single candidate at the
+stated fraction, and a mixture -- two or more candidates each serving some share of
+the archive -- is outside what rho* bounds, whether or not every mixture component is
+in the candidate set. The score output prints this scope beside the verdict so a
+ruling's power statement is not read wider than the population it was measured on."""

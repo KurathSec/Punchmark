@@ -4,6 +4,34 @@ All notable changes to punchmark. The format follows Keep a Changelog. Versions 
 SemVer. The rulings-spec version moves independently (see
 `src/punchmark/spec/rulings/index.toml`).
 
+## Unreleased
+
+### Added
+- The `score` output prints the ruling's scope: the record's `does_not_show` tokens
+  (present in every stored ruling since ruling/v1, previously never shown by any CLI
+  verb) and the single-donor semantics of rho\* — a mixture of candidates each serving
+  some share of the archive is outside what rho\* bounds (new ruling PMK-POW-005).
+- Spec ruling PMK-POW-005; rulings-spec at 2.2.0 (MINOR: ruling added, no assertion
+  changed).
+- Validation additions on committed/held data, each with a reconciliation gate against
+  its committed artifact: the same-provider control replicated at Together across 14
+  days (`temporal_control.json` v2); the KT2 localisation measured directly by
+  cluster-level influence (`kt2_influence.json`); cluster-bootstrap intervals for the
+  quoted rho\* endpoints (`rho_star_uncertainty.json`, both studies); the
+  competitor-free one-sample test applied to the leave-one-out absorptions
+  (`loo_one_sample.json`, zero open-set signals in 8); power-versus-m for the
+  one-sample test with a labelled fresh-archive extrapolation (`power_vs_m.json`);
+  the four-way per-row confusion behind the below-chance cell
+  (`per_row_confusion.json`); the first-draw-only side model and two
+  stronger-feature-family probes (`first_draw_side_model.json`, `short_probe.json`);
+  the collection ledger extended to every purchased window with per-window subtotals.
+
+### Fixed
+- `validation/angle_c/evaluate.py` pinned its archive discovery to the w1 evaluation
+  set: second-window directories beside it made `load_purchased()` crash and silently
+  widened `c1_verification`'s catch. The regenerated artifact is byte-identical to
+  the committed one.
+
 ## 0.1.0
 
 ### Added
