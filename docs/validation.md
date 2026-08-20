@@ -79,7 +79,7 @@ frozen 75-item probe, plus a different-weights control. Narrative in
 | Does a candidate set that names the alternative flag it? | Yes, on the long task: SUBSTITUTED at T = -0.0704 against a threshold of +0.055473, with 500 of 500 subsamples below | `frame_swap.json` |
 | Is the limit an artefact of using a margin statistic? | No. A competitor-free one-sample fit also misses the swap on both tasks, while flagging the different-weights control on both | `one_sample.json` |
 | Are the two providers separable from text at all? | 0.992 on the long task, 0.511 on the short one, against a 0.5 binary chance rate | `angle_c_evaluation.json` |
-| Is that a collection-batch artefact? | No. The same route at the same provider across two windows separates at 0.530 against 0.993 cross-provider | `temporal_control.json` |
+| Is that a collection-batch artefact? | No. The same route at the same provider across two windows separates at 0.530 (DeepInfra, ~3.5 hours apart) and 0.632 (Together, 14 days apart) against 0.993 cross-provider | `temporal_control.json` |
 | Are the two endpoints distinct infrastructure? | They terminate at different edges. This says nothing about the inference backend | `transport.json` |
 
 The closed-set limit is carried into [what a ruling does not show](honesty.md). It is the

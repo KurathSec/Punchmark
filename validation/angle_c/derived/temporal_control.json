@@ -1,6 +1,6 @@
 {
-  "note": "Binary contrasts through identical machinery. Chance is 0.5. The temporal contrast is the same route at the same provider in two windows, which is the control the original design lacked.",
-  "punchmark_schema": "angle_c_temporal_control/v1",
+  "note": "Binary contrasts through identical machinery. Chance is 0.5. Each temporal contrast is the same route at the same provider in two windows, which is the control the original design lacked. The two controls bound different things and the recorded window dates keep them distinguishable: the deepinfra windows are ~3.5 hours apart on one day (a batch control), the together windows 14 days apart (a drift control). v2 adds the together control and per-side windows; the two v1 contrasts are seeded identically and their rates are unchanged.",
+  "punchmark_schema": "angle_c_temporal_control/v2",
   "results": {
     "provider_w1_vs_w1": {
       "by_task": {
@@ -14,7 +14,17 @@
             "A": 0.005715,
             "B": -0.005709
           },
-          "subsample_m": 25
+          "subsample_m": 25,
+          "windows": {
+            "A": {
+              "end_utc": "2026-08-06T15:46:40.835551+00:00",
+              "start_utc": "2026-08-06T15:44:43.805263+00:00"
+            },
+            "B": {
+              "end_utc": "2026-08-06T15:59:42.574419+00:00",
+              "start_utc": "2026-08-06T15:58:49.861694+00:00"
+            }
+          }
         },
         "refactor_dev": {
           "identification_by_side": {
@@ -26,11 +36,71 @@
             "A": 0.082923,
             "B": 0.070402
           },
-          "subsample_m": 25
+          "subsample_m": 25,
+          "windows": {
+            "A": {
+              "end_utc": "2026-08-06T16:37:44.180555+00:00",
+              "start_utc": "2026-08-06T16:23:46.610755+00:00"
+            },
+            "B": {
+              "end_utc": "2026-08-06T16:39:56.994323+00:00",
+              "start_utc": "2026-08-06T16:37:44.180881+00:00"
+            }
+          }
         }
       },
       "chance_rate": 0.5,
       "contrast": "provider_w1_vs_w1"
+    },
+    "temporal_same_provider_together_w1_vs_w2": {
+      "by_task": {
+        "comprehend": {
+          "identification_by_side": {
+            "A": 0.243,
+            "B": 0.773
+          },
+          "mean_identification": 0.508,
+          "out_of_fold_margins": {
+            "A": -0.002815,
+            "B": 0.003069
+          },
+          "subsample_m": 25,
+          "windows": {
+            "A": {
+              "end_utc": "2026-08-06T15:59:42.574419+00:00",
+              "start_utc": "2026-08-06T15:58:49.861694+00:00"
+            },
+            "B": {
+              "end_utc": "2026-08-20T12:06:54.615072+00:00",
+              "start_utc": "2026-08-20T12:06:26.918982+00:00"
+            }
+          }
+        },
+        "refactor_dev": {
+          "identification_by_side": {
+            "A": 0.707,
+            "B": 0.557
+          },
+          "mean_identification": 0.632,
+          "out_of_fold_margins": {
+            "A": 0.003527,
+            "B": 0.000529
+          },
+          "subsample_m": 25,
+          "windows": {
+            "A": {
+              "end_utc": "2026-08-06T16:39:56.994323+00:00",
+              "start_utc": "2026-08-06T16:37:44.180881+00:00"
+            },
+            "B": {
+              "end_utc": "2026-08-20T12:09:11.721303+00:00",
+              "start_utc": "2026-08-20T12:06:54.615275+00:00"
+            }
+          }
+        }
+      },
+      "chance_rate": 0.5,
+      "contrast": "temporal_same_provider_together_w1_vs_w2"
     },
     "temporal_same_provider_w1_vs_w2": {
       "by_task": {
@@ -44,7 +114,17 @@
             "A": 0.004602,
             "B": -0.00374
           },
-          "subsample_m": 25
+          "subsample_m": 25,
+          "windows": {
+            "A": {
+              "end_utc": "2026-08-06T15:46:40.835551+00:00",
+              "start_utc": "2026-08-06T15:44:43.805263+00:00"
+            },
+            "B": {
+              "end_utc": "2026-08-06T19:29:31.816122+00:00",
+              "start_utc": "2026-08-06T19:27:25.130809+00:00"
+            }
+          }
         },
         "refactor_dev": {
           "identification_by_side": {
@@ -56,7 +136,17 @@
             "A": 0.004133,
             "B": -0.004731
           },
-          "subsample_m": 25
+          "subsample_m": 25,
+          "windows": {
+            "A": {
+              "end_utc": "2026-08-06T16:37:44.180555+00:00",
+              "start_utc": "2026-08-06T16:23:46.610755+00:00"
+            },
+            "B": {
+              "end_utc": "2026-08-06T19:44:49.595455+00:00",
+              "start_utc": "2026-08-06T19:29:31.816282+00:00"
+            }
+          }
         }
       },
       "chance_rate": 0.5,
@@ -66,16 +156,34 @@
   "seed": 20260806,
   "verdict_by_task": {
     "comprehend": {
-      "gap": -0.004,
-      "provider_pair": 0.515,
-      "reading": "same-provider windows separate comparably, so the cross-provider number is not distinguishable from a collection-batch effect",
-      "same_provider_two_windows": 0.519
+      "controls": {
+        "temporal_same_provider_together_w1_vs_w2": {
+          "gap": 0.007,
+          "reading": "same-provider windows separate comparably, so the cross-provider number is not distinguishable from this control's window effect",
+          "same_provider_two_windows": 0.508
+        },
+        "temporal_same_provider_w1_vs_w2": {
+          "gap": -0.004,
+          "reading": "same-provider windows separate comparably, so the cross-provider number is not distinguishable from this control's window effect",
+          "same_provider_two_windows": 0.519
+        }
+      },
+      "provider_pair": 0.515
     },
     "refactor_dev": {
-      "gap": 0.463,
-      "provider_pair": 0.993,
-      "reading": "cross-provider separation exceeds same-provider-across-windows separation, so the provider contrast is not explained by collection batch alone",
-      "same_provider_two_windows": 0.53
+      "controls": {
+        "temporal_same_provider_together_w1_vs_w2": {
+          "gap": 0.361,
+          "reading": "cross-provider separation exceeds same-provider-across-windows separation, so the provider contrast is not explained by this control's window effect",
+          "same_provider_two_windows": 0.632
+        },
+        "temporal_same_provider_w1_vs_w2": {
+          "gap": 0.463,
+          "reading": "cross-provider separation exceeds same-provider-across-windows separation, so the provider contrast is not explained by this control's window effect",
+          "same_provider_two_windows": 0.53
+        }
+      },
+      "provider_pair": 0.993
     }
   }
 }

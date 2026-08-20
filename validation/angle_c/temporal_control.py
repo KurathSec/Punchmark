@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import dataclasses
+import json
 import random
 import statistics
 import sys
@@ -54,13 +55,22 @@ SEED = 20260806
 TASKS = ("comprehend", "refactor_dev")
 SLUG = "meta-llama-Llama-3.3-70B-Instruct-Turbo"
 
-# Two contrasts, run through identical machinery so the numbers are comparable.
+# Three contrasts, run through identical machinery so the numbers are comparable.
 #   PROVIDER  : deepinfra window 1  vs  together window 1     (what Study C claims)
-#   TEMPORAL  : deepinfra window 1  vs  deepinfra window 2    (the control)
+#   TEMPORAL  : deepinfra window 1  vs  deepinfra window 2    (the control, ~3.5 h)
+#   TEMPORAL2 : together window 1   vs  together window 2     (same control at the
+#               second provider; its windows are 14 days apart, so it bounds drift
+#               over two weeks where the deepinfra control bounds a same-day batch)
+# The two temporal controls are deliberately NOT the same experiment: review asked
+# whether the batch control replicates at the second provider AND for cross-day drift
+# to be addressed; the together pair answers both at once, and the recorded window
+# dates keep the two gaps distinguishable in the artifact.
 CONTRASTS = {
     "provider_w1_vs_w1": (("deepinfra", "A"), ("together", "B")),
     "temporal_same_provider_w1_vs_w2": (("deepinfra", "A"), ("deepinfra-w2", "B")),
+    "temporal_same_provider_together_w1_vs_w2": (("together", "A"), ("together-w2", "B")),
 }
+TEMPORAL_CONTRASTS = tuple(k for k in CONTRASTS if k.startswith("temporal_"))
 
 
 def load(provider: str, task: str, label: str):
@@ -69,6 +79,20 @@ def load(provider: str, task: str, label: str):
         return None
     rs = load_and_attach(read_archive(path), path)
     return dataclasses.replace(rs, route=label)
+
+
+def window_bounds(provider: str, task: str) -> dict | None:
+    """Collection window from the archive's sidecar, recorded into the artifact.
+
+    The archives are local-only, so the derived JSON is where the window dates become
+    citable: the deepinfra pair is ~3.5 hours apart and the together pair 14 days, and
+    a reader must be able to see that difference where the rates are.
+    """
+    path = ARCHIVES / provider / f"{task}__{SLUG}.jsonl.gz.window.json"
+    if not path.exists():
+        return None
+    w = json.loads(path.read_text(encoding="utf-8"))["window"]
+    return {"start_utc": w["start_utc"], "end_utc": w["end_utc"]}
 
 
 def rate(ss, cands, m, n_draws, tag) -> float:
@@ -103,6 +127,7 @@ def run(name: str, pair, cfg, detector) -> dict:
             "identification_by_side": rates,
             "mean_identification": round(statistics.fmean(rates.values()), 4),
             "out_of_fold_margins": margins,
+            "windows": {label: window_bounds(prov, task) for prov, label in pair},
         }
     return out
 
@@ -119,31 +144,40 @@ def main() -> int:
     results = {name: run(name, pair, cfg, detector) for name, pair in CONTRASTS.items()}
 
     prov = results["provider_w1_vs_w1"]["by_task"]
-    temp = results["temporal_same_provider_w1_vs_w2"]["by_task"]
     verdict = {}
     for task in TASKS:
         p = prov.get(task, {}).get("mean_identification")
-        t = temp.get(task, {}).get("mean_identification")
-        if p is None or t is None:
+        if p is None:
             continue
-        verdict[task] = {
-            "provider_pair": p,
-            "same_provider_two_windows": t,
-            "gap": round(p - t, 4),
-            "reading": (
-                "cross-provider separation exceeds same-provider-across-windows "
-                "separation, so the provider contrast is not explained by collection "
-                "batch alone" if p - t > 0.15 else
-                "same-provider windows separate comparably, so the cross-provider "
-                "number is not distinguishable from a collection-batch effect"),
-        }
+        controls = {}
+        for cname in TEMPORAL_CONTRASTS:
+            t = results[cname]["by_task"].get(task, {}).get("mean_identification")
+            if t is None:
+                continue
+            controls[cname] = {
+                "same_provider_two_windows": t,
+                "gap": round(p - t, 4),
+                "reading": (
+                    "cross-provider separation exceeds same-provider-across-windows "
+                    "separation, so the provider contrast is not explained by this "
+                    "control's window effect" if p - t > 0.15 else
+                    "same-provider windows separate comparably, so the cross-provider "
+                    "number is not distinguishable from this control's window effect"),
+            }
+        verdict[task] = {"provider_pair": p, "controls": controls}
 
     doc = {
-        "punchmark_schema": "angle_c_temporal_control/v1",
+        "punchmark_schema": "angle_c_temporal_control/v2",
         "seed": SEED,
-        "note": ("Binary contrasts through identical machinery. Chance is 0.5. The "
+        "note": ("Binary contrasts through identical machinery. Chance is 0.5. Each "
                  "temporal contrast is the same route at the same provider in two "
-                 "windows, which is the control the original design lacked."),
+                 "windows, which is the control the original design lacked. The two "
+                 "controls bound different things and the recorded window dates keep "
+                 "them distinguishable: the deepinfra windows are ~3.5 hours apart on "
+                 "one day (a batch control), the together windows 14 days apart (a "
+                 "drift control). v2 adds the together control and per-side windows; "
+                 "the two v1 contrasts are seeded identically and their rates are "
+                 "unchanged."),
         "results": results,
         "verdict_by_task": verdict,
     }
@@ -159,9 +193,10 @@ def main() -> int:
                   f"(chance 0.5)  per side {b['identification_by_side']}")
     print("\nverdict:")
     for task, v in verdict.items():
-        print(f"  {task:14s} provider {v['provider_pair']} vs same-provider "
-              f"{v['same_provider_two_windows']}  gap {v['gap']:+.4f}")
-        print(f"                 {v['reading']}")
+        for cname, c in v["controls"].items():
+            print(f"  {task:14s} provider {v['provider_pair']} vs {cname} "
+                  f"{c['same_provider_two_windows']}  gap {c['gap']:+.4f}")
+            print(f"                 {c['reading']}")
 
     if args.write:
         OUT.parent.mkdir(parents=True, exist_ok=True)

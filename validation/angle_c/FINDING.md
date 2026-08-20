@@ -161,27 +161,36 @@ collection batches (queue state, batch composition, which replica answered) was
 confounded with the provider.
 
 The control is the same route at the same provider in two windows, run through identical
-machinery. Collected 2026-08-06, second window, same frozen probe, same declared width.
-Both contrasts are binary, so chance is 0.5:
+machinery. It exists at both providers, and the two versions deliberately bound different
+things: the DeepInfra windows sit about 3.5 hours apart on one day (2026-08-06), so that
+pair bounds a collection-batch effect; the Together windows sit 14 days apart
+(2026-08-06 and 2026-08-20), so that pair bounds drift over two weeks. Same frozen
+probe, same declared width, k and temperature throughout. All contrasts are binary, so
+chance is 0.5:
 
-| task | two providers, one window | one provider, two windows |
-|---|---|---|
-| comprehend | 0.515 | 0.519 |
-| refactor_dev | **0.993** | **0.530** |
+| task | two providers, one window | DeepInfra, two windows (~3.5 h) | Together, two windows (14 days) |
+|---|---|---|---|
+| comprehend | 0.515 | 0.519 | 0.508 |
+| refactor_dev | **0.993** | **0.530** | **0.632** |
 
 On `refactor_dev` the cross-provider contrast reaches 0.993 while the same-provider
-contrast across windows reaches 0.530, a gap of 0.463. What the discriminator reads on the
-long task is therefore not a property of the collection batch. On `comprehend` both sit at
-chance, consistent with there being nothing to read at 59 to 75 characters either way.
+contrasts reach 0.530 across hours and 0.632 across two weeks, gaps of 0.463 and 0.361.
+What the discriminator reads on the long task is therefore neither a property of the
+collection batch nor of two weeks of serving drift at one provider. The 0.632 is itself
+worth reading: fourteen days move the discriminator measurably off chance (per side
+0.707 and 0.557), so some drift is visible in the text, and it is still nowhere near
+the provider gap. On `comprehend` all three sit at chance, consistent with there being
+nothing to read at 59 to 75 characters either way.
 
 This could have gone the other way, and it is reported because it could have: had the
 same-provider windows separated comparably, the long-task result would have been a
 statement about collection conditions and Angle C's one positive finding would not have
 stood.
 
-Two limits. One replicate pair on one route on one day bounds a batch effect, not drift
-over weeks. And stability across windows at one provider does not establish that what
-distinguishes the two providers is the model rather than the serving stack.
+Two limits. One replicate pair per provider on one route bounds a batch effect at one
+and two weeks of drift at the other; neither observation generalises beyond this route.
+And stability across windows does not establish that what distinguishes the two
+providers is the model rather than the serving stack.
 
 ### Evidence from outside the text channel (`derived/transport.json`)
 
