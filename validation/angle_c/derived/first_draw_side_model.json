@@ -1,0 +1,115 @@
+{
+  "confusion_first_draw": {
+    "deepinfra/Llama-3.3-70B-Instruct-Turbo|comprehend": {
+      "declared": "deepinfra/Llama-3.3-70B-Instruct-Turbo",
+      "diagonal_matches_reported_rate": true,
+      "identified_as": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.623,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 0.0,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.377
+      },
+      "n_draws": 1000
+    },
+    "deepinfra/Llama-3.3-70B-Instruct-Turbo|refactor_dev": {
+      "declared": "deepinfra/Llama-3.3-70B-Instruct-Turbo",
+      "diagonal_matches_reported_rate": true,
+      "identified_as": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.978,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 0.0,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.022
+      },
+      "n_draws": 1000
+    },
+    "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|comprehend": {
+      "declared": "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo",
+      "diagonal_matches_reported_rate": true,
+      "identified_as": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.0,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 1.0,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.0
+      },
+      "n_draws": 1000
+    },
+    "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|refactor_dev": {
+      "declared": "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo",
+      "diagonal_matches_reported_rate": true,
+      "identified_as": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.0,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 1.0,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.0
+      },
+      "n_draws": 1000
+    },
+    "together/Llama-3.3-70B-Instruct-Turbo|comprehend": {
+      "declared": "together/Llama-3.3-70B-Instruct-Turbo",
+      "diagonal_matches_reported_rate": true,
+      "identified_as": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.617,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 0.0,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.383
+      },
+      "n_draws": 1000
+    },
+    "together/Llama-3.3-70B-Instruct-Turbo|refactor_dev": {
+      "declared": "together/Llama-3.3-70B-Instruct-Turbo",
+      "diagonal_matches_reported_rate": true,
+      "identified_as": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.029,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo": 0.0,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.971
+      },
+      "n_draws": 1000
+    }
+  },
+  "load_bearing_pair": {
+    "comprehend": {
+      "all_draws": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.88,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.109
+      },
+      "binary_pair_mean_all_draws": 0.5114,
+      "binary_pair_mean_first_draw": 0.503,
+      "first_draw": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.623,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.383
+      }
+    },
+    "refactor_dev": {
+      "all_draws": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 1.0,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.984
+      },
+      "binary_pair_mean_all_draws": 0.9925,
+      "binary_pair_mean_first_draw": 0.9745,
+      "first_draw": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.978,
+        "together/Llama-3.3-70B-Instruct-Turbo": 0.971
+      }
+    }
+  },
+  "note": "identical pipeline, candidate frame, calibration config and subsample seed stream as the committed c2; the only change is raw_outputs[:1] per row. Three-way rates have chance 0.3333; the binary pair means are the committed renormalisation (each 70B confusion row over the two 70B labels, 8B column dropped), chance 0.5",
+  "punchmark_schema": "angle_c_first_draw_side_model/v1",
+  "question": "does the long-task provider separation survive when every row is truncated to its first draw, i.e. when the draw-multiplicity channel is removed?",
+  "reconciliation": {
+    "full_draw_rates_and_confusion_match_committed_c2": true
+  },
+  "seed": 20260806,
+  "three_way_identification": {
+    "all_draws": {
+      "deepinfra/Llama-3.3-70B-Instruct-Turbo|comprehend": 0.88,
+      "deepinfra/Llama-3.3-70B-Instruct-Turbo|refactor_dev": 1.0,
+      "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|comprehend": 1.0,
+      "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|refactor_dev": 1.0,
+      "together/Llama-3.3-70B-Instruct-Turbo|comprehend": 0.109,
+      "together/Llama-3.3-70B-Instruct-Turbo|refactor_dev": 0.984
+    },
+    "first_draw": {
+      "deepinfra/Llama-3.3-70B-Instruct-Turbo|comprehend": 0.623,
+      "deepinfra/Llama-3.3-70B-Instruct-Turbo|refactor_dev": 0.978,
+      "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|comprehend": 1.0,
+      "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|refactor_dev": 1.0,
+      "together/Llama-3.3-70B-Instruct-Turbo|comprehend": 0.383,
+      "together/Llama-3.3-70B-Instruct-Turbo|refactor_dev": 0.971
+    }
+  }
+}

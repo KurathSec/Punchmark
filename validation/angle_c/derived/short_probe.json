@@ -1,0 +1,74 @@
+{
+  "chance": {
+    "binary": 0.5,
+    "three_way": 0.3333
+  },
+  "families": {
+    "hi_6_8_gram": {
+      "binary_pair_mean_by_task": {
+        "comprehend": 0.5356,
+        "refactor_dev": 0.996
+      },
+      "kind": "char",
+      "orders": [
+        6,
+        7,
+        8
+      ],
+      "three_way_identification": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo|comprehend": 0.955,
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo|refactor_dev": 1.0,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|comprehend": 1.0,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|refactor_dev": 1.0,
+        "together/Llama-3.3-70B-Instruct-Turbo|comprehend": 0.096,
+        "together/Llama-3.3-70B-Instruct-Turbo|refactor_dev": 0.992
+      }
+    },
+    "shipped_3_5_gram": {
+      "binary_pair_mean_by_task": {
+        "comprehend": 0.5114,
+        "refactor_dev": 0.9925
+      },
+      "kind": "char",
+      "orders": [
+        3,
+        4,
+        5
+      ],
+      "three_way_identification": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo|comprehend": 0.88,
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo|refactor_dev": 1.0,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|comprehend": 1.0,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|refactor_dev": 1.0,
+        "together/Llama-3.3-70B-Instruct-Turbo|comprehend": 0.109,
+        "together/Llama-3.3-70B-Instruct-Turbo|refactor_dev": 0.984
+      }
+    },
+    "word_1_2_gram": {
+      "binary_pair_mean_by_task": {
+        "comprehend": 0.5,
+        "refactor_dev": 1.0
+      },
+      "kind": "word",
+      "orders": [
+        1,
+        2
+      ],
+      "three_way_identification": {
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo|comprehend": 0.0,
+        "deepinfra/Llama-3.3-70B-Instruct-Turbo|refactor_dev": 1.0,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|comprehend": 1.0,
+        "deepinfra/Meta-Llama-3.1-8B-Instruct-Turbo|refactor_dev": 1.0,
+        "together/Llama-3.3-70B-Instruct-Turbo|comprehend": 1.0,
+        "together/Llama-3.3-70B-Instruct-Turbo|refactor_dev": 1.0
+      }
+    }
+  },
+  "punchmark_schema": "angle_c_short_probe/v1",
+  "question": "is the short task's at-chance result a property of the text channel or of the shipped 3-5-gram family? Two stronger families through the identical pipeline, same fold map, same subsample seed stream",
+  "reconciliation": {
+    "local_3_5_gram_matches_committed_c2": true
+  },
+  "scope": "an exploratory probe implemented in validation only; the shipped feature spec is unchanged (a spec addition is a versioned identity change, PMK-FEA-003). No number here is a capability claim about any model; identification is separability within a closed candidate set",
+  "seed": 20260806
+}

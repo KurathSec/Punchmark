@@ -414,3 +414,25 @@ roughly ten times the archive to reach standard power on the long task, with a w
 interval; and on the short task even the sign of the detectable difference is
 unresolved. Enumerating the alternative recovers at m=75 what the one-sample test might
 reach at m ~ 1000.
+
+### What the separation is made of (`derived/first_draw_side_model.json`, `derived/short_probe.json`)
+
+Two review questions about the side model's 0.992/0.511, answered from held data
+through the identical pipeline, candidate frame and subsample seed stream.
+
+Does the long-task separation ride on the draw-multiplicity channel? How often a
+temperature-0 endpoint repeats itself across k draws is a serving property, and pooling
+draws lets it into the counts. Truncating every row to its first draw removes that
+channel entirely, and the binary pair contrast moves from 0.9925 to **0.9745** on
+`refactor_dev` while `comprehend` moves from 0.5114 to 0.503. The long-task signal
+lives in the response text itself, not in repetition behaviour across draws.
+
+Is "at chance on the short task" a property of the channel, or of 3-to-5-grams? Two
+deliberately stronger feature families, character 6-to-8-grams and word 1-to-2-grams,
+run through the same crossfit and seeds (with the shipped family reproduced first by
+the same local implementation as a reconciliation gate). On `comprehend` they reach
+0.5356 and 0.5 against a 0.5 chance rate; on `refactor_dev` the same families reach
+0.996 and 1.0, so the probes are not weak, the short-task text is. The at-chance
+reading is a property of ~59-character completions under every family tried, not an
+artefact of the shipped detector's gram orders, and the claim keeps its stated scope
+("to this detector") without needing it.
