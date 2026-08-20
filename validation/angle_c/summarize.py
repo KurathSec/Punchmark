@@ -154,13 +154,32 @@ def main() -> int:
         a["returned_model_matches_request"] for a in per_archive
     )
 
+    # Per-window rollup: the w1 evaluation set and each temporal-control window keep
+    # their own subtotals, so "3600 completions across six archives" (the w1 purchase,
+    # quoted in the paper's ledger and ethics text) stays a fact this artifact states
+    # rather than one derived off-page after later windows widened the totals.
+    def window_of(a: dict) -> str:
+        return a["provider"].split("-", 1)[1] if "-" in a["provider"] else "w1"
+
+    by_window = {}
+    for a in per_archive:
+        w = by_window.setdefault(window_of(a), {"archives": 0, "rows": 0, "draws": 0,
+                                                "http_429": 0})
+        w["archives"] += 1
+        w["rows"] += a["rows"]
+        w["draws"] += a["draws"]
+        w["http_429"] += a["http_429"]
+
     doc = {
-        "punchmark_schema": "angle_c_collection_summary/v1",
+        "punchmark_schema": "angle_c_collection_summary/v2",
         "note": (
             "Collection quality only. Nothing here is a verdict, a detector score, or a "
-            "comparison between routes; it describes how the archives were obtained."
+            "comparison between routes; it describes how the archives were obtained. "
+            "v2: totals cover every purchased window; by_window separates the w1 "
+            "evaluation set from the temporal-control windows."
         ),
         "totals": totals,
+        "by_window": by_window,
         "archives": per_archive,
     }
 

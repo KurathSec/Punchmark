@@ -202,6 +202,105 @@
       }
     },
     {
+      "archive": "deepinfra-w2/comprehend__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+      "distinct_draws_per_row": {
+        "1": 58,
+        "2": 9,
+        "3": 7,
+        "5": 1
+      },
+      "draws": 600,
+      "empty_draws": 0,
+      "finish_reason": {
+        "stop": 600
+      },
+      "fully_degenerate_rows": 58,
+      "http_429": 0,
+      "june_net_concurrency": 48,
+      "k_distribution": {
+        "8": 75
+      },
+      "mean_chars_per_draw": 60.4,
+      "net_concurrency": 48,
+      "net_concurrency_requested": 48,
+      "provider": "deepinfra-w2",
+      "punchmark_reader": {
+        "rows": 75,
+        "stub_rows": 0
+      },
+      "reasoning_channel_draws": 0,
+      "returned_model": {
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 600
+      },
+      "returned_model_matches_request": true,
+      "route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "rows": 75,
+      "sha256": "sha256:74d0db17beaeb509c35ef006a730cdb9cb20be33483590d30a3a50cebed36a7e",
+      "task": "comprehend",
+      "truncated_detail": [],
+      "truncated_draws": 0,
+      "usage": {
+        "cached_prompt_tokens": 0,
+        "completion_tokens": 15792,
+        "prompt_tokens": 619072
+      },
+      "window": {
+        "end_utc": "2026-08-06T19:29:31.816122+00:00",
+        "start_utc": "2026-08-06T19:27:25.130809+00:00"
+      }
+    },
+    {
+      "archive": "deepinfra-w2/refactor_dev__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+      "distinct_draws_per_row": {
+        "1": 32,
+        "2": 22,
+        "3": 9,
+        "4": 4,
+        "5": 4,
+        "6": 3,
+        "7": 1
+      },
+      "draws": 600,
+      "empty_draws": 0,
+      "finish_reason": {
+        "stop": 600
+      },
+      "fully_degenerate_rows": 32,
+      "http_429": 0,
+      "june_net_concurrency": 128,
+      "k_distribution": {
+        "8": 75
+      },
+      "mean_chars_per_draw": 865.2,
+      "net_concurrency": 48,
+      "net_concurrency_requested": 48,
+      "provider": "deepinfra-w2",
+      "punchmark_reader": {
+        "rows": 75,
+        "stub_rows": 0
+      },
+      "reasoning_channel_draws": 0,
+      "returned_model": {
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 600
+      },
+      "returned_model_matches_request": true,
+      "route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "rows": 75,
+      "sha256": "sha256:1ce30be21f0a9d49cf0a4c69b0ab567f1e3eb20f86016695b7f8a728c2b37654",
+      "task": "refactor_dev",
+      "truncated_detail": [],
+      "truncated_draws": 0,
+      "usage": {
+        "cached_prompt_tokens": 0,
+        "completion_tokens": 210548,
+        "prompt_tokens": 614192
+      },
+      "window": {
+        "end_utc": "2026-08-06T19:44:49.595455+00:00",
+        "start_utc": "2026-08-06T19:29:31.816282+00:00"
+      }
+    },
+    {
       "archive": "together/comprehend__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
       "distinct_draws_per_row": {
         "1": 62,
@@ -301,20 +400,132 @@
         "end_utc": "2026-08-06T16:39:56.994323+00:00",
         "start_utc": "2026-08-06T16:37:44.180881+00:00"
       }
+    },
+    {
+      "archive": "together-w2/comprehend__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+      "distinct_draws_per_row": {
+        "1": 65,
+        "2": 6,
+        "3": 2,
+        "4": 1,
+        "5": 1
+      },
+      "draws": 600,
+      "empty_draws": 0,
+      "finish_reason": {
+        "stop": 600
+      },
+      "fully_degenerate_rows": 65,
+      "http_429": 0,
+      "june_net_concurrency": 48,
+      "k_distribution": {
+        "8": 75
+      },
+      "mean_chars_per_draw": 59.4,
+      "net_concurrency": 48,
+      "net_concurrency_requested": 48,
+      "provider": "together-w2",
+      "punchmark_reader": {
+        "rows": 75,
+        "stub_rows": 0
+      },
+      "reasoning_channel_draws": 0,
+      "returned_model": {
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 600
+      },
+      "returned_model_matches_request": true,
+      "route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "rows": 75,
+      "sha256": "sha256:d75796cdd01be0deb5609e6eadabb2342528f80ed7dfb579486188bb3102c064",
+      "task": "comprehend",
+      "truncated_detail": [],
+      "truncated_draws": 0,
+      "usage": {
+        "cached_prompt_tokens": 424944,
+        "completion_tokens": 15484,
+        "prompt_tokens": 631072
+      },
+      "window": {
+        "end_utc": "2026-08-20T12:06:54.615072+00:00",
+        "start_utc": "2026-08-20T12:06:26.918982+00:00"
+      }
+    },
+    {
+      "archive": "together-w2/refactor_dev__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+      "distinct_draws_per_row": {
+        "1": 37,
+        "2": 23,
+        "3": 8,
+        "4": 5,
+        "5": 2
+      },
+      "draws": 600,
+      "empty_draws": 0,
+      "finish_reason": {
+        "stop": 600
+      },
+      "fully_degenerate_rows": 37,
+      "http_429": 3,
+      "june_net_concurrency": 128,
+      "k_distribution": {
+        "8": 75
+      },
+      "mean_chars_per_draw": 876.5,
+      "net_concurrency": 48,
+      "net_concurrency_requested": 48,
+      "provider": "together-w2",
+      "punchmark_reader": {
+        "rows": 75,
+        "stub_rows": 0
+      },
+      "reasoning_channel_draws": 0,
+      "returned_model": {
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo": 600
+      },
+      "returned_model_matches_request": true,
+      "route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "rows": 75,
+      "sha256": "sha256:509d387a2580737bffb4d3b0f8a77f7919022359744c635b8821038c4eaf0dc1",
+      "task": "refactor_dev",
+      "truncated_detail": [],
+      "truncated_draws": 0,
+      "usage": {
+        "cached_prompt_tokens": 421112,
+        "completion_tokens": 213908,
+        "prompt_tokens": 626192
+      },
+      "window": {
+        "end_utc": "2026-08-20T12:09:11.721303+00:00",
+        "start_utc": "2026-08-20T12:06:54.615275+00:00"
+      }
     }
   ],
-  "note": "Collection quality only. Nothing here is a verdict, a detector score, or a comparison between routes; it describes how the archives were obtained.",
-  "punchmark_schema": "angle_c_collection_summary/v1",
+  "by_window": {
+    "w1": {
+      "archives": 6,
+      "draws": 3600,
+      "http_429": 4,
+      "rows": 450
+    },
+    "w2": {
+      "archives": 4,
+      "draws": 2400,
+      "http_429": 3,
+      "rows": 300
+    }
+  },
+  "note": "Collection quality only. Nothing here is a verdict, a detector score, or a comparison between routes; it describes how the archives were obtained. v2: totals cover every purchased window; by_window separates the w1 evaluation set from the temporal-control windows.",
+  "punchmark_schema": "angle_c_collection_summary/v2",
   "totals": {
     "all_returned_models_match_request": true,
-    "archives": 6,
-    "completion_tokens": 692790,
-    "draws": 3600,
+    "archives": 10,
+    "completion_tokens": 1148522,
+    "draws": 6000,
     "empty_draws": 0,
-    "http_429": 4,
-    "prompt_tokens": 3723792,
+    "http_429": 7,
+    "prompt_tokens": 6214320,
     "reasoning_channel_draws": 0,
-    "rows": 450,
+    "rows": 750,
     "single_declared_width": 48,
     "truncated_draws": 1
   }
