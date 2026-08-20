@@ -186,7 +186,38 @@ the analysis had already rejected is the same error this project warns about els
 and the corrected ratio between hardest and easiest is 3.75 rather than 7.5.
 
 The full 24 remain in `derived/power_heldout.json` with `rho_zero_selfcheck_leq_far`
-per entry, because the pattern that links them to KT2 is worth seeing.
+per entry, because the pattern that links them to KT2 is worth seeing. The artifact
+does not record its splice count; each `power_by_rho` value is a rate over **n_splice =
+300** draws (the constant lives in `run.py`).
+
+### Uncertainty on the quoted endpoints (`derived/rho_star_uncertainty.json`)
+
+The quoted 0.2 and 0.75 are bare grid values from one pass, and this project's central
+normative claim is that a bound should accompany every null, so the endpoints now carry
+one. A cluster bootstrap (B=1000 resamples of the declared archive's 74 base samples,
+donor paired by item key, shipped threshold fixed, the whole rho* procedure re-run per
+resample including the rho=0 self-check) gives, for the three quoted cells:
+
+| cell | quoted | resample mass on the quoted value | 95% grid interval | self-check fails |
+|---|---|---|---|---|
+| comprehend, L3.3-70B ← L3.1-8B | 0.2 | 0.790 | [0.1, 0.2] | 0.074 |
+| comprehend, L3.3-70B ← Mistral | 0.2 | 0.537 | [0.2, 0.3] | 0.074 |
+| comprehend, Mistral ← L3.1-8B | 0.75 | 0.770 | [0.5, 0.75] | 0.008 |
+
+Every interval spans exactly one adjacent grid step, so the endpoints are stable at the
+grid's own resolution and no finer: 0.2 could be 0.1 or 0.3 on a different draw of base
+samples, and 0.75 could be 0.5, but the ordering of the range is not in doubt. The
+duplicate-free 51-of-74 subsample arm agrees. Note the 7.4% of resamples on the 70B
+cells that fail the rho=0 self-check outright: a resample that duplicates the
+high-influence base samples of `kt2_influence.json` pushes even the null out of
+tolerance, which is the localisation finding appearing through a second instrument.
+
+One committed-code discrepancy surfaced and is declared rather than repaired: the e4
+splice loop keeps a base row silently when the donor archive lacks its item key
+(`donor_by_key.get(r.key, r)`), where the shipped `power.py` refuses that case
+(PMK-POW-001). It affects the Mistral-donor cell, whose donor is missing 13 stub items,
+and no other quoted cell; the bootstrap reproduces the committed behaviour so the
+reconciliation stays exact, and the count is recorded per cell in the artifact.
 
 A related wording correction: the agreement between KT2's flag rate and the rho=0
 self-check is **not** two independent signals. The rho=0 slice of a seeded-splice power

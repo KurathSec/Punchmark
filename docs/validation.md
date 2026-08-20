@@ -16,7 +16,7 @@ archives, zero API calls. Narrative in `validation/angle_a/FINDING.md`. Model
 | Held-out whole-set identification | 8/8 canonical (exact one-sided 95% lower bound 0.6877); 0.9863 over clustered 150-row subsamples. **KT1 passes** | `kt1.json` |
 | False-alarm promise on calibration content | pooled per-ruling flag rate 0.0 across the fit stratum (0.0002 in one of eight cells, the rest 0.0); 0/32 canonical halves flagged. **KT2 holds** | `kt2.json` |
 | False-alarm transfer to re-minted content | 3 of 8 held-out cells at 0.0598, 0.1144 and 0.1208 against a declared 0.01. **See the qualification below: this is a localised failure, not a cell-level rate** | `kt2.json`, `kt2_bootstrap.json` |
-| Minimum resolvable substituted fraction | rho\* 0.2 to 0.75 per ordered pair at m=750, FAR 0.01, over the 15 of 24 cells that pass the rho=0 self-check | `power_heldout.json` |
+| Minimum resolvable substituted fraction | rho\* 0.2 to 0.75 per ordered pair at m=750, FAR 0.01, over the 15 of 24 cells that pass the rho=0 self-check. Cluster-bootstrap 95% intervals on the quoted endpoints span exactly one adjacent grid step | `power_heldout.json`, `rho_star_uncertainty.json` |
 | Completion length per task | comprehend 54 to 99 chars; refactor 790 to 1122. Only 0.020 to 0.119 of comprehend draws exceed the 200-char ablation cut, against 0.968 to 0.991 of refactor draws | `lengths.json` |
 | Formatting-artefact kill | **withdrawn as a control.** See below | `kt3.json`, `lengths.json` |
 | Prompt-change + two-week transfer probe | 8/8 identification (declared confounded; no verdicts) | `ablation_probe.json` |
