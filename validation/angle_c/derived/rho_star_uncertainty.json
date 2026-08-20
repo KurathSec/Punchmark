@@ -1,0 +1,45 @@
+{
+  "B": 500,
+  "committed_directions": {
+    "deepinfra/Llama-3.3-70B-Instruct-Turbo": 0.3,
+    "together/Llama-3.3-70B-Instruct-Turbo": 0.5
+  },
+  "committed_pair_worst_rho_star": 0.5,
+  "far": 0.01,
+  "grid_interval_95": [
+    "0.3",
+    "0.75"
+  ],
+  "m": 50,
+  "method": "score-conditional cluster bootstrap: the pair's 40 shared clusters resampled jointly with replacement; per resample the m=50 null is rebuilt (5000 draws, conservative quantile), the rho=0 self-check re-run at the shipped tolerance, and the refusing splice re-run in both directions; pair-worst rho* per resample. Conditioning on the committed out-of-fold scores is forced, not chosen: a per-resample refit would place duplicated cluster content in both cross-fitting folds, the leakage crossfit_scored exists to prevent, so the detector-refit variance is declared uncaptured rather than smuggled in through a broken resampling scheme",
+  "n_null": 5000,
+  "n_splice": 400,
+  "pair": [
+    "deepinfra/Llama-3.3-70B-Instruct-Turbo",
+    "together/Llama-3.3-70B-Instruct-Turbo"
+  ],
+  "punchmark_schema": "angle_c_rho_star_uncertainty/v1",
+  "reconciliation": {
+    "names_level_identity_matches_pair": true,
+    "power_analysis_matches_all_committed_m50_cells": true
+  },
+  "rho_grid": [
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "rho_star_frequencies": {
+    "0.3": 0.0863,
+    "0.5": 0.8815,
+    "0.75": 0.0321
+  },
+  "seed": 20260806,
+  "selfcheck_fail_share": 0.004,
+  "task": "refactor_dev",
+  "verdict": "SPANS_GRID"
+}

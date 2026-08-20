@@ -230,6 +230,17 @@ distinct draws and the numbers in the table above are the corrected ones.
 This is recorded because the wrong number was the more interesting one, and nothing in
 the output would have looked out of place if the spread had not been printed.
 
+The corrected 0.5 now carries the uncertainty this project demands of every null
+(`derived/rho_star_uncertainty.json`). A score-conditional cluster bootstrap (B=500
+joint resamples of the pair's 40 shared clusters, the m=50 null and the rho=0
+self-check rebuilt per resample, both splice directions re-run, pair-worst rho\* each
+time) puts 0.88 of the resample mass on 0.5 with a 95% grid interval of [0.3, 0.75]
+and a 0.4% self-check failure share: stable at the grid's own resolution, one step of
+play either way. Score-conditional is forced rather than chosen: a per-resample
+detector refit would place duplicated cluster content in both cross-fitting folds,
+which is the leakage the fold map exists to prevent, so the refit variance is declared
+uncaptured instead of smuggled in through a broken resampling scheme.
+
 ## The decision rule, applied as pre-registered
 
 DESIGN.md fixed the rule before collection. Applying it:
