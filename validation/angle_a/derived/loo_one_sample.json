@@ -1,0 +1,445 @@
+{
+  "far": 0.01,
+  "folds": {
+    "deepseek-ai/DeepSeek-V4-Flash": {
+      "absorbed": [
+        {
+          "absorbing_route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+          "archive": "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+          "flagged_at_far": false,
+          "gap_significant_1sided_95": false,
+          "gap_z": 0.4859,
+          "margin_over_threshold": 0.11114,
+          "matched_control": {
+            "archive": "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+            "flagged_at_far": false,
+            "stat": -9.155455,
+            "stat_ci95_cluster_boot": [
+              -9.647541,
+              -8.685881
+            ],
+            "z": -1.4412
+          },
+          "stat": -9.416817,
+          "stat_ci95_cluster_boot": [
+            -9.865443,
+            -8.898068
+          ],
+          "verdict": "SILENT_ABSORPTION",
+          "z": -1.927
+        },
+        {
+          "absorbing_route": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+          "archive": "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+          "flagged_at_far": false,
+          "gap_significant_1sided_95": false,
+          "gap_z": 0.2859,
+          "margin_over_threshold": 0.009718,
+          "matched_control": {
+            "archive": "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+            "flagged_at_far": false,
+            "stat": -10.609133,
+            "stat_ci95_cluster_boot": [
+              -10.978626,
+              -10.255648
+            ],
+            "z": -1.8323
+          },
+          "stat": -10.711633,
+          "stat_ci95_cluster_boot": [
+            -11.088806,
+            -10.356436
+          ],
+          "verdict": "SILENT_ABSORPTION",
+          "z": -2.1183
+        }
+      ],
+      "context_controls_own_route": [
+        {
+          "archive": "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+          "z": -1.4412
+        },
+        {
+          "archive": "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+          "z": -1.5279
+        },
+        {
+          "archive": "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+          "z": -1.3846
+        },
+        {
+          "archive": "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+          "z": -1.803
+        },
+        {
+          "archive": "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+          "z": -1.9004
+        },
+        {
+          "archive": "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+          "z": -1.8323
+        }
+      ]
+    },
+    "meta-llama/Llama-3.3-70B-Instruct-Turbo": {
+      "absorbed": [
+        {
+          "absorbing_route": "deepseek-ai/DeepSeek-V4-Flash",
+          "archive": "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+          "flagged_at_far": false,
+          "gap_significant_1sided_95": false,
+          "gap_z": 0.165,
+          "margin_over_threshold": 0.308246,
+          "matched_control": {
+            "archive": "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+            "flagged_at_far": false,
+            "stat": -9.190874,
+            "stat_ci95_cluster_boot": [
+              -9.706336,
+              -8.673289
+            ],
+            "z": -1.3424
+          },
+          "stat": -9.278505,
+          "stat_ci95_cluster_boot": [
+            -9.821942,
+            -8.748131
+          ],
+          "verdict": "SILENT_ABSORPTION",
+          "z": -1.5074
+        },
+        {
+          "absorbing_route": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+          "archive": "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+          "flagged_at_far": true,
+          "gap_significant_1sided_95": false,
+          "gap_z": 0.2593,
+          "margin_over_threshold": -0.005989,
+          "matched_control": {
+            "archive": "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+            "flagged_at_far": false,
+            "stat": -10.684892,
+            "stat_ci95_cluster_boot": [
+              -11.054284,
+              -10.334497
+            ],
+            "z": -1.9004
+          },
+          "stat": -10.7823,
+          "stat_ci95_cluster_boot": [
+            -11.146027,
+            -10.442299
+          ],
+          "verdict": "TRANSFER_CONFOUNDED",
+          "z": -2.1598
+        }
+      ],
+      "context_controls_own_route": [
+        {
+          "archive": "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "deepseek-ai/DeepSeek-V4-Flash",
+          "z": -1.3424
+        },
+        {
+          "archive": "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+          "z": -1.5279
+        },
+        {
+          "archive": "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+          "z": -1.3846
+        },
+        {
+          "archive": "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "deepseek-ai/DeepSeek-V4-Flash",
+          "z": -1.9097
+        },
+        {
+          "archive": "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+          "z": -1.9004
+        },
+        {
+          "archive": "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+          "z": -1.8323
+        }
+      ]
+    },
+    "meta-llama/Meta-Llama-3.1-8B-Instruct": {
+      "absorbed": [
+        {
+          "absorbing_route": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+          "archive": "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+          "flagged_at_far": false,
+          "gap_significant_1sided_95": false,
+          "gap_z": 0.0872,
+          "margin_over_threshold": 0.337514,
+          "matched_control": {
+            "archive": "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+            "flagged_at_far": false,
+            "stat": -9.041446,
+            "stat_ci95_cluster_boot": [
+              -9.496767,
+              -8.567751
+            ],
+            "z": -1.3846
+          },
+          "stat": -9.086636,
+          "stat_ci95_cluster_boot": [
+            -9.529243,
+            -8.645809
+          ],
+          "verdict": "SILENT_ABSORPTION",
+          "z": -1.4718
+        },
+        {
+          "absorbing_route": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+          "archive": "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+          "flagged_at_far": true,
+          "gap_significant_1sided_95": false,
+          "gap_z": 0.5185,
+          "margin_over_threshold": -0.073642,
+          "matched_control": {
+            "archive": "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+            "flagged_at_far": false,
+            "stat": -10.609133,
+            "stat_ci95_cluster_boot": [
+              -10.959423,
+              -10.234779
+            ],
+            "z": -1.8323
+          },
+          "stat": -10.794993,
+          "stat_ci95_cluster_boot": [
+            -11.158601,
+            -10.456058
+          ],
+          "verdict": "TRANSFER_CONFOUNDED",
+          "z": -2.3508
+        }
+      ],
+      "context_controls_own_route": [
+        {
+          "archive": "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "deepseek-ai/DeepSeek-V4-Flash",
+          "z": -1.3424
+        },
+        {
+          "archive": "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+          "z": -1.4412
+        },
+        {
+          "archive": "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+          "z": -1.3846
+        },
+        {
+          "archive": "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "deepseek-ai/DeepSeek-V4-Flash",
+          "z": -1.9097
+        },
+        {
+          "archive": "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+          "z": -1.803
+        },
+        {
+          "archive": "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+          "z": -1.8323
+        }
+      ]
+    },
+    "mistralai/Mistral-Small-3.2-24B-Instruct-2506": {
+      "absorbed": [
+        {
+          "absorbing_route": "deepseek-ai/DeepSeek-V4-Flash",
+          "archive": "comprehend_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+          "flagged_at_far": false,
+          "gap_significant_1sided_95": false,
+          "gap_z": 0.031,
+          "margin_over_threshold": 0.379395,
+          "matched_control": {
+            "archive": "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+            "flagged_at_far": false,
+            "stat": -9.190874,
+            "stat_ci95_cluster_boot": [
+              -9.697894,
+              -8.705589
+            ],
+            "z": -1.3424
+          },
+          "stat": -9.207356,
+          "stat_ci95_cluster_boot": [
+            -9.707205,
+            -8.706828
+          ],
+          "verdict": "SILENT_ABSORPTION",
+          "z": -1.3734
+        },
+        {
+          "absorbing_route": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+          "archive": "refactor_test__mistralai-Mistral-Small-3.2-24B-Instruct-2506.jsonl.gz",
+          "flagged_at_far": false,
+          "gap_significant_1sided_95": false,
+          "gap_z": 0.1204,
+          "margin_over_threshold": 0.0462,
+          "matched_control": {
+            "archive": "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+            "flagged_at_far": false,
+            "stat": -10.684892,
+            "stat_ci95_cluster_boot": [
+              -11.075504,
+              -10.320616
+            ],
+            "z": -1.9004
+          },
+          "stat": -10.73011,
+          "stat_ci95_cluster_boot": [
+            -11.092073,
+            -10.401539
+          ],
+          "verdict": "SILENT_ABSORPTION",
+          "z": -2.0208
+        }
+      ],
+      "context_controls_own_route": [
+        {
+          "archive": "comprehend_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "deepseek-ai/DeepSeek-V4-Flash",
+          "z": -1.3424
+        },
+        {
+          "archive": "comprehend_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+          "z": -1.4412
+        },
+        {
+          "archive": "comprehend_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+          "z": -1.5279
+        },
+        {
+          "archive": "refactor_test__deepseek-ai-DeepSeek-V4-Flash.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "deepseek-ai/DeepSeek-V4-Flash",
+          "z": -1.9097
+        },
+        {
+          "archive": "refactor_test__meta-llama-Llama-3.3-70B-Instruct-Turbo.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+          "z": -1.803
+        },
+        {
+          "archive": "refactor_test__meta-llama-Meta-Llama-3.1-8B-Instruct.jsonl.gz",
+          "flagged_at_far": false,
+          "own_route": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+          "z": -1.9004
+        }
+      ]
+    }
+  },
+  "null": "10,000 split-half one-sample stats of the absorbing route's FIT archive out-of-fold scores; conservative 1% quantile. The fit archive is the largest within-window same-route material a route has, and its halves (~25 clusters) are smaller than the judged archives (74 clusters), which widens the null and is conservative for absolute flags; the decision rule is control-relative, where the null scale cancels",
+  "nulls": {
+    "comprehend|deepseek-ai/DeepSeek-V4-Flash": {
+      "m_half_rows": 750.0,
+      "n_null": 10000,
+      "null_mean": -8.477966,
+      "null_sd": 0.531065,
+      "threshold": -9.586751
+    },
+    "comprehend|meta-llama/Llama-3.3-70B-Instruct-Turbo": {
+      "m_half_rows": 750.0,
+      "n_null": 10000,
+      "null_mean": -8.380183,
+      "null_sd": 0.537945,
+      "threshold": -9.527956
+    },
+    "comprehend|meta-llama/Meta-Llama-3.1-8B-Instruct": {
+      "m_half_rows": 750.0,
+      "n_null": 10000,
+      "null_mean": -8.193601,
+      "null_sd": 0.496424,
+      "threshold": -9.262974
+    },
+    "comprehend|mistralai/Mistral-Small-3.2-24B-Instruct-2506": {
+      "m_half_rows": 750.0,
+      "n_null": 10000,
+      "null_mean": -8.32391,
+      "null_sd": 0.518244,
+      "threshold": -9.42415
+    },
+    "refactor_dev|deepseek-ai/DeepSeek-V4-Flash": {
+      "m_half_rows": 750.0,
+      "n_null": 10000,
+      "null_mean": -9.934615,
+      "null_sd": 0.373493,
+      "threshold": -10.738651
+    },
+    "refactor_dev|meta-llama/Llama-3.3-70B-Instruct-Turbo": {
+      "m_half_rows": 750.0,
+      "n_null": 10000,
+      "null_mean": -10.007113,
+      "null_sd": 0.388138,
+      "threshold": -10.83299
+    },
+    "refactor_dev|meta-llama/Meta-Llama-3.1-8B-Instruct": {
+      "m_half_rows": 750.0,
+      "n_null": 10000,
+      "null_mean": -9.971037,
+      "null_sd": 0.375628,
+      "threshold": -10.776311
+    },
+    "refactor_dev|mistralai/Mistral-Small-3.2-24B-Instruct-2506": {
+      "m_half_rows": 750.0,
+      "n_null": 10000,
+      "null_mean": -9.952274,
+      "null_sd": 0.358483,
+      "threshold": -10.721351
+    }
+  },
+  "punchmark_schema": "angle_a_loo_one_sample/v1",
+  "reconciliation": {
+    "absorbing_columns_identical_to_shipped_model": 8,
+    "loo_mapping_matches_kt2_json": true
+  },
+  "seed": 20260803,
+  "statistic": "mean length-normalised log-likelihood under the ABSORBING route only; no competitor set enters the statistic (the Angle C one-sample formulation applied to the LOO absorptions)",
+  "summary": {
+    "ANOMALOUS_CONTROL": 0,
+    "OPEN_SET_SIGNAL": 0,
+    "SILENT_ABSORPTION": 6,
+    "TRANSFER_CONFOUNDED": 2
+  }
+}

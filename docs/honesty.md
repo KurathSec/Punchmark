@@ -54,8 +54,11 @@ SUBSTITUTED (`frame_swap.json`). Naming it also means calibrating it, from mater
 contemporaneous with an archive whose producer you did not suspect, which is the
 retrospective problem returning one level up. This is not an artefact of the statistic
 being a margin: a competitor-free one-sample fit also misses the swap while flagging a
-different-weights control (`one_sample.json`). Read every verdict as relative to its
-enumerated set, and treat a set that omits a plausible producer as an unevaluated
+different-weights control (`one_sample.json`), and applied to the eight leave-one-out
+absorptions it yields zero open-set signals — six pass outright and the two flags that
+occur sit inside the measured content-transfer noise
+(`validation/angle_a/derived/loo_one_sample.json`). Read every verdict as relative to
+its enumerated set, and treat a set that omits a plausible producer as an unevaluated
 question rather than a passed one.
 
 The false-alarm rate is a property of the calibration content, and its behavior

@@ -80,6 +80,18 @@ concentrated failure must not hide under a pooled mean.
   floor, so there are no confidence intervals): 3-way identification is 6/6 for every
   held-out route. Every excluded route maps closed-set onto some remaining candidate,
   the open-set hazard that PMK-CRT-003 exists for.
+- The competitor-free sharpening of that diagnostic (`derived/loo_one_sample.json`,
+  review-requested): the Angle C one-sample fit statistic applied to each absorbed
+  archive under its absorbing route, against that route's own split-half null, with the
+  absorbing route's own held-out archive as a matched control for the known
+  transfer-FAR effect. Result: **0 of 8 open-set signals**. Six absorbed archives pass
+  outright; two are flagged but sit within the transfer noise their matched controls
+  define (gap z +0.26 and +0.52, below the one-sided 95% bar), so the flags cannot be
+  told apart from content-transfer false alarms. All eight absorbed archives do sit
+  slightly below their matched controls (gaps +0.03 to +0.52), a consistent direction
+  that is nowhere near significance at one archive per cell and is recorded as exactly
+  that. The closed-set limit survives a formulation designed to escape it, on held-out
+  data.
 - Null-integrity check (file-order halves of the 3h58m `refactor_test` window): no
   half flagged. This is a check on the oracle-circularity exposure and does not
   amount to a verdict. The S2 scorer's note stands verbatim: the same-producer
