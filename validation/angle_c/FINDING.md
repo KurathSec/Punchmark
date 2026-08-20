@@ -372,3 +372,34 @@ floor reappearing. On refactor_dev the direction is right and the power is not t
 0.12 shortfall against a threshold 0.37 away at 75 items. Enumerating the alternative
 recovers what the one-sample test cannot, because a margin against a correctly named
 competitor is sharper than a fit against a null.
+
+### How large an archive would the one-sample test need? (`derived/power_vs_m.json`)
+
+Review asked for the power-versus-m curve behind that 0.12 shortfall: if the test would
+flag the swap at larger archives, "enumeration is required" weakens to "enumeration is
+required at these archive sizes". Two curves answer it, kept separate because they answer
+different questions. The measured curve, over cluster-respecting subsamples at m = 20 to
+68 rows, shows the swap's flag rate rising only near the full archive (0.694 at m=68 on
+refactor_dev), and that rise is finite-population shrinkage, not fresh-archive power: at
+m=68 a draw holds most of the archive, so null and alternative both collapse onto their
+archive means. The different-weights 8B control reaches power 1.0 by m=53 on both tasks
+and the second-window control stays at the false-alarm floor throughout, so the curve
+machinery has power where power exists.
+
+The fresh-archive answer is a model-based extrapolation (Gaussian cluster means with the
+finite-population correction; the sd model fits the seven measured nulls within 1.6%,
+and a bad fit would have voided it). On refactor_dev the paired per-cluster shift is
++0.1217 with a 95% CI of [0.052, 0.206] excluding zero, and the crossover lands at
+roughly **713 rows for 50% power and 1264 rows for 80%** (CIs 248 to 3864 and 440 to
+6846), against the 75 purchased. The naive no-FPC figure a bare sqrt-m scaling gives is
+353 rows, understated by about half, and is printed in the artifact as a warning label.
+On comprehend the question is a sign, not a crossover: the shift is -0.0273 with CI
+[-0.089, +0.004] straddling zero, so whether *any* archive size could flag the swap on
+the short task is UNDETERMINED at 41 clusters, and "never" is deliberately not asserted.
+
+So the enumeration claim, refined rather than weakened: at the purchased size the
+competitor-free test misses the swap on both tasks; under a stated model it would need
+roughly ten times the archive to reach standard power on the long task, with a wide
+interval; and on the short task even the sign of the detectable difference is
+unresolved. Enumerating the alternative recovers at m=75 what the one-sample test might
+reach at m ~ 1000.

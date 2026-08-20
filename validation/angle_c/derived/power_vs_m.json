@@ -1,0 +1,457 @@
+{
+  "far": 0.01,
+  "m_grid": [
+    20,
+    28,
+    38,
+    45,
+    53,
+    60,
+    68
+  ],
+  "measured_curve_caveat": "power to flag subsamples of this swap archive against subsamples of this declared archive; inflates toward the full archive size by finite-population shrinkage and is not fresh-archive power",
+  "punchmark_schema": "angle_c_power_vs_m/v1",
+  "reconciliation": {
+    "one_sample_json_stats_match": true
+  },
+  "seed": 20260806,
+  "tasks": {
+    "comprehend": {
+      "extrapolation": {
+        "S_hat": 1.4445,
+        "S_hat_by_m": {
+          "20": 1.4326,
+          "28": 1.4736,
+          "38": 1.4524,
+          "45": 1.4289,
+          "53": 1.4593,
+          "60": 1.445,
+          "68": 1.4198
+        },
+        "S_swap_hat": 1.433,
+        "fit_acceptable_within_15pct": true,
+        "fit_residuals_by_m": {
+          "20": -0.0083,
+          "28": 0.0202,
+          "38": 0.0055,
+          "45": -0.0108,
+          "53": 0.0103,
+          "60": 0.0003,
+          "68": -0.0171
+        },
+        "m_star": null,
+        "model": "gaussian-cluster-means-FPC",
+        "model_based": true,
+        "n_shared_clusters": 41,
+        "paired_shift_ci95": [
+          -0.089323,
+          0.004016
+        ],
+        "paired_shift_delta": -0.027344,
+        "rows_per_cluster": 1.8293,
+        "verdict": "UNDETERMINED: the paired shift's CI straddles zero, so whether any m could flag this swap is unresolved at this cluster count",
+        "z_empirical_committed_null": 2.2937,
+        "z_gaussian_for_reference": 2.3263
+      },
+      "paired_shift": {
+        "ci95": [
+          -0.089323,
+          0.004016
+        ],
+        "delta": -0.027344,
+        "n_shared_clusters": 41,
+        "sign_reading": "CI straddles zero: the sign is unresolved at this cluster count; 'never' is not asserted and neither is a crossover"
+      },
+      "per_m": [
+        {
+          "alt_sd": {
+            "deepinfra/Llama-3.1-8B": 0.324799,
+            "together/Llama-3.3-70B": 0.354276,
+            "w2/Llama-3.3-70B": 0.382701
+          },
+          "degenerate": false,
+          "m": 20,
+          "mean_clusters_per_draw": 11.168,
+          "n_draws_alt": 2000,
+          "n_null": 10000,
+          "null_mean": -8.465368,
+          "null_n_distinct": 10000,
+          "null_sd": 0.365659,
+          "power": {
+            "deepinfra/Llama-3.1-8B": 0.3225,
+            "together/Llama-3.3-70B": 0.0075,
+            "w2/Llama-3.3-70B": 0.018
+          },
+          "realized_far": 0.0099,
+          "threshold": -9.328475,
+          "undetermined": false
+        },
+        {
+          "alt_sd": {
+            "deepinfra/Llama-3.1-8B": 0.253294,
+            "together/Llama-3.3-70B": 0.284753,
+            "w2/Llama-3.3-70B": 0.300369
+          },
+          "degenerate": false,
+          "m": 28,
+          "mean_clusters_per_draw": 15.541,
+          "n_draws_alt": 2000,
+          "n_null": 10000,
+          "null_mean": -8.465814,
+          "null_n_distinct": 10000,
+          "null_sd": 0.294563,
+          "power": {
+            "deepinfra/Llama-3.1-8B": 0.5415,
+            "together/Llama-3.3-70B": 0.0035,
+            "w2/Llama-3.3-70B": 0.013
+          },
+          "realized_far": 0.0099,
+          "threshold": -9.160442,
+          "undetermined": false
+        },
+        {
+          "alt_sd": {
+            "deepinfra/Llama-3.1-8B": 0.195668,
+            "together/Llama-3.3-70B": 0.221949,
+            "w2/Llama-3.3-70B": 0.224252
+          },
+          "degenerate": false,
+          "m": 38,
+          "mean_clusters_per_draw": 21.011,
+          "n_draws_alt": 2000,
+          "n_null": 10000,
+          "null_mean": -8.467842,
+          "null_n_distinct": 10000,
+          "null_sd": 0.221246,
+          "power": {
+            "deepinfra/Llama-3.1-8B": 0.877,
+            "together/Llama-3.3-70B": 0.01,
+            "w2/Llama-3.3-70B": 0.0195
+          },
+          "realized_far": 0.0099,
+          "threshold": -8.957219,
+          "undetermined": false
+        },
+        {
+          "alt_sd": {
+            "deepinfra/Llama-3.1-8B": 0.160339,
+            "together/Llama-3.3-70B": 0.178979,
+            "w2/Llama-3.3-70B": 0.188362
+          },
+          "degenerate": false,
+          "m": 45,
+          "mean_clusters_per_draw": 24.827,
+          "n_draws_alt": 2000,
+          "n_null": 10000,
+          "null_mean": -8.466582,
+          "null_n_distinct": 10000,
+          "null_sd": 0.18011,
+          "power": {
+            "deepinfra/Llama-3.1-8B": 0.98,
+            "together/Llama-3.3-70B": 0.0035,
+            "w2/Llama-3.3-70B": 0.022
+          },
+          "realized_far": 0.0099,
+          "threshold": -8.858988,
+          "undetermined": false
+        },
+        {
+          "alt_sd": {
+            "deepinfra/Llama-3.1-8B": 0.126273,
+            "together/Llama-3.3-70B": 0.144447,
+            "w2/Llama-3.3-70B": 0.143913
+          },
+          "degenerate": false,
+          "m": 53,
+          "mean_clusters_per_draw": 29.185,
+          "n_draws_alt": 2000,
+          "n_null": 10000,
+          "null_mean": -8.469656,
+          "null_n_distinct": 10000,
+          "null_sd": 0.145012,
+          "power": {
+            "deepinfra/Llama-3.1-8B": 0.9995,
+            "together/Llama-3.3-70B": 0.0035,
+            "w2/Llama-3.3-70B": 0.0185
+          },
+          "realized_far": 0.0099,
+          "threshold": -8.771408,
+          "undetermined": false
+        },
+        {
+          "alt_sd": {
+            "deepinfra/Llama-3.1-8B": 0.097377,
+            "together/Llama-3.3-70B": 0.108125,
+            "w2/Llama-3.3-70B": 0.113168
+          },
+          "degenerate": false,
+          "m": 60,
+          "mean_clusters_per_draw": 33.026,
+          "n_draws_alt": 2000,
+          "n_null": 10000,
+          "null_mean": -8.464951,
+          "null_n_distinct": 9993,
+          "null_sd": 0.110885,
+          "power": {
+            "deepinfra/Llama-3.1-8B": 1.0,
+            "together/Llama-3.3-70B": 0.001,
+            "w2/Llama-3.3-70B": 0.0315
+          },
+          "realized_far": 0.0099,
+          "threshold": -8.688683,
+          "undetermined": false
+        },
+        {
+          "alt_sd": {
+            "deepinfra/Llama-3.1-8B": 0.060906,
+            "together/Llama-3.3-70B": 0.071267,
+            "w2/Llama-3.3-70B": 0.071083
+          },
+          "degenerate": false,
+          "m": 68,
+          "mean_clusters_per_draw": 37.437,
+          "n_draws_alt": 2000,
+          "n_null": 10000,
+          "null_mean": -8.468134,
+          "null_n_distinct": 7823,
+          "null_sd": 0.068405,
+          "power": {
+            "deepinfra/Llama-3.1-8B": 1.0,
+            "together/Llama-3.3-70B": 0.0005,
+            "w2/Llama-3.3-70B": 0.063
+          },
+          "realized_far": 0.0099,
+          "threshold": -8.58785,
+          "undetermined": false
+        }
+      ]
+    },
+    "refactor_dev": {
+      "extrapolation": {
+        "S_hat": 1.0577,
+        "S_hat_by_m": {
+          "20": 1.0453,
+          "28": 1.0555,
+          "38": 1.0749,
+          "45": 1.0545,
+          "53": 1.0719,
+          "60": 1.0589,
+          "68": 1.0428
+        },
+        "S_swap_hat": 0.9339,
+        "fit_acceptable_within_15pct": true,
+        "fit_residuals_by_m": {
+          "20": -0.0117,
+          "28": -0.0021,
+          "38": 0.0162,
+          "45": -0.003,
+          "53": 0.0135,
+          "60": 0.0011,
+          "68": -0.0141
+        },
+        "m_star": {
+          "naive_no_fpc_power_0.5_rows": 353.2,
+          "naive_note": "the naive figure treats the committed split-half sd as if its ~half-archive draws were fresh clusters (no FPC), which is what bare sqrt-m scaling gives; it understates m* by about half",
+          "power_0.5_rows": {
+            "ci95": [
+              248.2,
+              3864.0
+            ],
+            "point": 713.1
+          },
+          "power_0.8_rows": {
+            "ci95": [
+              439.8,
+              6846.4
+            ],
+            "point": 1263.5
+          }
+        },
+        "model": "gaussian-cluster-means-FPC",
+        "model_based": true,
+        "n_shared_clusters": 40,
+        "paired_shift_ci95": [
+          0.052291,
+          0.206309
+        ],
+        "paired_shift_delta": 0.121721,
+        "rows_per_cluster": 1.875,
+        "verdict": "CROSSOVER_ESTIMATED",
+        "z_empirical_committed_null": 2.2443,
+        "z_gaussian_for_reference": 2.3263
+      },
+      "paired_shift": {
+        "ci95": [
+          0.052291,
+          0.206309
+        ],
+        "delta": 0.121721,
+        "n_shared_clusters": 40,
+        "sign_reading": "delta > 0, CI excludes 0: a large enough fresh archive would flag this swap under the model"
+      },
+      "per_m": [
+        {
+          "alt_sd": {
+            "deepinfra/Llama-3.1-8B": 0.211508,
+            "together/Llama-3.3-70B": 0.243754,
+            "w2/Llama-3.3-70B": 0.273698
+          },
+          "degenerate": false,
+          "m": 20,
+          "mean_clusters_per_draw": 10.905,
+          "n_draws_alt": 2000,
+          "n_null": 10000,
+          "null_mean": -9.309596,
+          "null_n_distinct": 10000,
+          "null_sd": 0.269973,
+          "power": {
+            "deepinfra/Llama-3.1-8B": 0.1195,
+            "together/Llama-3.3-70B": 0.025,
+            "w2/Llama-3.3-70B": 0.0125
+          },
+          "realized_far": 0.0099,
+          "threshold": -9.943078,
+          "undetermined": false
+        },
+        {
+          "alt_sd": {
+            "deepinfra/Llama-3.1-8B": 0.163692,
+            "together/Llama-3.3-70B": 0.191998,
+            "w2/Llama-3.3-70B": 0.219887
+          },
+          "degenerate": false,
+          "m": 28,
+          "mean_clusters_per_draw": 15.172,
+          "n_draws_alt": 2000,
+          "n_null": 10000,
+          "null_mean": -9.307497,
+          "null_n_distinct": 10000,
+          "null_sd": 0.213494,
+          "power": {
+            "deepinfra/Llama-3.1-8B": 0.237,
+            "together/Llama-3.3-70B": 0.03,
+            "w2/Llama-3.3-70B": 0.0125
+          },
+          "realized_far": 0.0099,
+          "threshold": -9.796259,
+          "undetermined": false
+        },
+        {
+          "alt_sd": {
+            "deepinfra/Llama-3.1-8B": 0.127295,
+            "together/Llama-3.3-70B": 0.145468,
+            "w2/Llama-3.3-70B": 0.16206
+          },
+          "degenerate": false,
+          "m": 38,
+          "mean_clusters_per_draw": 20.503,
+          "n_draws_alt": 2000,
+          "n_null": 10000,
+          "null_mean": -9.311014,
+          "null_n_distinct": 10000,
+          "null_sd": 0.165732,
+          "power": {
+            "deepinfra/Llama-3.1-8B": 0.4545,
+            "together/Llama-3.3-70B": 0.035,
+            "w2/Llama-3.3-70B": 0.007
+          },
+          "realized_far": 0.0099,
+          "threshold": -9.693846,
+          "undetermined": false
+        },
+        {
+          "alt_sd": {
+            "deepinfra/Llama-3.1-8B": 0.104358,
+            "together/Llama-3.3-70B": 0.120872,
+            "w2/Llama-3.3-70B": 0.136118
+          },
+          "degenerate": false,
+          "m": 45,
+          "mean_clusters_per_draw": 24.243,
+          "n_draws_alt": 2000,
+          "n_null": 10000,
+          "null_mean": -9.308009,
+          "null_n_distinct": 10000,
+          "null_sd": 0.134424,
+          "power": {
+            "deepinfra/Llama-3.1-8B": 0.7585,
+            "together/Llama-3.3-70B": 0.0645,
+            "w2/Llama-3.3-70B": 0.01
+          },
+          "realized_far": 0.0099,
+          "threshold": -9.609569,
+          "undetermined": false
+        },
+        {
+          "alt_sd": {
+            "deepinfra/Llama-3.1-8B": 0.081097,
+            "together/Llama-3.3-70B": 0.093096,
+            "w2/Llama-3.3-70B": 0.10501
+          },
+          "degenerate": false,
+          "m": 53,
+          "mean_clusters_per_draw": 28.492,
+          "n_draws_alt": 2000,
+          "n_null": 10000,
+          "null_mean": -9.308389,
+          "null_n_distinct": 10000,
+          "null_sd": 0.107715,
+          "power": {
+            "deepinfra/Llama-3.1-8B": 0.9565,
+            "together/Llama-3.3-70B": 0.1025,
+            "w2/Llama-3.3-70B": 0.0115
+          },
+          "realized_far": 0.0099,
+          "threshold": -9.544299,
+          "undetermined": false
+        },
+        {
+          "alt_sd": {
+            "deepinfra/Llama-3.1-8B": 0.064559,
+            "together/Llama-3.3-70B": 0.070708,
+            "w2/Llama-3.3-70B": 0.082595
+          },
+          "degenerate": false,
+          "m": 60,
+          "mean_clusters_per_draw": 32.256,
+          "n_draws_alt": 2000,
+          "n_null": 10000,
+          "null_mean": -9.310181,
+          "null_n_distinct": 9999,
+          "null_sd": 0.082033,
+          "power": {
+            "deepinfra/Llama-3.1-8B": 0.9975,
+            "together/Llama-3.3-70B": 0.234,
+            "w2/Llama-3.3-70B": 0.0105
+          },
+          "realized_far": 0.0099,
+          "threshold": -9.485551,
+          "undetermined": false
+        },
+        {
+          "alt_sd": {
+            "deepinfra/Llama-3.1-8B": 0.039446,
+            "together/Llama-3.3-70B": 0.044209,
+            "w2/Llama-3.3-70B": 0.050884
+          },
+          "degenerate": false,
+          "m": 68,
+          "mean_clusters_per_draw": 36.573,
+          "n_draws_alt": 2000,
+          "n_null": 10000,
+          "null_mean": -9.308786,
+          "null_n_distinct": 9168,
+          "null_sd": 0.050472,
+          "power": {
+            "deepinfra/Llama-3.1-8B": 1.0,
+            "together/Llama-3.3-70B": 0.694,
+            "w2/Llama-3.3-70B": 0.0085
+          },
+          "realized_far": 0.0099,
+          "threshold": -9.414013,
+          "undetermined": false
+        }
+      ]
+    }
+  }
+}
