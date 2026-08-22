@@ -62,11 +62,11 @@ for the full list of things a ruling does not show.
 
 ## Status
 
-0.1.0, the first release. The calibrated chargram detector, the reference
-corpus manifest, the shipped default model and the held-out validation study
-(`validation/angle_a/FINDING.md`) are all committed; the numbers in `docs/validation.md`
-trace to committed derived artifacts. Nothing in this repository states or implies a
-finding about the capabilities of any model.
+0.1.0 is the first release; `main` carries the next version's work. The calibrated
+chargram detector, the reference corpus manifest, the shipped default model and the
+three validation studies (`validation/angle_{a,b,c}/FINDING.md`) are all committed; the
+numbers in `docs/validation.md` trace to committed derived artifacts. Nothing in this
+repository states or implies a finding about the capabilities of any model.
 
 ## Data provenance
 

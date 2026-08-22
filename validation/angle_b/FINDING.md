@@ -25,6 +25,15 @@ chat-text number, and it is uneven across routes:
   collapse already measured in Angle A). A single DeepSeek comprehend row is often
   indistinguishable from a Llama-3.3-70B row.
 
+  Added 2026-08-20: that "because" was an inference until the four-way confusion was
+  computed (`derived/per_row_confusion.json`, `confusion.py`; every diagonal asserted
+  equal to the rates above). It holds, with structure: 0.708 of the cell's first-draw
+  misses land on Llama-3.3-70B, the classifier assigns more of the archive's rows to
+  that twin (0.562) than to the true label (0.206), and the collapse is one-directional,
+  the twin's own archive identifying at 0.956. On shared bytes the tie resolves the same
+  way every time, which is the same structure as the Angle C side model's below-chance
+  cell.
+
 The honest reading: one archived row carries less producer signal than one chat
 response in the published setting, and code-comprehension answers are a poorer producer
 signal than chat for the near-twin pair. This is why punchmark aggregates to whole-set

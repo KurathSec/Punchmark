@@ -32,6 +32,13 @@ SemVer. The rulings-spec version moves independently (see
   widened `c1_verification`'s catch. The regenerated artifact is byte-identical to
   the committed one.
 
+### Changed
+- README status wording, 2026-08-22: used to read "0.1.0, the first release. [...] the
+  held-out validation study (`validation/angle_a/FINDING.md`)"; now names the three
+  studies and says `main` carries the next version's work. `validation/angle_c/FINDING.md`'s
+  opening sentence corrected in place (it named two source artifacts where there are
+  now many) and `validation/angle_b/FINDING.md` gained the confusion-matrix result.
+
 ## 0.1.0
 
 ### Added
