@@ -3,4 +3,4 @@
 # sibling tools).
 pytest==9.1.1
 ruff==0.16.1
-mypy==2.3.0
+mypy==2.3.1
